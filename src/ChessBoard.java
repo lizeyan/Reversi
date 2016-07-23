@@ -4,8 +4,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,9 +25,15 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     private int pieceDiameter;
 //    private boolean firstTime = true;
     private Point mousePosition = new Point ();
+    private Point finalPolicy = null;
     /*
     public
      */
+    public ChessBoard (Composition composition)
+    {
+        setComposition (composition);
+        init ();
+    }
     public Composition getComposition ()
     {
         return composition;
@@ -38,23 +42,25 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     {
         this.composition = composition;
     }
-    public ChessBoard (Composition composition)
+    public Point getFinalPolicy ()
     {
-        readBackgroundImage ();
-        setComposition(composition);
-        setOpaque (false);
-        this.addMouseListener (this);
-        this.addMouseMotionListener (this);
-        pack();
+        return finalPolicy;
     }
-    public ChessBoard ()
+    public void setFinalPolicy (Point finalPolicy)
     {
-        readBackgroundImage ();
-        setComposition(new Composition());
-        setOpaque (false);
+        this.finalPolicy = finalPolicy;
+    }
+    public void active ()
+    {
         this.addMouseListener (this);
         this.addMouseMotionListener (this);
-        pack();
+        repaint ();
+    }
+    public void shutdown ()
+    {
+        this.removeMouseListener (this);
+        this.removeMouseMotionListener (this);
+        repaint ();
     }
     public void mouseDragged (MouseEvent event)
     {
@@ -80,6 +86,7 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     }
     public void mousePressed (MouseEvent event)
     {
+        finalPolicy = null;
         System.out.print ("pressed");
         if (event.getButton() == MouseEvent.BUTTON1) {
             pressed = true;
@@ -90,8 +97,9 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     public void mouseReleased (MouseEvent event)
     {
         pressed = false;
-        Point point = toCompositionPosition (mousePosition);
-        composition.set (point.x, point.y);
+        finalPolicy = toCompositionPosition (mousePosition);
+        if (!composition.legal (finalPolicy.x, finalPolicy.y) || !composition.queryAvailble (finalPolicy.x, finalPolicy.y))
+            finalPolicy = null;
         repaint ();
     }
     public void paintComponent (Graphics graphics)
@@ -198,5 +206,11 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         {
             JOptionPane.showMessageDialog (this, "Failed to open background image", "WARNING", JOptionPane.WARNING_MESSAGE);
         }
+    }
+    private void init ()
+    {
+        readBackgroundImage ();
+        setOpaque (false);
+        pack();
     }
 }

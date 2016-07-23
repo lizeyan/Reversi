@@ -1,3 +1,6 @@
+import com.sun.org.apache.xpath.internal.functions.FuncFalse;
+import sun.util.locale.provider.AvailableLanguageTags;
+
 import java.awt.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -12,7 +15,6 @@ public class Composition {
     private STATUS[][] board;
     private boolean[][] available;
     private STATUS lastStatus = STATUS.WHITE;
-    private Point lastSetPoint = new Point ();
     private AbstractList<Point> history = new ArrayList<Point> ();
     private STATUS winnner = STATUS.EMPTY;
     private static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};
@@ -27,9 +29,8 @@ public class Composition {
     {
         board = new STATUS[width][height];
         available = new boolean[width][height];
-        initializeBoard ();
+        cleanBoard ();
         updateAvailble ();
-        judge ();
     }
     public int getWidth ()
     {
@@ -55,6 +56,16 @@ public class Composition {
             throw new IllegalArgumentException("棋盘坐标越界，于Compositon.queryAvailbel(int,int)");
         return available[x][y];
     }
+    public boolean queryAvailble ()
+    {
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height; ++j)
+                if (available[i][j])
+                    return true;
+        }
+        return false;
+    }
     public boolean set (int x, int y)
     {
         if (!legal(x, y) || !available[x][y])
@@ -64,7 +75,14 @@ public class Composition {
         board[x][y] = lastStatus;
         reverse();
         updateAvailble();
+        judge ();
         return true;
+    }
+    public void dropOver ()
+    {
+        history.add (new Point (-1, -1));
+        lastStatus = reverseStatus (lastStatus);
+        updateAvailble ();
     }
     public boolean legal (int x, int y)
     {
@@ -93,6 +111,37 @@ public class Composition {
     public STATUS getWinnner ()
     {
         return winnner;
+    }
+    public void initializeBoard ()
+    {
+        cleanBoard ();
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height; ++j)
+            {
+                board[i][j] = STATUS.EMPTY;
+            }
+        }
+        board[(width >> 1) - 1][(height >> 1) - 1] = STATUS.WHITE;
+        board[width >> 1][height >> 1] = STATUS.WHITE;
+        board[(width >> 1) - 1][height >> 1] = STATUS.BLACK;
+        board[(width >> 1)][(height >> 1) - 1] = STATUS.BLACK;
+        updateAvailble ();
+    }
+    public void cleanBoard ()
+    {
+        finished = false;
+        lastStatus = STATUS.WHITE;
+        history.clear ();
+        winnner = STATUS.EMPTY;
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height; ++j)
+            {
+                board[i][j] = STATUS.EMPTY;
+                available[i][j] = false;
+            }
+        }
     }
     /*
     private methods
@@ -130,20 +179,6 @@ public class Composition {
                 }
             }
         }
-    }
-    private void initializeBoard ()
-    {
-        for (int i = 0; i < width; ++i)
-        {
-            for (int j = 0; j < height; ++j)
-            {
-                board[i][j] = STATUS.EMPTY;
-            }
-        }
-        board[(width >> 1) - 1][(height >> 1) - 1] = STATUS.WHITE;
-        board[width >> 1][height >> 1] = STATUS.WHITE;
-        board[(width >> 1) - 1][height >> 1] = STATUS.BLACK;
-        board[(width >> 1)][(height >> 1) - 1] = STATUS.BLACK;
     }
     private void reverse ()
     {
