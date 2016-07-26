@@ -1,5 +1,4 @@
-import com.sun.org.apache.xpath.internal.functions.FuncFalse;
-import sun.util.locale.provider.AvailableLanguageTags;
+import jdk.nashorn.internal.runtime.events.RecompilationEvent;
 
 import java.awt.*;
 import java.util.AbstractList;
@@ -16,7 +15,7 @@ public class Composition {
     private boolean[][] available;
     private STATUS lastStatus = STATUS.WHITE;
     private AbstractList<Point> history = new ArrayList<Point> ();
-    private STATUS winnner = STATUS.EMPTY;
+    private STATUS winner = STATUS.EMPTY;
     private static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};
     private static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
     private int blackNumber = 0;
@@ -66,7 +65,7 @@ public class Composition {
         }
         return false;
     }
-    public boolean set (int x, int y)
+    public boolean set (Reversi.SecurityKey securityKey, int x, int y)
     {
         if (!legal(x, y) || !available[x][y])
             return false;
@@ -78,7 +77,7 @@ public class Composition {
         judge ();
         return true;
     }
-    public void dropOver ()
+    public void dropOver (Reversi.SecurityKey securityKey)
     {
         history.add (new Point (-1, -1));
         lastStatus = reverseStatus (lastStatus);
@@ -108,9 +107,9 @@ public class Composition {
     {
         return finished;
     }
-    public STATUS getWinnner ()
+    public STATUS getWinner ()
     {
-        return winnner;
+        return winner;
     }
     public void initializeBoard ()
     {
@@ -133,7 +132,7 @@ public class Composition {
         finished = false;
         lastStatus = STATUS.WHITE;
         history.clear ();
-        winnner = STATUS.EMPTY;
+        winner = STATUS.EMPTY;
         for (int i = 0; i < width; ++i)
         {
             for (int j = 0; j < height; ++j)
@@ -228,15 +227,15 @@ public class Composition {
             finished = true;
             if (blackNumber > whiteNumber)
             {
-                winnner = STATUS.BLACK;
+                winner = STATUS.BLACK;
             }
             else if (whiteNumber > blackNumber)
             {
-                winnner = STATUS.WHITE;
+                winner = STATUS.WHITE;
             }
             else
             {
-                winnner = STATUS.EMPTY;
+                winner = STATUS.EMPTY;
             }
         }
         else
@@ -244,12 +243,12 @@ public class Composition {
             if (blackNumber == 0)
             {
                 finished = true;
-                winnner = STATUS.WHITE;
+                winner = STATUS.WHITE;
             }
             else if (whiteNumber == 0)
             {
                 finished = true;
-                winnner = STATUS.BLACK;
+                winner = STATUS.BLACK;
             }
         }
     }

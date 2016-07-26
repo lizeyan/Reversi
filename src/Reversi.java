@@ -1,5 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +16,8 @@ public class Reversi extends JFrame implements ActionListener
     private Player[] players;
     private long timeConstraintPerStep = 20000;
     private Object[] roleOptions;
+    public static final class SecurityKey {private SecurityKey () {} }
+    private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
     {
         super(name);
@@ -177,12 +177,12 @@ public class Reversi extends JFrame implements ActionListener
         while (true)
         {
             Point policy = players[index].makingPolicy (timeConstraintPerStep);
-            if (!composition.set (policy.x, policy.y))
-                composition.dropOver ();
+            if (!composition.set (securityKey, policy.x, policy.y))
+                composition.dropOver (securityKey);
             chessBoard.repaint ();
             if (composition.getFinished ())
             {
-                gameOff (meStatus, composition.getWinnner ());
+                gameOff (meStatus, composition.getWinner ());
                 return;
             }
             ++index;
