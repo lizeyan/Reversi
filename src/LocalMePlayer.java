@@ -17,29 +17,17 @@ public class LocalMePlayer implements Player
             return new Point (-1, -1);
         chessBoard.active ();
         long sleepTimeChip = timeConstraint / 1000;
-        Thread thread = new Thread ( () ->
+        long startTime = System.currentTimeMillis ();
+        while (System.currentTimeMillis () - startTime <= timeConstraint && chessBoard.getFinalPolicy () == null)
         {
-            long startTime = System.currentTimeMillis ();
-            while (System.currentTimeMillis () - startTime <= timeConstraint && chessBoard.getFinalPolicy () == null)
+            try
             {
-                try
-                {
-                    Thread.sleep (sleepTimeChip);
-                }
-                catch (Exception e)
-                {
-                    continue;
-                }
+                Thread.sleep (sleepTimeChip);
             }
-        });
-        thread.start ();
-        try
-        {
-            thread.join ();
-        }
-        catch (Exception e)
-        {
-            return new Point (-1, -1);
+            catch (Exception e)
+            {
+                continue;
+            }
         }
         if (chessBoard.getFinalPolicy () == null)
             return new Point (-1, -1);
