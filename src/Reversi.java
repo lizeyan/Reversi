@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -13,7 +15,7 @@ public class Reversi extends JFrame implements ActionListener
     private ChessBoard chessBoard;
     private JMenuBar menuBar;
     private JMenu localMenu, onlineMenu, operateMenu, generalMenu;
-    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, redoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
+    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
     private Composition composition = null;
     private Player[] players;
     private long timeConstraintPerStep = 20000;
@@ -52,8 +54,6 @@ public class Reversi extends JFrame implements ActionListener
             startOnlineGame ();
         else if (source == undoItem)
             undo ();
-        else if (source == redoItem)
-            redo ();
         else if (source == giveInItem)
             giveIn ();
         else if (source == peaceItem)
@@ -87,8 +87,6 @@ public class Reversi extends JFrame implements ActionListener
         operateMenu = new JMenu ("Operate");
         undoItem = new JMenuItem ("Undo");
         undoItem.addActionListener (this);
-        redoItem = new JMenuItem ("Redo");
-        redoItem.addActionListener (this);
         saveGameItem = new JMenuItem ("Save");
         saveGameItem.addActionListener (this);
         giveInItem = new JMenuItem ("Give In");
@@ -96,7 +94,6 @@ public class Reversi extends JFrame implements ActionListener
         peaceItem = new JMenuItem ("Sue For Peace");
         peaceItem.addActionListener (this);
         operateMenu.add (undoItem);
-        operateMenu.add (redoItem);
         operateMenu.add (giveInItem);
         operateMenu.add (peaceItem);
         operateMenu.add (saveGameItem);
@@ -244,17 +241,29 @@ public class Reversi extends JFrame implements ActionListener
     {
         
     }
-    private void redo ()
-    {
-        
-    }
     private void giveIn ()
     {
-        
+        if (players[1].receiveGiveIn ())
+        {
+            showWinner (meStatus, Composition.reverseStatus (meStatus));
+            initialize ();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     private void peace ()
     {
-        
+        if (players[1].receiveSueForPeace ())
+        {
+            showWinner (meStatus, Composition.STATUS.EMPTY);
+            initialize ();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     private void setting ()
     {
@@ -314,10 +323,15 @@ public class Reversi extends JFrame implements ActionListener
             title = "WIN";
             msg = "你赢了";
         }
-        else
+        else if (winner != Composition.STATUS.EMPTY)
         {
             title = "LOSE";
             msg = "你输了";
+        }
+        else
+        {
+            title = "PEACE";
+            msg = "平局";
         }
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
     }

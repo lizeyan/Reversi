@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -14,9 +15,11 @@ public class LocalMePlayer implements Player
     public Point makingPolicy (long timeConstraint)
     {
         if (!chessBoard.getComposition ().queryAvailble ())
-            return new Point (-1, -1);
+        {
+            JOptionPane.showMessageDialog (null, "There is no available position now", "INFO", JOptionPane.INFORMATION_MESSAGE);
+        }
         chessBoard.active ();
-        long sleepTimeChip = timeConstraint / 1000;
+        long sleepTimeChip = timeConstraint / 100;
         long startTime = System.currentTimeMillis ();
         while (System.currentTimeMillis () - startTime <= timeConstraint && chessBoard.getFinalPolicy () == null)
         {

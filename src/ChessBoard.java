@@ -99,7 +99,6 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         finalPolicy = toCompositionPosition (mousePosition);
         if (!composition.legal (finalPolicy.x, finalPolicy.y) || !composition.queryAvailble (finalPolicy.x, finalPolicy.y))
             finalPolicy = null;
-        repaint ();
     }
     public void paintComponent (Graphics graphics)
     {
