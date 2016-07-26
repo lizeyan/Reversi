@@ -1,7 +1,9 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 /**
  * Created by Li Zeyan on 2016/7/22.
@@ -11,11 +13,12 @@ public class Reversi extends JFrame implements ActionListener
     private ChessBoard chessBoard;
     private JMenuBar menuBar;
     private JMenu localMenu, onlineMenu, operateMenu, generalMenu;
-    private JMenuItem startLocalGameItem, saveLocalGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, redoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
+    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, redoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
     private Composition composition = null;
     private Player[] players;
     private long timeConstraintPerStep = 20000;
     private Object[] roleOptions;
+    private Composition.STATUS meStatus = Composition.STATUS.EMPTY;
     public static final class SecurityKey {private SecurityKey () {} }
     private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
@@ -27,6 +30,7 @@ public class Reversi extends JFrame implements ActionListener
         chessBoard = new ChessBoard(composition = new Composition ());
         setContentPane(chessBoard);
         initMenu ();
+        initialize ();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
     }
@@ -40,7 +44,7 @@ public class Reversi extends JFrame implements ActionListener
         Object source = event.getSource ();
         if (source == startLocalGameItem)
             startLocalGame ();
-        else if (source == saveLocalGameItem)
+        else if (source == saveGameItem)
             saveLocalGame ();
         else if (source == loadLocalGameItem)
             loadLocalGame ();
@@ -68,12 +72,9 @@ public class Reversi extends JFrame implements ActionListener
         localMenu = new JMenu ("Local");
         startLocalGameItem = new JMenuItem ("Start");
         startLocalGameItem.addActionListener (this);
-        saveLocalGameItem = new JMenuItem ("Save");
-        saveLocalGameItem.addActionListener (this);
         loadLocalGameItem = new JMenuItem ("Load");
         loadLocalGameItem.addActionListener (this);
         localMenu.add (startLocalGameItem);
-        localMenu.add (saveLocalGameItem);
         localMenu.add (loadLocalGameItem);
         menuBar.add (localMenu);
         
@@ -88,6 +89,8 @@ public class Reversi extends JFrame implements ActionListener
         undoItem.addActionListener (this);
         redoItem = new JMenuItem ("Redo");
         redoItem.addActionListener (this);
+        saveGameItem = new JMenuItem ("Save");
+        saveGameItem.addActionListener (this);
         giveInItem = new JMenuItem ("Give In");
         giveInItem.addActionListener (this);
         peaceItem = new JMenuItem ("Sue For Peace");
@@ -96,6 +99,7 @@ public class Reversi extends JFrame implements ActionListener
         operateMenu.add (redoItem);
         operateMenu.add (giveInItem);
         operateMenu.add (peaceItem);
+        operateMenu.add (saveGameItem);
         menuBar.add (operateMenu);
         
         generalMenu = new JMenu ("General");
@@ -114,7 +118,6 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void startLocalGame ()
     {
-        Composition.STATUS meStatus;
         int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, roleOptions, null);
         if (response == 1)
             meStatus = Composition.STATUS.WHITE;
@@ -123,19 +126,115 @@ public class Reversi extends JFrame implements ActionListener
         players = new Player[2];
         players[0] = new LocalMePlayer (chessBoard);
         players[1] = new LocalMachinePlayer (composition);
-        composition.initializeBoard ();
+        composition.initializeBoard (securityKey);
         repaint ();
-        Thread thread = new Thread (()-> {gameOn (meStatus);});
+        Thread thread = new Thread (()->
+        {
+            int index = 0;
+            if (meStatus == Composition.STATUS.WHITE)
+                index = 1;
+            gameOn (index);
+        });
         thread.start ();
         thread.yield ();
     }
     private void loadLocalGame ()
     {
+        BufferedReader reader;
+        try
+        {
+            File file = showRCFileDialog (JFileChooser.OPEN_DIALOG);
+            if (file == null)
+                return;
+            reader = new BufferedReader (new FileReader (file));
+            Composition.STATUS[][] board = new Composition.STATUS[composition.getWidth ()][composition.getHeight ()];
+            for (int i = 0; i < composition.getWidth (); ++i)
+            {
+                for (int j = 0; j < composition.getHeight (); ++j)
+                {
+                    board[i][j] = Composition.str2status (reader.readLine ());
+                }
+            }
+            Composition.STATUS lastStatus = Composition.str2status (reader.readLine ());
+            repaint ();
+            meStatus = Composition.str2status (reader.readLine ());
+            if (lastStatus == Composition.STATUS.EMPTY || meStatus == Composition.STATUS.EMPTY)
+            {
+                throw new RuntimeException ("WRONG status in a composition");
+            }
+            reader.close ();
+            composition.setLastStatus (securityKey, lastStatus);
+            composition.setBoard (securityKey, board);
+            System.out.println (lastStatus);
+            System.out.println (meStatus);
+            players = new Player[2];
+            players[0] = new LocalMePlayer (chessBoard);
+            players[1] = new LocalMachinePlayer (composition);
+            int index = 0;
+            if (lastStatus == meStatus)
+                index = 1;
+            int idx = index;
+            Thread thread = new Thread (()->
+            {
+                gameOn (idx);
+            });
+            thread.start ();
+            thread.yield ();
+        }
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog (this, "Load file Failed", "WARNING", JOptionPane.ERROR_MESSAGE);
+            initialize ();
+            return;
+        }
         
     }
     private void saveLocalGame ()
     {
-        
+        BufferedWriter writer = null;
+        try
+        {
+            File file = showRCFileDialog (JFileChooser.SAVE_DIALOG);
+            if (file == null)
+                return;
+            writer = new BufferedWriter (new PrintWriter (file));
+            Composition.STATUS[][] board = composition.getBoard ();
+            for (int i = 0; i < composition.getWidth (); ++i)
+            {
+                for (int j = 0; j < composition.getHeight (); ++j)
+                {
+                    writer.write (Composition.status2str(board[i][j]));
+                    writer.newLine ();
+                }
+            }
+            writer.write (Composition.status2str (composition.getLastStatus ()));
+            writer.newLine ();
+            writer.write (Composition.status2str (meStatus));
+            writer.newLine ();
+            writer.close ();
+        }
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog (this, "Save file Failed", "WARNING", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
+    private File showRCFileDialog (int mode) throws Exception
+    {
+        JFileChooser fileChooser = new JFileChooser ("./");
+        fileChooser.setAcceptAllFileFilterUsed (false);
+        fileChooser.setFileFilter (new FileNameExtensionFilter ("Reversi Composition", "rc"));
+        if (mode == JFileChooser.SAVE_DIALOG)
+        {
+            fileChooser.showSaveDialog (this);
+        }
+        else if (mode == JFileChooser.OPEN_DIALOG)
+        {
+            fileChooser.showOpenDialog (this);
+        }
+        else
+            throw new IllegalArgumentException ("Wrong rc file chooser mode:" + mode);
+        return fileChooser.getSelectedFile ();
     }
     private void startOnlineGame ()
     {
@@ -169,11 +268,13 @@ public class Reversi extends JFrame implements ActionListener
     {
         
     }
-    private void gameOn (Composition.STATUS meStatus)
+    private void gameOn (int index)
     {
-        int index = 0;
-        if (meStatus == Composition.STATUS.WHITE)
-            index = 1;
+        operateMenu.setEnabled (true);
+        startLocalGameItem.setEnabled (false);
+        loadLocalGameItem.setEnabled (false);
+        startOnlineGameItem.setEnabled (false);
+        loadLocalGameItem.setEnabled (false);
         while (true)
         {
             Point policy = players[index].makingPolicy (timeConstraintPerStep);
@@ -182,14 +283,30 @@ public class Reversi extends JFrame implements ActionListener
             chessBoard.repaint ();
             if (composition.getFinished ())
             {
-                gameOff (meStatus, composition.getWinner ());
+                showWinner (meStatus, composition.getWinner ());
+                initialize ();
                 return;
             }
             ++index;
             index %= 2;
         }
     }
-    public void gameOff (Composition.STATUS me, Composition.STATUS winner)
+    private void initialize ()
+    {
+        players = null;
+        composition.cleanBoard (securityKey);
+        meStatus = Composition.STATUS.EMPTY;
+        
+        operateMenu.setEnabled (false);
+        onlineMenu.setEnabled (true);
+        localMenu.setEnabled (true);
+        startLocalGameItem.setEnabled (true);
+        loadLocalGameItem.setEnabled (true);
+        startOnlineGameItem.setEnabled (true);
+        
+        repaint ();
+    }
+    private void showWinner (Composition.STATUS me, Composition.STATUS winner)
     {
         String msg, title;
         if (me == winner)
@@ -203,7 +320,5 @@ public class Reversi extends JFrame implements ActionListener
             msg = "你输了";
         }
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
-        composition.cleanBoard ();
-        repaint ();
     }
 }

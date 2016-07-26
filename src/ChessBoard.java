@@ -87,7 +87,6 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     public void mousePressed (MouseEvent event)
     {
         finalPolicy = null;
-        System.out.print ("pressed");
         if (event.getButton() == MouseEvent.BUTTON1) {
             pressed = true;
             mousePosition = event.getPoint();
@@ -100,15 +99,12 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         finalPolicy = toCompositionPosition (mousePosition);
         if (!composition.legal (finalPolicy.x, finalPolicy.y) || !composition.queryAvailble (finalPolicy.x, finalPolicy.y))
             finalPolicy = null;
-        else
-            this.notifyAll ();
         repaint ();
     }
     public void paintComponent (Graphics graphics)
     {
         super.paintComponent (graphics);
         graphics.drawImage (backgroundImage, 0, 0, this.getPreferredSize ().width, this.getPreferredSize ().height, null);
-        System.out.println (backgroundImage);
         //paint crosses
         Graphics2D g2 = (Graphics2D)graphics;
         //anti aliasing
@@ -124,7 +120,6 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         }
         //paint chess pieces and available positions
         Composition.STATUS[][] board = composition.getBoard();
-        System.out.println(board);
         for (int i = 0; i < composition.getWidth(); ++i)
         {
             for (int j = 0; j < composition.getHeight(); ++j)
@@ -148,7 +143,6 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         }
         //paint current mouse
         Point abstractPosition = toCompositionPosition(mousePosition);
-//        System.out.print (abstractPosition);
         if (composition.legal (abstractPosition.x, abstractPosition.y))
         {
             if (composition.queryAvailble (abstractPosition.x, abstractPosition.y))

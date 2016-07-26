@@ -1,8 +1,10 @@
-import jdk.nashorn.internal.runtime.events.RecompilationEvent;
+import sun.plugin2.os.windows.SECURITY_ATTRIBUTES;
 
 import java.awt.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Li Zeyan on 2016/7/21.
@@ -42,6 +44,37 @@ public class Composition {
     public STATUS[][] getBoard ()
     {
         return board;
+    }
+    public void setLastStatus (Reversi.SecurityKey securityKey, STATUS status)
+    {
+        this.lastStatus = status;
+    }
+    public static String status2str (STATUS status) throws Exception
+    {
+        switch (status)
+        {
+            case EMPTY:
+                return "EMPTY";
+            case BLACK:
+                return "BLACK";
+            case WHITE:
+                return "WHITE";
+            default:
+                throw new RuntimeException ("invalid Composition.STATUS value");
+        }
+    }
+    public static STATUS str2status (String str)
+    {
+        if (str != null)
+        {
+            if (str.equals ("BLACK"))
+                return STATUS.BLACK;
+            else if (str.equals ("WHITE"))
+                return STATUS.WHITE;
+            else if (str.equals ("EMPTY"))
+                return STATUS.EMPTY;
+        }
+        throw new RuntimeException ("wrong Composition.STATUS string:" + str);
     }
     public STATUS queryBoard (int x, int y) throws RuntimeException
     {
@@ -111,9 +144,9 @@ public class Composition {
     {
         return winner;
     }
-    public void initializeBoard ()
+    public void initializeBoard (Reversi.SecurityKey securityKey)
     {
-        cleanBoard ();
+        cleanBoard (securityKey);
         for (int i = 0; i < width; ++i)
         {
             for (int j = 0; j < height; ++j)
@@ -127,7 +160,24 @@ public class Composition {
         board[(width >> 1)][(height >> 1) - 1] = STATUS.BLACK;
         updateAvailble ();
     }
-    public void cleanBoard ()
+    public void cleanBoard (Reversi.SecurityKey securityKey)
+    {
+        cleanBoard ();
+    }
+    public void setBoard (Reversi.SecurityKey securityKey, STATUS[][] board)
+    {
+        if (board.length != width || board[0].length != height)
+            throw new IllegalArgumentException ("board size is wrong, in setBoard");
+        for (int i = 0; i < width; ++i)
+            for (int j = 0; j < height; ++j)
+                this.board[i][j] = board[i][j];
+        updateAvailble ();
+        judge ();
+    }
+    /*
+    private methods
+     */
+    private void cleanBoard ()
     {
         finished = false;
         lastStatus = STATUS.WHITE;
@@ -142,9 +192,6 @@ public class Composition {
             }
         }
     }
-    /*
-    private methods
-     */
     private void updateAvailble ()
     {
         
