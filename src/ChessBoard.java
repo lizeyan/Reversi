@@ -17,7 +17,8 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     private float blockBreadth = 3;//网格线宽度
     private int blockSize = 100;//棋盘网格的大小
     private int pieceRadius = 45;//棋子半径
-    private Color availablePositionColor = new Color (0.0f, 1.0f, 0.0f, 0.5f);
+    private Color availablePositionColorActivated = new Color (0.0f, 1.0f, 0.0f, 0.5f);
+    private Color availablePositionColorClosed = new Color (1.0f, 1.0f, 0.0f, 0.5f);
     private int lx, ty, rx, by;//棋盘网格的边界坐标，在pack中自动计算
     private boolean pressed = false;
     private Image backgroundImage;
@@ -26,6 +27,7 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
 //    private boolean firstTime = true;
     private Point mousePosition = new Point ();
     private Point finalPolicy = null;
+    private boolean on = false;
     /*
     public
      */
@@ -52,12 +54,14 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     }
     public void active ()
     {
+        on = true;
         this.addMouseListener (this);
         this.addMouseMotionListener (this);
         repaint ();
     }
     public void shutdown ()
     {
+        on = false;
         this.removeMouseListener (this);
         this.removeMouseMotionListener (this);
         repaint ();
@@ -127,7 +131,10 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
                 {
                     if (composition.queryAvailble (i, j))
                     {
-                        g2.setColor (availablePositionColor);
+                        if (on)
+                            g2.setColor (availablePositionColorActivated);
+                        else
+                            g2.setColor (availablePositionColorClosed);
                         g2.fillRect (margin + i * blockSize, margin + j * blockSize, blockSize, blockSize);
                     }
                     else

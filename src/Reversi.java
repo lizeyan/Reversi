@@ -1,11 +1,12 @@
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 /**
  * Created by Li Zeyan on 2016/7/22.
@@ -19,16 +20,20 @@ public class Reversi extends JFrame implements ActionListener
     private Composition composition = null;
     private Player[] players;
     private long timeConstraintPerStep = 20000;
-    private Object[] roleOptions;
+    private Object[] colorRoleOption;
+    private Object[] tcpRoleOptions;
     private Composition.STATUS meStatus = Composition.STATUS.EMPTY;
     public static final class SecurityKey {private SecurityKey () {} }
     private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
     {
         super(name);
-        roleOptions = new Object[2];
-        roleOptions[0] = ("BLACK");
-        roleOptions[1] = ("WHITE");
+        colorRoleOption = new Object[2];
+        colorRoleOption[0] = ("BLACK");
+        colorRoleOption[1] = ("WHITE");
+        tcpRoleOptions = new Object[2];
+        tcpRoleOptions[0] = "Server";
+        tcpRoleOptions[1] = "Client";
         chessBoard = new ChessBoard(composition = new Composition ());
         setContentPane(chessBoard);
         initMenu ();
@@ -115,14 +120,14 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void startLocalGame ()
     {
-        int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, roleOptions, null);
+        int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, colorRoleOption, null);
         if (response == 1)
             meStatus = Composition.STATUS.WHITE;
         else
             meStatus = Composition.STATUS.BLACK;
         players = new Player[2];
-        players[0] = new LocalMePlayer (chessBoard);
-        players[1] = new LocalMachinePlayer (composition);
+        players[0] = new LocalMePlayer (chessBoard, this);
+        players[1] = new LocalMachinePlayer (composition, this);
         composition.initializeBoard (securityKey);
         repaint ();
         Thread thread = new Thread (()->
@@ -165,8 +170,8 @@ public class Reversi extends JFrame implements ActionListener
             System.out.println (lastStatus);
             System.out.println (meStatus);
             players = new Player[2];
-            players[0] = new LocalMePlayer (chessBoard);
-            players[1] = new LocalMachinePlayer (composition);
+            players[0] = new LocalMePlayer (chessBoard, this);
+            players[1] = new LocalMachinePlayer (composition, this);
             int index = 0;
             if (lastStatus == meStatus)
                 index = 1;
@@ -235,7 +240,55 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void startOnlineGame ()
     {
-        
+        int response = JOptionPane.showOptionDialog (this, "Choose your role", "CHOOSE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, tcpRoleOptions, tcpRoleOptions[0]);
+        Proxy proxy = null;
+        if (response == 0)
+        {
+            String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
+            int port = Integer.parseInt (portStr);
+            try
+            {
+                ServerSocket serverSocket = new ServerSocket (port);
+                Socket client = serverSocket.accept ();
+                proxy = new Proxy (client);
+                meStatus = Composition.STATUS.BLACK;
+            }
+            catch (Exception e)
+            {
+                terminate ("Connection Failed: " + e.getMessage ());
+                return;
+            }
+            
+        }
+        else
+        {
+            String ipStr = JOptionPane.showInputDialog (this, "Input the address of Server", "IP", JOptionPane.INFORMATION_MESSAGE);
+            String portStr = JOptionPane.showInputDialog (this, "Input the port of Server", "PORT", JOptionPane.INFORMATION_MESSAGE);
+            int port = Integer.parseInt (portStr);
+            try
+            {
+                Socket server = new Socket (InetAddress.getByName (ipStr), port);
+                proxy = new Proxy (server);
+                meStatus = Composition.STATUS.WHITE;
+            }
+            catch (Exception e)
+            {
+                terminate ("Connection Failed: " + e.getMessage ());
+                return;
+            }
+        }
+        OnlineEnemyPlayer enemyPlayer = new OnlineEnemyPlayer (this);
+        OnlineMePlayer mePlayer = new OnlineMePlayer (chessBoard, this);
+        mePlayer.setProxy (proxy);
+        enemyPlayer.setProxy (proxy);
+        players = new Player[2];
+        players[0] = mePlayer;
+        players[1] = enemyPlayer;
+        proxy.setLocalPlayer (players[0]);
+        composition.initializeBoard (securityKey);
+        Thread thread = new Thread (()->{gameOn (response);});
+        thread.start ();
+        thread.yield ();
     }
     private void undo ()
     {
@@ -334,5 +387,10 @@ public class Reversi extends JFrame implements ActionListener
             msg = "平局";
         }
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    public void terminate (String msg)
+    {
+        JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
+        initialize ();
     }
 }

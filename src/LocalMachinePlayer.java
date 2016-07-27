@@ -3,11 +3,12 @@ import java.awt.*;
 /**
  * Created by Li Zeyan on 2016/7/23.
  */
-public class LocalMachinePlayer implements Player
+public class LocalMachinePlayer extends Player
 {
     private Composition composition;
-    public LocalMachinePlayer (Composition composition)
+    public LocalMachinePlayer (Composition composition, Reversi game)
     {
+        super (game);
         this.composition = composition;
     }
     

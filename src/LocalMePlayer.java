@@ -4,11 +4,12 @@ import java.awt.*;
 /**
  * Created by Li Zeyan on 2016/7/23.
  */
-public class LocalMePlayer implements Player
+public class LocalMePlayer extends Player
 {
     private ChessBoard chessBoard;
-    public  LocalMePlayer (ChessBoard chessBoard)
+    public  LocalMePlayer (ChessBoard chessBoard, Reversi game)
     {
+        super(game);
         this.chessBoard = chessBoard;
     }
     @Override
@@ -17,6 +18,7 @@ public class LocalMePlayer implements Player
         if (!chessBoard.getComposition ().queryAvailble ())
         {
             JOptionPane.showMessageDialog (null, "There is no available position now", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            return new Point (-1, -1);
         }
         chessBoard.active ();
         long sleepTimeChip = timeConstraint / 100;
