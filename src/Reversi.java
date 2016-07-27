@@ -22,7 +22,11 @@ public class Reversi extends JFrame implements ActionListener
     private long timeConstraintPerStep = 20000;
     private Object[] colorRoleOption;
     private Object[] tcpRoleOptions;
+    private Object[] agreementOptions;
     private Composition.STATUS meStatus = Composition.STATUS.EMPTY;
+    private Proxy proxy = null;
+    private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
+    private boolean terminateSignal = false;
     public static final class SecurityKey {private SecurityKey () {} }
     private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
@@ -34,6 +38,9 @@ public class Reversi extends JFrame implements ActionListener
         tcpRoleOptions = new Object[2];
         tcpRoleOptions[0] = "Server";
         tcpRoleOptions[1] = "Client";
+        agreementOptions = new Object[2];
+        agreementOptions[0] = "YES";
+        agreementOptions[1] = "NO";
         chessBoard = new ChessBoard(composition = new Composition ());
         setContentPane(chessBoard);
         initMenu ();
@@ -45,6 +52,10 @@ public class Reversi extends JFrame implements ActionListener
     {
         Reversi reversi = new Reversi("Reversi v1.0");
         reversi.setVisible(true);
+    }
+    public boolean getTerminateSignal ()
+    {
+        return terminateSignal;
     }
     public void actionPerformed (ActionEvent event)
     {
@@ -129,6 +140,7 @@ public class Reversi extends JFrame implements ActionListener
         players[0] = new LocalMePlayer (chessBoard, this);
         players[1] = new LocalMachinePlayer (composition, this);
         composition.initializeBoard (securityKey);
+        composition.setLastStatus (securityKey, Composition.STATUS.BLACK);
         repaint ();
         Thread thread = new Thread (()->
         {
@@ -241,7 +253,6 @@ public class Reversi extends JFrame implements ActionListener
     private void startOnlineGame ()
     {
         int response = JOptionPane.showOptionDialog (this, "Choose your role", "CHOOSE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, tcpRoleOptions, tcpRoleOptions[0]);
-        Proxy proxy = null;
         if (response == 0)
         {
             String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
@@ -251,6 +262,7 @@ public class Reversi extends JFrame implements ActionListener
                 ServerSocket serverSocket = new ServerSocket (port);
                 Socket client = serverSocket.accept ();
                 proxy = new Proxy (client);
+                proxy.setServerSocket (serverSocket);
                 meStatus = Composition.STATUS.BLACK;
             }
             catch (Exception e)
@@ -258,7 +270,6 @@ public class Reversi extends JFrame implements ActionListener
                 terminate ("Connection Failed: " + e.getMessage ());
                 return;
             }
-            
         }
         else
         {
@@ -286,6 +297,7 @@ public class Reversi extends JFrame implements ActionListener
         players[1] = enemyPlayer;
         proxy.setLocalPlayer (players[0]);
         composition.initializeBoard (securityKey);
+        composition.setLastStatus (securityKey, Composition.STATUS.BLACK);
         Thread thread = new Thread (()->{gameOn (response);});
         thread.start ();
         thread.yield ();
@@ -296,10 +308,22 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void giveIn ()
     {
+        if (proxy != null)
+        {
+            try
+            {
+                proxy.send ("GIVEIN", null);
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showMessageDialog (this, "Send request failed", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
         if (players[1].receiveGiveIn ())
         {
-            showWinner (meStatus, Composition.reverseStatus (meStatus));
-            initialize ();
+            terminateSignal = true;
+            terminateWinner = Composition.reverseStatus (meStatus);
         }
         else
         {
@@ -308,10 +332,22 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void peace ()
     {
+        if (proxy != null)
+        {
+            try
+            {
+                proxy.send ("SUE", null);
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showMessageDialog (this, "Send request failed", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
         if (players[1].receiveSueForPeace ())
         {
-            showWinner (meStatus, Composition.STATUS.EMPTY);
-            initialize ();
+            terminateSignal = true;
+            terminateWinner = Composition.STATUS.EMPTY;
         }
         else
         {
@@ -340,7 +376,13 @@ public class Reversi extends JFrame implements ActionListener
         while (true)
         {
             Point policy = players[index].makingPolicy (timeConstraintPerStep);
-            if (!composition.set (securityKey, policy.x, policy.y))
+            if (policy == null || terminateSignal)
+            {
+                showWinner (meStatus, terminateWinner);
+                initialize ();
+                return;
+            }
+            if (policy == null || !composition.set (securityKey, policy.x, policy.y))
                 composition.dropOver (securityKey);
             chessBoard.repaint ();
             if (composition.getFinished ())
@@ -356,8 +398,14 @@ public class Reversi extends JFrame implements ActionListener
     private void initialize ()
     {
         players = null;
+        if (proxy != null)
+            proxy.close ();
+        proxy = null;
         composition.cleanBoard (securityKey);
+        chessBoard.shutdown ();
         meStatus = Composition.STATUS.EMPTY;
+        terminateSignal= false;
+        terminateWinner = Composition.STATUS.EMPTY;
         
         operateMenu.setEnabled (false);
         onlineMenu.setEnabled (true);
@@ -392,5 +440,25 @@ public class Reversi extends JFrame implements ActionListener
     {
         JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         initialize ();
+    }
+    public boolean askForGivein ()
+    {
+        boolean ret =  JOptionPane.showOptionDialog (this, "Would you accept your enemy's surrender?", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
+        if (ret)
+        {
+            terminateSignal = true;
+            terminateWinner = meStatus;
+        }
+        return ret;
+    }
+    public boolean askForSue ()
+    {
+        boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's sue for peace?", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
+        if (ret)
+        {
+            terminateSignal = true;
+            terminateWinner = Composition.STATUS.EMPTY;
+        }
+        return ret;
     }
 }

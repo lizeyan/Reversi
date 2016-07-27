@@ -25,6 +25,8 @@ public class LocalMePlayer extends Player
         long startTime = System.currentTimeMillis ();
         while (System.currentTimeMillis () - startTime <= timeConstraint && chessBoard.getFinalPolicy () == null)
         {
+            if (game.getTerminateSignal ())
+                break;
             try
             {
                 Thread.sleep (sleepTimeChip);
@@ -34,9 +36,9 @@ public class LocalMePlayer extends Player
                 continue;
             }
         }
-        if (chessBoard.getFinalPolicy () == null)
-            return new Point (-1, -1);
-        Point ret = new Point (chessBoard.getFinalPolicy ().x, chessBoard.getFinalPolicy ().y);
+        Point ret = null;
+        if (chessBoard.getFinalPolicy () != null)
+            ret = new Point (chessBoard.getFinalPolicy ().x, chessBoard.getFinalPolicy ().y);
         chessBoard.setFinalPolicy (null);
         chessBoard.shutdown ();
         return ret;
@@ -45,7 +47,7 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveGiveIn ()
     {
-        return false;
+        return game.askForGivein ();
     }
     
     @Override
@@ -57,7 +59,7 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveSueForPeace ()
     {
-        return false;
+        return game.askForSue ();
     }
     
     @Override

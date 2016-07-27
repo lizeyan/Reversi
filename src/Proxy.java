@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -9,11 +10,10 @@ import java.util.Scanner;
 public class Proxy
 {
     private Socket socket;
+    private ServerSocket serverSocket = null;
     private Player localPlayer;
-    private int policyRmd = 1, undoRmd = 1, giveInRmd = 1, sueRmd = 1;
-    private boolean me = false;
-    private BufferedReader reader;
-    private BufferedWriter writer;
+    private BufferedReader reader = null;
+    private BufferedWriter writer = null;
     public Proxy (Socket socket)throws Exception
     {
         this.socket = socket;
@@ -24,35 +24,40 @@ public class Proxy
     {
         this.localPlayer = localPlayer;
     }
-    public void startMeRound ()
+    public void setServerSocket (ServerSocket serverSocket)
     {
-        resetRmd ();
-        me = true;
+        this.serverSocket = serverSocket;
     }
-    public void startEnemyRound ()
+    public void close ()
     {
-        resetRmd ();
-        me = false;
-    }
-    private void resetRmd ()
-    {
-        policyRmd = 1;
-        undoRmd = 1;
-        giveInRmd = 1;
-        sueRmd = 1;
+        try
+        {
+            reader.close ();
+            writer.close ();
+            socket.close ();
+            serverSocket.close ();
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
     public void send (String key, String value) throws Exception
     {
         if (key.equals ("POLICY"))
         {
             writer.write ("1 " + value);
-            writer.newLine ();
         }
+        else if (key.equals ("GIVEIN"))
+        {
+            writer.write ("2 " + value);
+        }
+        else if (key.equals ("SUE"))
+        {
+            writer.write ("3 " + value);
+        }
+        writer.newLine ();
         writer.flush ();
-    }
-    public void receive ()
-    {
-        
     }
     public Point waitForPolicy (long timeConstraint) throws Exception
     {
@@ -62,19 +67,50 @@ public class Proxy
             String line = reader.readLine ();
             Scanner scanner = new Scanner (line);
             int type = scanner.nextInt ();
-            if (type != 1)
-                continue;
-            return new Point (scanner.nextInt (), scanner.nextInt ());
+            if (type == 1)
+                return new Point (scanner.nextInt (), scanner.nextInt ());
+            else if (type == 2)
+            {
+                boolean ret = localPlayer.receiveGiveIn ();
+                send ("GIVEIN", ret? "1" : "0");
+                if (ret)
+                    break;
+            }
+            else if (type == 3)
+            {
+                boolean ret = localPlayer.receiveSueForPeace ();
+                send ("SUE", ret? "1": "0");
+                if (ret)
+                    break;
+            }
+        }
+        return null;
+    }
+    public boolean waitForSueRsp () throws Exception
+    {
+        while (true)
+        {
+            String line = reader.readLine ();
+            Scanner scanner = new Scanner (line);
+            int type = scanner.nextInt ();
+            if (type == 3)
+            {
+                return scanner.nextInt () == 1;
+            }
         }
     }
-    public boolean waitForSueRsp ()
+    public boolean waitForGiveInRsp () throws Exception
     {
-        return true;
-    }
-    public boolean waitForGiveInRsp ()
-    {
-    
-        return true;
+        while (true)
+        {
+            String line = reader.readLine ();
+            Scanner scanner = new Scanner (line);
+            int type = scanner.nextInt ();
+            if (type == 2)
+            {
+                return scanner.nextInt () == 1;
+            }
+        }
     }
     public boolean waitForStartRsp ()
     {

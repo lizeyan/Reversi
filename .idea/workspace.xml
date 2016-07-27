@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/OnlineEnemyPlayer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/OnlineMePlayer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Proxy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ChessBoard.java" afterPath="$PROJECT_DIR$/src/ChessBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LocalMachinePlayer.java" afterPath="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LocalMePlayer.java" afterPath="$PROJECT_DIR$/src/LocalMePlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Player.java" afterPath="$PROJECT_DIR$/src/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OnlineEnemyPlayer.java" afterPath="$PROJECT_DIR$/src/OnlineEnemyPlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OnlineMePlayer.java" afterPath="$PROJECT_DIR$/src/OnlineMePlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Proxy.java" afterPath="$PROJECT_DIR$/src/Proxy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
     </list>
     <ignored path="Reversi.iws" />
@@ -46,7 +43,7 @@
       <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
+            <state relative-caret-position="216">
               <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -58,15 +55,13 @@
       <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reversi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="257" column="65" selection-start-line="257" selection-start-column="65" selection-end-line="257" selection-end-column="65" />
+            <state relative-caret-position="468">
+              <caret line="350" column="0" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#main#0;class#Reversi#0" expanded="false" />
-                <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-                <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-                <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-                <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+                <element signature="e#2099#2100#0" expanded="true" />
+                <element signature="e#2137#2138#0" expanded="true" />
                 <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
                 <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
               </folding>
@@ -77,14 +72,14 @@
       <file leaf-file-name="Proxy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Proxy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="-2196">
+              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#711#712#0" expanded="true" />
-                <element signature="e#757#758#0" expanded="true" />
-                <element signature="e#1816#1817#0" expanded="true" />
-                <element signature="e#1843#1844#0" expanded="true" />
+                <element signature="e#698#699#0" expanded="true" />
+                <element signature="e#744#745#0" expanded="true" />
+                <element signature="e#810#811#0" expanded="true" />
+                <element signature="e#858#859#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -93,22 +88,22 @@
       <file leaf-file-name="OnlineMePlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OnlineMePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
+            <state relative-caret-position="-315">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#284#285#0" expanded="true" />
                 <element signature="e#323#324#0" expanded="true" />
                 <element signature="e#368#369#0" expanded="true" />
                 <element signature="e#402#403#0" expanded="true" />
-                <element signature="e#830#831#0" expanded="true" />
-                <element signature="e#875#876#0" expanded="true" />
-                <element signature="e#935#936#0" expanded="true" />
-                <element signature="e#979#980#0" expanded="true" />
-                <element signature="e#1045#1046#0" expanded="true" />
-                <element signature="e#1095#1096#0" expanded="true" />
-                <element signature="e#1151#1152#0" expanded="true" />
-                <element signature="e#1187#1188#0" expanded="true" />
+                <element signature="e#895#896#0" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#1000#1001#0" expanded="true" />
+                <element signature="e#1044#1045#0" expanded="true" />
+                <element signature="e#1110#1111#0" expanded="true" />
+                <element signature="e#1160#1161#0" expanded="true" />
+                <element signature="e#1216#1217#0" expanded="true" />
+                <element signature="e#1252#1253#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -117,17 +112,13 @@
       <file leaf-file-name="OnlineEnemyPlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+            <state relative-caret-position="-209">
+              <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
               <folding>
                 <element signature="e#286#287#0" expanded="true" />
                 <element signature="e#320#321#0" expanded="true" />
-                <element signature="e#672#673#0" expanded="true" />
-                <element signature="e#720#721#0" expanded="true" />
-                <element signature="e#780#781#0" expanded="true" />
-                <element signature="e#827#828#0" expanded="true" />
-                <element signature="e#893#894#0" expanded="true" />
-                <element signature="e#938#939#0" expanded="true" />
+                <element signature="e#889#890#0" expanded="true" />
+                <element signature="e#936#937#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,10 +137,14 @@
       <file leaf-file-name="LocalMePlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LocalMePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+            <state relative-caret-position="-101">
+              <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1462#1463#0" expanded="true" />
+                <element signature="e#1505#1506#0" expanded="true" />
+                <element signature="e#1659#1660#0" expanded="true" />
+                <element signature="e#1699#1700#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -188,11 +183,11 @@
         <option value="$PROJECT_DIR$/src/Composition.java" />
         <option value="$PROJECT_DIR$/src/Player.java" />
         <option value="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
-        <option value="$PROJECT_DIR$/src/OnlineMePlayer.java" />
-        <option value="$PROJECT_DIR$/src/OnlineEnemyPlayer.java" />
         <option value="$PROJECT_DIR$/src/ChessBoard.java" />
-        <option value="$PROJECT_DIR$/src/LocalMePlayer.java" />
+        <option value="$PROJECT_DIR$/src/OnlineEnemyPlayer.java" />
         <option value="$PROJECT_DIR$/src/Proxy.java" />
+        <option value="$PROJECT_DIR$/src/LocalMePlayer.java" />
+        <option value="$PROJECT_DIR$/src/OnlineMePlayer.java" />
         <option value="$PROJECT_DIR$/src/Reversi.java" />
       </list>
     </option>
@@ -207,8 +202,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-9" />
     <option name="y" value="-9" />
-    <option name="width" value="2418" />
-    <option name="height" value="1318" />
+    <option name="width" value="1938" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -507,8 +502,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="2418" height="1318" extended-state="6" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -516,14 +511,14 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4288939" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39878893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39841986" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -548,18 +543,18 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4288939" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39878893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39841986" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -575,7 +570,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -611,10 +606,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>
@@ -635,6 +628,10 @@
           <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -674,10 +671,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>
@@ -698,6 +693,10 @@
           <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -737,10 +736,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>
@@ -761,6 +758,10 @@
           <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -800,10 +801,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>
@@ -824,6 +823,10 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -863,10 +866,8 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>
@@ -887,6 +888,10 @@
           <caret line="44" column="37" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -979,45 +984,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OnlineMePlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#284#285#0" expanded="true" />
-            <element signature="e#323#324#0" expanded="true" />
-            <element signature="e#368#369#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-            <element signature="e#830#831#0" expanded="true" />
-            <element signature="e#875#876#0" expanded="true" />
-            <element signature="e#935#936#0" expanded="true" />
-            <element signature="e#979#980#0" expanded="true" />
-            <element signature="e#1045#1046#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1151#1152#0" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-          <folding>
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#320#321#0" expanded="true" />
-            <element signature="e#672#673#0" expanded="true" />
-            <element signature="e#720#721#0" expanded="true" />
-            <element signature="e#780#781#0" expanded="true" />
-            <element signature="e#827#828#0" expanded="true" />
-            <element signature="e#893#894#0" expanded="true" />
-            <element signature="e#938#939#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Composition.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5580">
@@ -1025,24 +991,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1054,41 +1002,96 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LocalMePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        <state relative-caret-position="-101">
+          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1659#1660#0" expanded="true" />
+            <element signature="e#1699#1700#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OnlineMePlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-315">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#284#285#0" expanded="true" />
+            <element signature="e#323#324#0" expanded="true" />
+            <element signature="e#368#369#0" expanded="true" />
+            <element signature="e#402#403#0" expanded="true" />
+            <element signature="e#895#896#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1044#1045#0" expanded="true" />
+            <element signature="e#1110#1111#0" expanded="true" />
+            <element signature="e#1160#1161#0" expanded="true" />
+            <element signature="e#1216#1217#0" expanded="true" />
+            <element signature="e#1252#1253#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Proxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="-2196">
+          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#757#758#0" expanded="true" />
-            <element signature="e#1816#1817#0" expanded="true" />
-            <element signature="e#1843#1844#0" expanded="true" />
+            <element signature="e#698#699#0" expanded="true" />
+            <element signature="e#744#745#0" expanded="true" />
+            <element signature="e#810#811#0" expanded="true" />
+            <element signature="e#858#859#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-209">
+          <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+          <folding>
+            <element signature="e#286#287#0" expanded="true" />
+            <element signature="e#320#321#0" expanded="true" />
+            <element signature="e#889#890#0" expanded="true" />
+            <element signature="e#936#937#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Reversi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="257" column="65" selection-start-line="257" selection-start-column="65" selection-end-line="257" selection-end-column="65" />
+        <state relative-caret-position="468">
+          <caret line="350" column="0" selection-start-line="350" selection-start-column="0" selection-end-line="350" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="e#2099#2100#0" expanded="true" />
+            <element signature="e#2137#2138#0" expanded="true" />
             <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
             <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
           </folding>

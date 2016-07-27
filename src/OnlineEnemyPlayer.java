@@ -33,7 +33,14 @@ public class OnlineEnemyPlayer extends Player
     @Override
     public boolean receiveGiveIn ()
     {
-        return proxy.waitForGiveInRsp ();
+        try
+        {
+            return proxy.waitForGiveInRsp ();
+        }
+        catch (Exception e)
+        {
+            return true;
+        }
     }
     
     @Override
@@ -45,7 +52,14 @@ public class OnlineEnemyPlayer extends Player
     @Override
     public boolean receiveSueForPeace ()
     {
-        return proxy.waitForSueRsp ();
+        try
+        {
+            return proxy.waitForSueRsp ();
+        }
+        catch (Exception e)
+        {
+            return true;
+        }
     }
     
     @Override

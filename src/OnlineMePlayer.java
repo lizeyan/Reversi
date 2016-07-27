@@ -22,6 +22,8 @@ public class OnlineMePlayer extends LocalMePlayer
     public Point makingPolicy (long timeConstraint)
     {
         Point ret = super.makingPolicy (timeConstraint);
+        if (game.getTerminateSignal ())
+            return null;
         try
         {
             proxy.send ("POLICY", ret.x + " " + ret.y);
