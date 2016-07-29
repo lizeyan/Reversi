@@ -103,9 +103,7 @@ public class Composition {
         if (!legal(x, y) || !available[x][y])
             return false;
         history.add (new Point (x, y));
-        lastStatus = reverseStatus(lastStatus);
-        board[x][y] = lastStatus;
-        reverse();
+        set (history.get (history.size () - 1));
         updateAvailble();
         judge ();
         return true;
@@ -146,7 +144,6 @@ public class Composition {
     }
     public void initializeBoard (Reversi.SecurityKey securityKey)
     {
-        cleanBoard (securityKey);
         for (int i = 0; i < width; ++i)
         {
             for (int j = 0; j < height; ++j)
@@ -173,6 +170,21 @@ public class Composition {
                 this.board[i][j] = board[i][j];
         updateAvailble ();
         judge ();
+    }
+    public void backward (Reversi.SecurityKey securityKey, int steps)
+    {
+        while (--steps >= 0 && history.size () > 0)
+        {
+            history.remove (history.size () - 1);
+        }
+        initializeBoard (securityKey);
+        setLastStatus (securityKey, STATUS.WHITE);
+        for (Point point : history)
+        {
+            set (point);
+            reverse ();
+        }
+        updateAvailble ();
     }
     /*
     private methods
@@ -298,5 +310,11 @@ public class Composition {
                 winner = STATUS.BLACK;
             }
         }
+    }
+    private void set (Point point)
+    {
+        lastStatus = reverseStatus (lastStatus);
+        board[point.x][point.y] = lastStatus;
+        reverse ();
     }
 }

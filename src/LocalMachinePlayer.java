@@ -51,4 +51,10 @@ public class LocalMachinePlayer extends Player
     {
         
     }
+    
+    @Override
+    public boolean receiveUndo ()
+    {
+        return true;
+    }
 }

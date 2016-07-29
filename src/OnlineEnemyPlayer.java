@@ -67,4 +67,16 @@ public class OnlineEnemyPlayer extends Player
     {
         //
     }
+    @Override
+    public boolean receiveUndo ()
+    {
+        try
+        {
+            return proxy.waitForUndoRsp ();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
 }

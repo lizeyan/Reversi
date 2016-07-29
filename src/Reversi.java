@@ -50,7 +50,7 @@ public class Reversi extends JFrame implements ActionListener
     }
     public static void main (String[] argv)
     {
-        Reversi reversi = new Reversi("Reversi v1.0");
+        Reversi reversi = new Reversi("Reversi v2.1");
         reversi.setVisible(true);
     }
     public boolean getTerminateSignal ()
@@ -140,7 +140,7 @@ public class Reversi extends JFrame implements ActionListener
         players[0] = new LocalMePlayer (chessBoard, this);
         players[1] = new LocalMachinePlayer (composition, this);
         composition.initializeBoard (securityKey);
-        composition.setLastStatus (securityKey, Composition.STATUS.BLACK);
+        composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
         repaint ();
         Thread thread = new Thread (()->
         {
@@ -304,7 +304,27 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void undo ()
     {
-        
+        if (proxy != null)
+        {
+            try
+            {
+                proxy.send ("UNDO", null);
+            }
+            catch (Exception e)
+            {
+                JOptionPane.showMessageDialog (this, "Send request failed", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        if (players[1].receiveUndo ())
+        {
+            composition.backward (securityKey, 2);
+            repaint ();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     private void giveIn ()
     {
@@ -458,6 +478,16 @@ public class Reversi extends JFrame implements ActionListener
         {
             terminateSignal = true;
             terminateWinner = Composition.STATUS.EMPTY;
+        }
+        return ret;
+    }
+    public boolean askForUndo ()
+    {
+        boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's undo request", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
+        if (ret)
+        {
+            composition.backward (securityKey, 2);
+            repaint ();
         }
         return ret;
     }

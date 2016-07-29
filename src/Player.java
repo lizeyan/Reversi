@@ -15,4 +15,5 @@ abstract public class Player
     abstract public boolean receiveStart ();
     abstract public boolean receiveSueForPeace ();
     abstract public void receiveQuit ();
+    abstract public boolean receiveUndo ();
 }

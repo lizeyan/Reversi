@@ -67,4 +67,9 @@ public class LocalMePlayer extends Player
     {
         
     }
+    @Override
+    public boolean receiveUndo ()
+    {
+        return game.askForUndo ();
+    }
 }

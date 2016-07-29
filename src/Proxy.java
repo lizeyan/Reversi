@@ -44,6 +44,8 @@ public class Proxy
     }
     public void send (String key, String value) throws Exception
     {
+        if (value == null)
+            value = "";
         if (key.equals ("POLICY"))
         {
             writer.write ("1 " + value);
@@ -56,6 +58,10 @@ public class Proxy
         {
             writer.write ("3 " + value);
         }
+        else if (key.equals ("UNDO"))
+        {
+            writer.write ("4 " + value);
+        }
         writer.newLine ();
         writer.flush ();
     }
@@ -67,6 +73,7 @@ public class Proxy
             String line = reader.readLine ();
             Scanner scanner = new Scanner (line);
             int type = scanner.nextInt ();
+            System.out.println (line);
             if (type == 1)
                 return new Point (scanner.nextInt (), scanner.nextInt ());
             else if (type == 2)
@@ -82,6 +89,11 @@ public class Proxy
                 send ("SUE", ret? "1": "0");
                 if (ret)
                     break;
+            }
+            else if (type == 4)
+            {
+                boolean ret = localPlayer.receiveUndo ();
+                send ("UNDO", ret? "1": "0");
             }
         }
         return null;
@@ -116,6 +128,19 @@ public class Proxy
     {
     
         return true;
+    }
+    public boolean waitForUndoRsp () throws Exception
+    {
+        while (true)
+        {
+            String line = reader.readLine ();
+            Scanner scanner = new Scanner (line);
+            int type = scanner.nextInt ();
+            if (type == 4)
+            {
+                return scanner.nextInt () == 1;
+            }
+        }
     }
     
 }
