@@ -32,15 +32,7 @@ public class Reversi extends JFrame implements ActionListener
     public Reversi (String name)
     {
         super(name);
-        colorRoleOption = new Object[2];
-        colorRoleOption[0] = ("BLACK");
-        colorRoleOption[1] = ("WHITE");
-        tcpRoleOptions = new Object[2];
-        tcpRoleOptions[0] = "Server";
-        tcpRoleOptions[1] = "Client";
-        agreementOptions = new Object[2];
-        agreementOptions[0] = "YES";
-        agreementOptions[1] = "NO";
+        initOptions ();
         chessBoard = new ChessBoard(composition = new Composition ());
         setContentPane(chessBoard);
         initMenu ();
@@ -490,5 +482,17 @@ public class Reversi extends JFrame implements ActionListener
             repaint ();
         }
         return ret;
+    }
+    private void initOptions ()
+    {
+        colorRoleOption = new Object[2];
+        colorRoleOption[0] = ("BLACK");
+        colorRoleOption[1] = ("WHITE");
+        tcpRoleOptions = new Object[2];
+        tcpRoleOptions[0] = "Server";
+        tcpRoleOptions[1] = "Client";
+        agreementOptions = new Object[2];
+        agreementOptions[0] = "YES";
+        agreementOptions[1] = "NO";
     }
 }

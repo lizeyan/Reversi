@@ -98,6 +98,19 @@ public class Composition {
         }
         return false;
     }
+    public int queryNumber (STATUS status)
+    {
+        int cnt = 0;
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height; ++j)
+            {
+                if (board[i][j] == status)
+                    ++cnt;
+            }
+        }
+        return cnt;
+    }
     public boolean set (Reversi.SecurityKey securityKey, int x, int y)
     {
         if (!legal(x, y) || !available[x][y])
