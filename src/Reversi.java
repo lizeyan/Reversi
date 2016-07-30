@@ -13,7 +13,13 @@ import java.net.Socket;
  */
 public class Reversi extends JFrame implements ActionListener
 {
+    public ChessBoard getChessBoard ()
+    {
+        return this.chessBoard;
+    }
+    
     private ChessBoard chessBoard;
+    private NoticeBoard noticeBoard;
     private JMenuBar menuBar;
     private JMenu localMenu, onlineMenu, operateMenu, generalMenu;
     private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
@@ -27,6 +33,7 @@ public class Reversi extends JFrame implements ActionListener
     private Proxy proxy = null;
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
     private boolean terminateSignal = false;
+    private String myName = "Jerry";
     public static final class SecurityKey {private SecurityKey () {} }
     private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
@@ -34,7 +41,12 @@ public class Reversi extends JFrame implements ActionListener
         super(name);
         initOptions ();
         chessBoard = new ChessBoard(composition = new Composition ());
-        setContentPane(chessBoard);
+        noticeBoard = new NoticeBoard (this);
+        noticeBoard.appendMessage ("Welcome to Reversi\n");
+        setContentPane(new JPanel ());
+        getContentPane ().add (chessBoard);
+        getContentPane ().add (noticeBoard);
+        setMinimumSize (new Dimension (1280, 960));
         initMenu ();
         initialize ();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -133,6 +145,9 @@ public class Reversi extends JFrame implements ActionListener
         players[1] = new LocalMachinePlayer (composition, this);
         composition.initializeBoard (securityKey);
         composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
+        noticeBoard.setStatus (meStatus);
+        noticeBoard.setName (myName, true);
+        noticeBoard.setName ("BetaCat", false);
         repaint ();
         Thread thread = new Thread (()->
         {
@@ -387,15 +402,40 @@ public class Reversi extends JFrame implements ActionListener
         loadLocalGameItem.setEnabled (false);
         while (true)
         {
+            noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
+            noticeBoard.timerOn ();
+            noticeBoard.setTime (timeConstraintPerStep / 1000);
             Point policy = players[index].makingPolicy (timeConstraintPerStep);
-            if (policy == null || terminateSignal)
+            noticeBoard.timerOff ();
+            if (terminateSignal)
             {
                 showWinner (meStatus, terminateWinner);
                 initialize ();
                 return;
             }
             if (policy == null || !composition.set (securityKey, policy.x, policy.y))
+            {
                 composition.dropOver (securityKey);
+                try
+                {
+                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ": drop\n");
+                }
+                catch (Exception e)
+                {
+                    terminate (e.getMessage ());
+                }
+            }
+            else
+            {
+                try
+                {
+                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char)('A' + policy.x) + policy.y + '\n');
+                }
+                catch (Exception e)
+                {
+                    terminate (e.getMessage ());
+                }
+            }
             chessBoard.repaint ();
             if (composition.getFinished ())
             {
@@ -425,6 +465,12 @@ public class Reversi extends JFrame implements ActionListener
         startLocalGameItem.setEnabled (true);
         loadLocalGameItem.setEnabled (true);
         startOnlineGameItem.setEnabled (true);
+        
+        noticeBoard.setStatus (Composition.STATUS.EMPTY);
+        noticeBoard.setPieces (0, 0);
+        noticeBoard.setName ("      ", true);
+        noticeBoard.setName ("      ", false);
+        noticeBoard.setTime (0);
         
         repaint ();
     }
