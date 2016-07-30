@@ -129,6 +129,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         messageEdit = new JTextArea (1, 25);
         messageEdit.setLineWrap (true);
         sendButton = new JButton ("SEND");
+        sendButton.addActionListener (this);
         
         GridBagLayout layout = new GridBagLayout ();
         GridBagConstraints constraints = new GridBagConstraints ();
@@ -186,6 +187,11 @@ public class NoticeBoard extends JPanel implements ActionListener
     @Override
     public void actionPerformed (ActionEvent e)
     {
-        
+        Object source = e.getSource ();
+        if (source == sendButton)
+        {
+            game.sendMessage (messageEdit.getText () + '\n');
+            messageEdit.setText ("");
+        }
     }
 }

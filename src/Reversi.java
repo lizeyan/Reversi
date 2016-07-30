@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.function.Consumer;
 
 /**
  * Created by Li Zeyan on 2016/7/22.
@@ -22,7 +23,7 @@ public class Reversi extends JFrame implements ActionListener
     private NoticeBoard noticeBoard;
     private JMenuBar menuBar;
     private JMenu localMenu, onlineMenu, operateMenu, generalMenu;
-    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem;
+    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem, connectItem, disconnectItem;
     private Composition composition = null;
     private Player[] players;
     private long timeConstraintPerStep = 20000;
@@ -33,7 +34,46 @@ public class Reversi extends JFrame implements ActionListener
     private Proxy proxy = null;
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
     private boolean terminateSignal = false;
+    private long remoteTimeConstraint;
+    
+    public long getTimeConstraintPerStep ()
+    {
+        return this.timeConstraintPerStep;
+    }
+    
+    public void setTimeConstraintPerStep (long timeConstraintPerStep)
+    {
+        this.timeConstraintPerStep = timeConstraintPerStep;
+        noticeBoard.setTime (timeConstraintPerStep / 1000);
+        repaint ();
+    }
+    
+    public String getMyName ()
+    {
+        return this.myName;
+    }
+    
+    public void setMyName (String myName)
+    {
+        this.myName = myName;
+        noticeBoard.setName (myName, true);
+        repaint ();
+    }
+    
+    public String getEnemyName ()
+    {
+        return this.enemyName;
+    }
+    
+    public void setEnemyName (String enemyName)
+    {
+        this.enemyName = enemyName;
+        noticeBoard.setName (enemyName, false);
+        repaint ();
+    }
+    
     private String myName = "Jerry";
+    private String enemyName = "BetaCat";
     public static final class SecurityKey {private SecurityKey () {} }
     private static SecurityKey securityKey = new SecurityKey ();
     public Reversi (String name)
@@ -72,6 +112,10 @@ public class Reversi extends JFrame implements ActionListener
             loadLocalGame ();
         else if (source == startOnlineGameItem)
             startOnlineGame ();
+        else if (source == connectItem)
+            connect ();
+        else if (source == disconnectItem)
+            disconnect ();
         else if (source == undoItem)
             undo ();
         else if (source == giveInItem)
@@ -101,7 +145,13 @@ public class Reversi extends JFrame implements ActionListener
         onlineMenu = new JMenu ("Online");
         startOnlineGameItem = new JMenuItem ("Start");
         startOnlineGameItem.addActionListener (this);
+        connectItem = new JMenuItem ("Connect");
+        disconnectItem = new JMenuItem ("Disconnect");
+        connectItem.addActionListener (this);
+        disconnectItem.addActionListener (this);
         onlineMenu.add (startOnlineGameItem);
+        onlineMenu.add (connectItem);
+        onlineMenu.add (disconnectItem);
         menuBar.add (onlineMenu);
         
         operateMenu = new JMenu ("Operate");
@@ -133,6 +183,68 @@ public class Reversi extends JFrame implements ActionListener
         
         this.setJMenuBar (menuBar);
     }
+    private void connect ()
+    {
+        int response = JOptionPane.showOptionDialog (this, "Choose your role", "CHOOSE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, tcpRoleOptions, tcpRoleOptions[0]);
+        if (response == 0)
+        {
+            String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
+            int port = Integer.parseInt (portStr);
+            try
+            {
+                ServerSocket serverSocket = new ServerSocket (port);
+                Socket client = serverSocket.accept ();
+                proxy = new Proxy (client,
+                        msg-> {noticeBoard.appendMessage (msg + '\n');},
+                        ename-> {setEnemyName (ename);},
+                        time-> {remoteTimeConstraint = time; noticeBoard.setTime (remoteTimeConstraint / 1000);});
+                proxy.setServerSocket (serverSocket);
+                proxy.send ("INFO", myName);
+                proxy.send ("TIME", String.valueOf (timeConstraintPerStep));
+                meStatus = Composition.STATUS.BLACK;
+            }
+            catch (Exception e)
+            {
+                terminate ("Connection Failed: " + e.getMessage ());
+                return;
+            }
+        }
+        else
+        {
+            String ipStr = JOptionPane.showInputDialog (this, "Input the address of Server", "IP", JOptionPane.INFORMATION_MESSAGE);
+            String portStr = JOptionPane.showInputDialog (this, "Input the port of Server", "PORT", JOptionPane.INFORMATION_MESSAGE);
+            int port = Integer.parseInt (portStr);
+            try
+            {
+                Socket server = new Socket (InetAddress.getByName (ipStr), port);
+                proxy = new Proxy (server,
+                        msg->{noticeBoard.appendMessage (msg);},
+                        ename-> {setEnemyName (ename);},
+                        time-> {remoteTimeConstraint = time;});
+                proxy.send ("INFO", myName);
+                meStatus = Composition.STATUS.WHITE;
+            }
+            catch (Exception e)
+            {
+                terminate ("Connection Failed: " + e.getMessage ());
+                return;
+            }
+        }
+        OnlineEnemyPlayer enemyPlayer = new OnlineEnemyPlayer (this);
+        OnlineMePlayer mePlayer = new OnlineMePlayer (chessBoard, this);
+        mePlayer.setProxy (proxy);
+        enemyPlayer.setProxy (proxy);
+        players = new Player[2];
+        players[0] = mePlayer;
+        players[1] = enemyPlayer;
+        proxy.setLocalPlayer (players[0]);
+    }
+    private void disconnect ()
+    {
+        proxy.close ();
+        proxy = null;
+        initialize ();
+    }
     private void startLocalGame ()
     {
         int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, colorRoleOption, null);
@@ -145,9 +257,7 @@ public class Reversi extends JFrame implements ActionListener
         players[1] = new LocalMachinePlayer (composition, this);
         composition.initializeBoard (securityKey);
         composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
-        noticeBoard.setStatus (meStatus);
-        noticeBoard.setName (myName, true);
-        noticeBoard.setName ("BetaCat", false);
+        enemyName = "BetaCat";
         repaint ();
         Thread thread = new Thread (()->
         {
@@ -259,53 +369,22 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void startOnlineGame ()
     {
-        int response = JOptionPane.showOptionDialog (this, "Choose your role", "CHOOSE", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, tcpRoleOptions, tcpRoleOptions[0]);
-        if (response == 0)
+        try
         {
-            String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
-            int port = Integer.parseInt (portStr);
-            try
-            {
-                ServerSocket serverSocket = new ServerSocket (port);
-                Socket client = serverSocket.accept ();
-                proxy = new Proxy (client);
-                proxy.setServerSocket (serverSocket);
-                meStatus = Composition.STATUS.BLACK;
-            }
-            catch (Exception e)
-            {
-                terminate ("Connection Failed: " + e.getMessage ());
-                return;
-            }
+            proxy.send ("START", null);
         }
-        else
+        catch (Exception e)
         {
-            String ipStr = JOptionPane.showInputDialog (this, "Input the address of Server", "IP", JOptionPane.INFORMATION_MESSAGE);
-            String portStr = JOptionPane.showInputDialog (this, "Input the port of Server", "PORT", JOptionPane.INFORMATION_MESSAGE);
-            int port = Integer.parseInt (portStr);
-            try
-            {
-                Socket server = new Socket (InetAddress.getByName (ipStr), port);
-                proxy = new Proxy (server);
-                meStatus = Composition.STATUS.WHITE;
-            }
-            catch (Exception e)
-            {
-                terminate ("Connection Failed: " + e.getMessage ());
-                return;
-            }
+            return;
         }
-        OnlineEnemyPlayer enemyPlayer = new OnlineEnemyPlayer (this);
-        OnlineMePlayer mePlayer = new OnlineMePlayer (chessBoard, this);
-        mePlayer.setProxy (proxy);
-        enemyPlayer.setProxy (proxy);
-        players = new Player[2];
-        players[0] = mePlayer;
-        players[1] = enemyPlayer;
-        proxy.setLocalPlayer (players[0]);
+        if (!players[1].receiveStart ())
+        {
+            JOptionPane.showMessageDialog (this, "Start request is rejected", "INFO", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         composition.initializeBoard (securityKey);
         composition.setLastStatus (securityKey, Composition.STATUS.BLACK);
-        Thread thread = new Thread (()->{gameOn (response);});
+        Thread thread = new Thread (()->{gameOn (0);});
         thread.start ();
         thread.yield ();
     }
@@ -325,7 +404,7 @@ public class Reversi extends JFrame implements ActionListener
         }
         if (players[1].receiveUndo ())
         {
-            composition.backward (securityKey, 2);
+            backward ();
             repaint ();
         }
         else
@@ -383,7 +462,9 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void setting ()
     {
-        
+        JDialog settingDialog = new SettingDialog (this);
+        settingDialog.setModal (true);
+        settingDialog.setVisible (true);
     }
     private void help ()
     {
@@ -395,11 +476,17 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void gameOn (int index)
     {
+        noticeBoard.setStatus (meStatus);
+        noticeBoard.setName (myName, true);
+        noticeBoard.setName (enemyName, false);
         operateMenu.setEnabled (true);
         startLocalGameItem.setEnabled (false);
         loadLocalGameItem.setEnabled (false);
         startOnlineGameItem.setEnabled (false);
         loadLocalGameItem.setEnabled (false);
+        long tc = timeConstraintPerStep;
+        if (proxy != null && proxy.isServer () == false)
+            tc = remoteTimeConstraint;
         while (true)
         {
             noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
@@ -468,9 +555,10 @@ public class Reversi extends JFrame implements ActionListener
         
         noticeBoard.setStatus (Composition.STATUS.EMPTY);
         noticeBoard.setPieces (0, 0);
-        noticeBoard.setName ("      ", true);
+        noticeBoard.setName (myName, true);
         noticeBoard.setName ("      ", false);
-        noticeBoard.setTime (0);
+        noticeBoard.setTime (timeConstraintPerStep / 1000);
+        noticeBoard.timerOff ();
         
         repaint ();
     }
@@ -492,6 +580,7 @@ public class Reversi extends JFrame implements ActionListener
             title = "PEACE";
             msg = "平局";
         }
+        noticeBoard.appendMessage ("====" + title + "====\n");
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
     }
     public void terminate (String msg)
@@ -524,8 +613,22 @@ public class Reversi extends JFrame implements ActionListener
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's undo request", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
         if (ret)
         {
-            composition.backward (securityKey, 2);
+            backward ();
             repaint ();
+        }
+        return ret;
+    }
+    public boolean askForStart ()
+    {
+        boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's start request", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
+        if (ret)
+        {
+            composition.initializeBoard (securityKey);
+            composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
+            meStatus = Composition.STATUS.WHITE;
+            Thread thread = new Thread (()-> {gameOn (1);});
+            thread.start ();
+            thread.yield ();
         }
         return ret;
     }
@@ -540,5 +643,32 @@ public class Reversi extends JFrame implements ActionListener
         agreementOptions = new Object[2];
         agreementOptions[0] = "YES";
         agreementOptions[1] = "NO";
+    }
+    public void sendMessage (String message)
+    {
+        noticeBoard.appendMessage (myName + ":" + message);
+        if (proxy != null)
+        {
+            try
+            {
+                proxy.send ("MESSAGE", message);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
+    }
+    private void backward ()
+    {
+        composition.backward (securityKey, 2);
+        try
+        {
+            noticeBoard.appendMessage (Composition.status2str (Composition.reverseStatus (composition.getLastStatus ())) + " UNDO\n");
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 }

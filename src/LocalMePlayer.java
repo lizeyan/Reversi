@@ -53,7 +53,7 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveStart ()
     {
-        return false;
+        return game.askForStart ();
     }
     
     @Override

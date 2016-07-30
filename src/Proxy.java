@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 /**
  * Created by Li Zeyan on 2016/7/27.
@@ -14,11 +15,36 @@ public class Proxy
     private Player localPlayer;
     private BufferedReader reader = null;
     private BufferedWriter writer = null;
-    public Proxy (Socket socket)throws Exception
+    private Consumer<String> messageConsumer = null;
+    private Consumer<String> infoConsumer = null;
+    private Consumer<Long> timeConsumer = null;
+    private boolean terminateWaitingSignal = false;
+    private Point policyBuffer = null;
+    private int undoRspBuffer = -1, sueRspBuffer = -1, giveInRspBuffer = -1, startRspBuffer = -1;
+    public Proxy (Socket socket, Consumer<String> messageConsumer, Consumer<String> infoConsumer, Consumer<Long> timeConsumer) throws Exception
     {
         this.socket = socket;
+        this.messageConsumer = messageConsumer;
+        this.infoConsumer = infoConsumer;
+        this.timeConsumer = timeConsumer;
         reader = new BufferedReader (new InputStreamReader (socket.getInputStream ()));
         writer = new BufferedWriter (new OutputStreamWriter (socket.getOutputStream ()));
+        Thread thread = new Thread (()->
+        {
+            try
+            {
+                receive ();
+            }
+            catch (Exception e)
+            {
+            }
+        });
+        thread.start ();
+        thread.yield ();
+    }
+    public boolean isServer ()
+    {
+        return serverSocket != null;
     }
     public void setLocalPlayer (Player localPlayer)
     {
@@ -62,85 +88,155 @@ public class Proxy
         {
             writer.write ("4 " + value);
         }
+        else if (key.equals ("MESSAGE"))
+        {
+            writer.write ("5 " + value);
+        }
+        else if (key.equals ("INFO"))
+        {
+            writer.write ("6 " + value);
+        }
+        else if (key.equals ("TIME"))
+        {
+            writer.write ("7 " + value);
+        }
+        else if (key.equals ("START"))
+        {
+            writer.write ("8 " + value);
+        }
         writer.newLine ();
         writer.flush ();
     }
-    public Point waitForPolicy (long timeConstraint) throws Exception
+    public void receive () throws Exception
     {
-        long startTime = System.currentTimeMillis ();
+        String line;
+        int type;
         while (true)
         {
-            String line = reader.readLine ();
+            try
+            {
+                line = reader.readLine ();
+            }
+            catch (Exception e)
+            {
+                continue;
+            }
             Scanner scanner = new Scanner (line);
-            int type = scanner.nextInt ();
-            System.out.println (line);
+            type = scanner.nextInt ();
             if (type == 1)
-                return new Point (scanner.nextInt (), scanner.nextInt ());
+            {
+                policyBuffer = new Point (scanner.nextInt (), scanner.nextInt ());
+            }
             else if (type == 2)
             {
-                boolean ret = localPlayer.receiveGiveIn ();
-                send ("GIVEIN", ret? "1" : "0");
-                if (ret)
-                    break;
+                if (!scanner.hasNextInt ())
+                {
+                    send ("GIVEIN", localPlayer.receiveGiveIn ()? "1":"0");
+                    terminateWaitingSignal = true;
+                }
+                else
+                    giveInRspBuffer = scanner.nextInt ();
             }
             else if (type == 3)
             {
-                boolean ret = localPlayer.receiveSueForPeace ();
-                send ("SUE", ret? "1": "0");
-                if (ret)
-                    break;
+                if (!scanner.hasNextInt ())
+                {
+                    send ("SUE", localPlayer.receiveSueForPeace ()? "1":"0");
+                    terminateWaitingSignal = true;
+                }
+                else
+                    sueRspBuffer = scanner.nextInt ();
             }
             else if (type == 4)
             {
-                boolean ret = localPlayer.receiveUndo ();
-                send ("UNDO", ret? "1": "0");
+                if (!scanner.hasNextInt ())
+                {
+                    send ("UNDO", localPlayer.receiveUndo ()? "1":"0");
+                }
+                else
+                    undoRspBuffer = scanner.nextInt ();
+            }
+            else if (type == 5)
+            {
+                messageConsumer.accept (scanner.nextLine ());
+            }
+            else if (type == 6)
+            {
+                infoConsumer.accept (scanner.nextLine ());
+            }
+            else if (type == 7)
+            {
+                timeConsumer.accept (scanner.nextLong ());
+            }
+            else if (type == 8)
+            {
+                if (!scanner.hasNextInt ())
+                {
+                    send ("START", localPlayer.receiveStart ()? "1":"0");
+                }
+                else
+                    startRspBuffer = scanner.nextInt ();
+            }
+            else
+            {
+                continue;
             }
         }
-        return null;
+    }
+    public Point waitForPolicy (long timeConstraint) throws Exception
+    {
+        long limit = System.currentTimeMillis () + timeConstraint;
+        while (policyBuffer == null && System.currentTimeMillis () <= limit && terminateWaitingSignal == false)
+        {
+            Thread.sleep (timeConstraint / 1000);
+        }
+        if (terminateWaitingSignal = true)
+            terminateWaitingSignal = false;
+        Point policy = null;
+        if (policyBuffer != null)
+            policy = new Point (policyBuffer.x, policyBuffer.y);
+        policyBuffer = null;
+        return policy;
     }
     public boolean waitForSueRsp () throws Exception
     {
-        while (true)
+        while (sueRspBuffer == -1)
         {
-            String line = reader.readLine ();
-            Scanner scanner = new Scanner (line);
-            int type = scanner.nextInt ();
-            if (type == 3)
-            {
-                return scanner.nextInt () == 1;
-            }
+            Thread.sleep (100);
         }
+        boolean ret = (sueRspBuffer == 1);
+        sueRspBuffer = -1;
+        return ret;
+    }
+    public boolean waitForStartRsp () throws Exception
+    {
+        while (startRspBuffer == -1)
+        {
+            Thread.sleep (100);
+        }
+        boolean ret = (startRspBuffer == 1);
+        startRspBuffer = -1;
+        return ret;
     }
     public boolean waitForGiveInRsp () throws Exception
     {
-        while (true)
+        while (giveInRspBuffer == -1)
         {
-            String line = reader.readLine ();
-            Scanner scanner = new Scanner (line);
-            int type = scanner.nextInt ();
-            if (type == 2)
-            {
-                return scanner.nextInt () == 1;
-            }
+            Thread.sleep (100);
         }
-    }
-    public boolean waitForStartRsp ()
-    {
-    
-        return true;
+        boolean ret = (giveInRspBuffer == 1);
+        giveInRspBuffer = -1;
+        return ret;
     }
     public boolean waitForUndoRsp () throws Exception
     {
-        while (true)
+        while (undoRspBuffer == -1)
         {
-            String line = reader.readLine ();
-            Scanner scanner = new Scanner (line);
-            int type = scanner.nextInt ();
-            if (type == 4)
-            {
-                return scanner.nextInt () == 1;
-            }
+            Thread.sleep (100);
         }
+        boolean ret = (undoRspBuffer == 1);
+        undoRspBuffer = -1;
+        return ret;
     }
     
 }

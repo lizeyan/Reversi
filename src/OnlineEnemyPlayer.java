@@ -46,7 +46,14 @@ public class OnlineEnemyPlayer extends Player
     @Override
     public boolean receiveStart ()
     {
-        return proxy.waitForStartRsp ();
+        try
+        {
+            return proxy.waitForStartRsp ();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
     
     @Override
