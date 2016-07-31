@@ -1,3 +1,5 @@
+import com.sun.crypto.provider.BlowfishKeyGenerator;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +15,7 @@ import java.io.IOException;
 public class ChessBoard extends JPanel implements MouseMotionListener, MouseListener
 {
     private Composition composition;
-    private int margin = 10;//棋盘网格的边距
+    private int margin = 20;//棋盘网格的边距
     private float blockBreadth = 3;//网格线宽度
     private int blockSize = 100;//棋盘网格的大小
     private int pieceRadius = 45;//棋子半径
@@ -120,6 +122,15 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
             int tmp = margin + i * blockSize;
             g2.drawLine(lx, tmp, rx, margin + i * blockSize);
             g2.drawLine(tmp, ty, tmp, by);
+        }
+        g2.setFont (new Font ("Freestyle script", Font.BOLD, 30));
+        for (int i = 0; i < composition.getWidth (); ++i)
+        {
+            g2.drawString (String.valueOf ((char)('A' + i)), margin + i * blockSize + (blockSize >> 1) - 15, margin);
+        }
+        for (int j = 0; j < composition.getHeight (); ++j)
+        {
+            g2.drawString (String.valueOf (j + 1), 0, margin + j * blockSize + 15 + (blockSize >> 1));
         }
         //paint chess pieces and available positions
         Composition.STATUS[][] board = composition.getBoard();
