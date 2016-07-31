@@ -44,7 +44,20 @@ public class Reversi extends JFrame implements ActionListener
     public void setTimeConstraintPerStep (long timeConstraintPerStep)
     {
         this.timeConstraintPerStep = timeConstraintPerStep;
-        noticeBoard.setTime (timeConstraintPerStep / 1000);
+        if (proxy == null || proxy.isServer ())
+        {
+            noticeBoard.setTime (timeConstraintPerStep / 1000);
+            if (proxy != null)
+            {
+                try
+                {
+                    proxy.send ("TIME", String.valueOf (timeConstraintPerStep));
+                } catch (Exception e)
+                {
+    
+                }
+            }
+        }
         repaint ();
     }
     
@@ -56,6 +69,17 @@ public class Reversi extends JFrame implements ActionListener
     public void setMyName (String myName)
     {
         this.myName = myName;
+        if (proxy != null)
+        {
+            try
+            {
+                proxy.send ("INFO", myName);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
         noticeBoard.setName (myName, true);
         repaint ();
     }
@@ -149,9 +173,9 @@ public class Reversi extends JFrame implements ActionListener
         disconnectItem = new JMenuItem ("Disconnect");
         connectItem.addActionListener (this);
         disconnectItem.addActionListener (this);
-        onlineMenu.add (startOnlineGameItem);
         onlineMenu.add (connectItem);
         onlineMenu.add (disconnectItem);
+        onlineMenu.add (startOnlineGameItem);
         menuBar.add (onlineMenu);
         
         operateMenu = new JMenu ("Operate");
@@ -220,7 +244,7 @@ public class Reversi extends JFrame implements ActionListener
                 proxy = new Proxy (server,
                         msg->{noticeBoard.appendMessage (msg);},
                         ename-> {setEnemyName (ename);},
-                        time-> {remoteTimeConstraint = time;});
+                        time-> {remoteTimeConstraint = time; noticeBoard.setTime (remoteTimeConstraint / 1000);});
                 proxy.send ("INFO", myName);
                 meStatus = Composition.STATUS.WHITE;
             }
@@ -238,12 +262,28 @@ public class Reversi extends JFrame implements ActionListener
         players[0] = mePlayer;
         players[1] = enemyPlayer;
         proxy.setLocalPlayer (players[0]);
+        connectItem.setEnabled (false);
+        disconnectItem.setEnabled (true);
+        localMenu.setEnabled (false);
+        startOnlineGameItem.setEnabled (true);
     }
-    private void disconnect ()
+    public void disconnect ()
     {
-        proxy.close ();
+        try
+        {
+            proxy.send ("CLOSE", null);
+            proxy.close ();
+        }
+        catch (Exception e)
+        {
+            
+        }
         proxy = null;
         initialize ();
+        connectItem.setEnabled (true);
+        disconnectItem.setEnabled (false);
+        localMenu.setEnabled (true);
+        startOnlineGameItem.setEnabled (false);
     }
     private void startLocalGame ()
     {
@@ -268,6 +308,9 @@ public class Reversi extends JFrame implements ActionListener
         });
         thread.start ();
         thread.yield ();
+        onlineMenu.setEnabled (false);
+        startLocalGameItem.setEnabled (false);
+        loadLocalGameItem.setEnabled (false);
     }
     private void loadLocalGame ()
     {
@@ -311,6 +354,9 @@ public class Reversi extends JFrame implements ActionListener
             });
             thread.start ();
             thread.yield ();
+            onlineMenu.setEnabled (false);
+            startLocalGameItem.setEnabled (false);
+            loadLocalGameItem.setEnabled (false);
         }
         catch (Exception e)
         {
@@ -383,10 +429,12 @@ public class Reversi extends JFrame implements ActionListener
             return;
         }
         composition.initializeBoard (securityKey);
-        composition.setLastStatus (securityKey, Composition.STATUS.BLACK);
+        composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
+        meStatus = Composition.STATUS.BLACK;
         Thread thread = new Thread (()->{gameOn (0);});
         thread.start ();
         thread.yield ();
+        startOnlineGameItem.setEnabled (false);
     }
     private void undo ()
     {
@@ -491,8 +539,8 @@ public class Reversi extends JFrame implements ActionListener
         {
             noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
             noticeBoard.timerOn ();
-            noticeBoard.setTime (timeConstraintPerStep / 1000);
-            Point policy = players[index].makingPolicy (timeConstraintPerStep);
+            noticeBoard.setTime (tc / 1000);
+            Point policy = players[index].makingPolicy (tc);
             noticeBoard.timerOff ();
             if (terminateSignal)
             {
@@ -536,10 +584,6 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void initialize ()
     {
-        players = null;
-        if (proxy != null)
-            proxy.close ();
-        proxy = null;
         composition.cleanBoard (securityKey);
         chessBoard.shutdown ();
         meStatus = Composition.STATUS.EMPTY;
@@ -547,8 +591,6 @@ public class Reversi extends JFrame implements ActionListener
         terminateWinner = Composition.STATUS.EMPTY;
         
         operateMenu.setEnabled (false);
-        onlineMenu.setEnabled (true);
-        localMenu.setEnabled (true);
         startLocalGameItem.setEnabled (true);
         loadLocalGameItem.setEnabled (true);
         startOnlineGameItem.setEnabled (true);
@@ -626,6 +668,7 @@ public class Reversi extends JFrame implements ActionListener
             composition.initializeBoard (securityKey);
             composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
             meStatus = Composition.STATUS.WHITE;
+            repaint ();
             Thread thread = new Thread (()-> {gameOn (1);});
             thread.start ();
             thread.yield ();

@@ -1,3 +1,5 @@
+import sun.plugin2.message.GetAppletMessage;
+
 import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;
@@ -104,6 +106,10 @@ public class Proxy
         {
             writer.write ("8 " + value);
         }
+        else if (key.equals ("CLOSE"))
+        {
+            writer.write ("9 " + value);
+        }
         writer.newLine ();
         writer.flush ();
     }
@@ -176,6 +182,11 @@ public class Proxy
                 }
                 else
                     startRspBuffer = scanner.nextInt ();
+            }
+            else if (type == 9)
+            {
+                localPlayer.receiveQuit ();
+                return;
             }
             else
             {
