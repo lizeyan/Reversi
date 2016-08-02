@@ -1,5 +1,5 @@
-import sun.audio.ContinuousAudioDataStream;
-
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -38,20 +38,21 @@ public class Reversi extends JFrame implements ActionListener
     private Proxy proxy = null;
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
     private boolean terminateSignal = false;
+    private SettingDialog settingDialog = null;
     
-    public ContinuousAudioDataStream getAudioDataStream ()
-    {
-        return this.audioDataStream;
-    }
+    private Clip backgroundMusicClip = null;
     
     private long remoteTimeConstraint;
     
-    public void setAudioDataStream (ContinuousAudioDataStream audioDataStream)
+    public Clip getBackgroundMusicClip ()
     {
-        this.audioDataStream = audioDataStream;
+        return this.backgroundMusicClip;
     }
     
-    private ContinuousAudioDataStream audioDataStream = null;
+    public void setBackgroundMusicClip (Clip backgroundMusicClip)
+    {
+        this.backgroundMusicClip = backgroundMusicClip;
+    }
     
     public long getTimeConstraintPerStep ()
     {
@@ -127,6 +128,7 @@ public class Reversi extends JFrame implements ActionListener
         add (chessBoard, BorderLayout.CENTER);
         add (noticeBoard, BorderLayout.EAST);
         setMinimumSize (new Dimension (1280, 960));
+        setBackgroundImage ("./resources/shanshui1.jpg");
         initMenu ();
         initialize ();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,9 +138,9 @@ public class Reversi extends JFrame implements ActionListener
             public void componentResized (ComponentEvent e)
             {
                 chessBoard.pack ();
+                chessBoard.setBounds (0, 0, (int)chessBoard.getPreferredSize ().getWidth (), (int)chessBoard.getPreferredSize ().getHeight ());
+                noticeBoard.setBounds ((int)chessBoard.getPreferredSize ().getWidth (), 0, getWidth () -(int)chessBoard.getPreferredSize ().getWidth (),  getHeight ());
                 noticeBoard.pack ();
-                invalidate ();
-                repaint ();
             }
     
             @Override
@@ -160,6 +162,10 @@ public class Reversi extends JFrame implements ActionListener
             }
         });
         pack();
+    }
+    public void setBackgroundImage (String name)
+    {
+        
     }
     public static void main (String[] argv)
     {
@@ -214,6 +220,7 @@ public class Reversi extends JFrame implements ActionListener
         onlineMenu = new JMenu ("Online");
         startOnlineGameItem = new JMenuItem ("Start");
         startOnlineGameItem.addActionListener (this);
+        startOnlineGameItem.setEnabled (false);
         connectItem = new JMenuItem ("Connect");
         disconnectItem = new JMenuItem ("Disconnect");
         connectItem.addActionListener (this);
@@ -259,9 +266,11 @@ public class Reversi extends JFrame implements ActionListener
         if (response == 0)
         {
             String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
-            int port = Integer.parseInt (portStr);
+            if (portStr == null)
+                return;
             try
             {
+                int port = Integer.parseInt (portStr);
                 ServerSocket serverSocket = new ServerSocket (port);
                 serverSocket.setSoTimeout (10000);
                 Socket client = serverSocket.accept ();
@@ -284,10 +293,14 @@ public class Reversi extends JFrame implements ActionListener
         else
         {
             String ipStr = JOptionPane.showInputDialog (this, "Input the address of Server", "IP", JOptionPane.INFORMATION_MESSAGE);
+            if (ipStr == null)
+                return;
             String portStr = JOptionPane.showInputDialog (this, "Input the port of Server", "PORT", JOptionPane.INFORMATION_MESSAGE);
-            int port = Integer.parseInt (portStr);
+            if (portStr == null)
+                return;
             try
             {
+                int port = Integer.parseInt (portStr);
                 Socket server = new Socket (InetAddress.getByName (ipStr), port);
                 noticeBoard.appendMessage ("Connected.\n");
                 proxy = new Proxy (server,
@@ -390,18 +403,24 @@ public class Reversi extends JFrame implements ActionListener
             Composition.STATUS lastStatus = Composition.str2status (reader.readLine ());
             repaint ();
             meStatus = Composition.str2status (reader.readLine ());
-            if (lastStatus == Composition.STATUS.EMPTY || meStatus == Composition.STATUS.EMPTY)
+            int rsp = askForLocalEnemy ();
+            if (rsp != 0 && meStatus == Composition.STATUS.EMPTY)
+            {
+                meStatus = JOptionPane.showOptionDialog (this, "Choose Role", "CHOOSING", JOptionPane.PLAIN_MESSAGE, JOptionPane.QUESTION_MESSAGE, null, colorRoleOption, colorRoleOption[0]) == 0? Composition.STATUS.BLACK: Composition.STATUS.WHITE;
+            }
+            if (lastStatus == Composition.STATUS.EMPTY)
             {
                 throw new RuntimeException ("WRONG status in a composition");
             }
             reader.close ();
             composition.setLastStatus (securityKey, lastStatus);
             composition.setBoard (securityKey, board);
-            System.out.println (lastStatus);
-            System.out.println (meStatus);
             players = new Player[2];
             players[0] = new LocalMePlayer (chessBoard, this);
-            players[1] = new LocalMachinePlayer (composition, this);
+            if (rsp == 0)
+                players[1] = new LocalMePlayer (chessBoard, this);
+            else
+                players[1] = new LocalMachinePlayer (composition, this);
             int index = 0;
             if (lastStatus == meStatus)
                 index = 1;
@@ -535,7 +554,10 @@ public class Reversi extends JFrame implements ActionListener
         if (players[1].receiveGiveIn ())
         {
             terminateSignal = true;
-            terminateWinner = Composition.reverseStatus (meStatus);
+            if (meStatus == Composition.STATUS.EMPTY)
+                terminateWinner = composition.getLastStatus ();
+            else
+                terminateWinner = Composition.reverseStatus (meStatus);
         }
         else
         {
@@ -568,7 +590,8 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void setting ()
     {
-        JDialog settingDialog = new SettingDialog (this);
+        if (settingDialog == null)
+            settingDialog = new SettingDialog (this);
         settingDialog.setModal (true);
         settingDialog.setVisible (true);
     }
@@ -652,9 +675,9 @@ public class Reversi extends JFrame implements ActionListener
         terminateWinner = Composition.STATUS.EMPTY;
         
         operateMenu.setEnabled (false);
-        startLocalGameItem.setEnabled (true);
+        onlineMenu.setEnabled (true);
         loadLocalGameItem.setEnabled (true);
-        startOnlineGameItem.setEnabled (true);
+        startLocalGameItem.setEnabled (true);
         
         noticeBoard.setStatus (Composition.STATUS.EMPTY);
         noticeBoard.setPieces (0, 0);
@@ -672,6 +695,7 @@ public class Reversi extends JFrame implements ActionListener
         {
             title = "PEACE";
             msg = "平局";
+            playMusic ("./resources/end.wav");
         }
         else if (me == Composition.STATUS.EMPTY)
         {
@@ -684,24 +708,35 @@ public class Reversi extends JFrame implements ActionListener
             {
                 
             }
+            playMusic ("./resources/win.wav");
         }
         else if (me == winner)
         {
             title = "WIN";
             msg = "你赢了";
-        }
-        else if (winner != Composition.STATUS.EMPTY)
-        {
-            title = "LOSE";
-            msg = "你输了";
+            playMusic ("./resources/win.wav");
         }
         else
         {
-            title = null;
-            msg = null;
+            title = "LOSE";
+            msg = "你输了";
+            playMusic ("./resources/lose.wav");
         }
         noticeBoard.appendMessage ("====" + title + "====\n");
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void playMusic (String name)
+    {
+        try
+        {
+            Clip clip = AudioSystem.getClip ();
+            clip.open (AudioSystem.getAudioInputStream (new File (name)));
+            clip.start ();
+        }
+        catch (Exception e)
+        {
+        
+        }
     }
     public void terminate (String msg)
     {

@@ -3,7 +3,9 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -92,10 +94,12 @@ public class SettingDialog extends JDialog
         game.setMyName (nameEdit.getText ());
         try
         {
-            InputStream inputStream = new FileInputStream (musicEdit.getText ());
-            AudioStream audioStream = new AudioStream (inputStream);
-            game.setAudioDataStream (new ContinuousAudioDataStream (audioStream.getData ()));
-            AudioPlayer.player.start (game.getAudioDataStream ());
+            if (game.getBackgroundMusicClip () != null && game.getBackgroundMusicClip ().isRunning ())
+                game.getBackgroundMusicClip ().stop ();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream (new File (musicEdit.getText ()));
+            game.setBackgroundMusicClip (AudioSystem.getClip ());
+            game.getBackgroundMusicClip ().open (audioInputStream);
+            game.getBackgroundMusicClip ().loop (Clip.LOOP_CONTINUOUSLY);
         }
         catch (Exception e)
         {
