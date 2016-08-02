@@ -39,19 +39,25 @@ public class OnlineMePlayer extends LocalMePlayer
     @Override
     public boolean receiveGiveIn ()
     {
-        return super.receiveGiveIn ();
+        return game.askForGivein ();
     }
     
     @Override
     public boolean receiveStart ()
     {
-        return super.receiveStart ();
+        return game.askForStart ();
     }
     
     @Override
     public boolean receiveSueForPeace ()
     {
-        return super.receiveSueForPeace ();
+        return game.askForSue ();
+    }
+    
+    @Override
+    public boolean receiveUndo ()
+    {
+        return game.askForUndo ();
     }
     
     @Override

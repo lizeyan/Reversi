@@ -1,5 +1,3 @@
-import com.sun.crypto.provider.BlowfishKeyGenerator;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

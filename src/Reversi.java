@@ -3,11 +3,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.TileObserver;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.function.Consumer;
 
 /**
  * Created by Li Zeyan on 2016/7/22.
@@ -30,6 +30,7 @@ public class Reversi extends JFrame implements ActionListener
     private Object[] colorRoleOption;
     private Object[] tcpRoleOptions;
     private Object[] agreementOptions;
+    private Object[] localEnemyOptions;
     private Composition.STATUS meStatus = Composition.STATUS.EMPTY;
     private Proxy proxy = null;
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
@@ -287,14 +288,23 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void startLocalGame ()
     {
-        int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, colorRoleOption, null);
-        if (response == 1)
-            meStatus = Composition.STATUS.WHITE;
-        else
-            meStatus = Composition.STATUS.BLACK;
+        int rsp = askForLocalEnemy ();
         players = new Player[2];
         players[0] = new LocalMePlayer (chessBoard, this);
-        players[1] = new LocalMachinePlayer (composition, this);
+        if (rsp == 0)
+        {
+            meStatus = Composition.STATUS.EMPTY;
+            players[1] = new LocalMePlayer (chessBoard, this);
+        }
+        else
+        {
+            int response = JOptionPane.showOptionDialog (this, "Choose Your Role, Black is always the first", "Choosing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, colorRoleOption, null);
+            if (response == 1)
+                meStatus = Composition.STATUS.WHITE;
+            else
+                meStatus = Composition.STATUS.BLACK;
+            players[1] = new LocalMachinePlayer (composition, this);
+        }
         composition.initializeBoard (securityKey);
         composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
         enemyName = "BetaCat";
@@ -537,7 +547,10 @@ public class Reversi extends JFrame implements ActionListener
             tc = remoteTimeConstraint;
         while (true)
         {
-            noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
+            if (meStatus == Composition.STATUS.EMPTY)
+                noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
+            else
+                noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
             noticeBoard.timerOn ();
             noticeBoard.setTime (tc / 1000);
             Point policy = players[index].makingPolicy (tc);
@@ -606,8 +619,25 @@ public class Reversi extends JFrame implements ActionListener
     }
     private void showWinner (Composition.STATUS me, Composition.STATUS winner)
     {
-        String msg, title;
-        if (me == winner)
+        String msg = null, title = null;
+        if (winner == Composition.STATUS.EMPTY)
+        {
+            title = "PEACE";
+            msg = "平局";
+        }
+        else if (me == Composition.STATUS.EMPTY)
+        {
+            title = "END";
+            try
+            {
+                msg = Composition.status2str (winner) + " WIN";
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
+        else if (me == winner)
         {
             title = "WIN";
             msg = "你赢了";
@@ -619,8 +649,8 @@ public class Reversi extends JFrame implements ActionListener
         }
         else
         {
-            title = "PEACE";
-            msg = "平局";
+            title = null;
+            msg = null;
         }
         noticeBoard.appendMessage ("====" + title + "====\n");
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
@@ -660,6 +690,10 @@ public class Reversi extends JFrame implements ActionListener
         }
         return ret;
     }
+    private int askForLocalEnemy ()
+    {
+        return JOptionPane.showOptionDialog (this, "Choose local ENEMY", "CHOOSING", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, localEnemyOptions, localEnemyOptions[0]);
+    }
     public boolean askForStart ()
     {
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's start request", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
@@ -686,6 +720,9 @@ public class Reversi extends JFrame implements ActionListener
         agreementOptions = new Object[2];
         agreementOptions[0] = "YES";
         agreementOptions[1] = "NO";
+        localEnemyOptions = new Object[2];
+        localEnemyOptions[0] = "HUMAN";
+        localEnemyOptions[1] = "MACHINE";
     }
     public void sendMessage (String message)
     {

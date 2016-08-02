@@ -47,19 +47,19 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveGiveIn ()
     {
-        return game.askForGivein ();
+        return true;
     }
     
     @Override
     public boolean receiveStart ()
     {
-        return game.askForStart ();
+        return true;
     }
     
     @Override
     public boolean receiveSueForPeace ()
     {
-        return game.askForSue ();
+        return true;
     }
     
     @Override
@@ -70,6 +70,6 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveUndo ()
     {
-        return game.askForUndo ();
+        return true;
     }
 }
