@@ -5,6 +5,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -119,16 +121,44 @@ public class Reversi extends JFrame implements ActionListener
     {
         super(name);
         initOptions ();
-        chessBoard = new ChessBoard(composition = new Composition ());
+        chessBoard = new ChessBoard(composition = new Composition (), this);
         noticeBoard = new NoticeBoard (this);
         noticeBoard.appendMessage ("Welcome to Reversi\n");
-        setContentPane(new JPanel ());
-        getContentPane ().add (chessBoard);
-        getContentPane ().add (noticeBoard);
+        add (chessBoard, BorderLayout.CENTER);
+        add (noticeBoard, BorderLayout.EAST);
         setMinimumSize (new Dimension (1280, 960));
         initMenu ();
         initialize ();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addComponentListener (new ComponentListener ()
+        {
+            @Override
+            public void componentResized (ComponentEvent e)
+            {
+                chessBoard.pack ();
+                noticeBoard.pack ();
+                invalidate ();
+                repaint ();
+            }
+    
+            @Override
+            public void componentMoved (ComponentEvent e)
+            {
+        //
+            }
+    
+            @Override
+            public void componentShown (ComponentEvent e)
+            {
+        //
+            }
+    
+            @Override
+            public void componentHidden (ComponentEvent e)
+            {
+        //
+            }
+        });
         pack();
     }
     public static void main (String[] argv)

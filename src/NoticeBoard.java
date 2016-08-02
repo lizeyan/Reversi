@@ -27,6 +27,7 @@ public class NoticeBoard extends JPanel implements ActionListener
     {
         this.game = game;
         setup ();
+        pack ();
         Thread thread = new Thread (() ->
         {
             while (true)
@@ -109,11 +110,19 @@ public class NoticeBoard extends JPanel implements ActionListener
     {
         this.seconds = seconds;
     }
+    public void pack ()
+    {
+//        setPreferredSize (new Dimension (game.getWidth () >> 2, game.getHeight ()));
+        messageBoard.setRows (game.getHeight () / 48);
+        messageBoard.setColumns (game.getWidth () / 32);
+        messageBoard.invalidate ();
+        System.out.println (game.getSize () + " " + messageBoard.getRows () + " " + messageBoard.getColumns ());
+//        messageBoard.setSize (game.getWidth () >> 2, game.getHeight () >> 1);
+    }
     private void setup ()
     {
-        setSize (game.getChessBoard ().getWidth () / 4, game.getChessBoard ().getHeight ());
         messageBuffer = new StringBuffer (1 << 16);
-        messageBoard = new JTextArea (20, 32);
+        messageBoard = new JTextArea (20, 40);
         messageBoard.setFont (new Font ("Monaco", Font.PLAIN, 18));
         messageBoard.setEditable (false);
         messageBoard.setLineWrap (true);
@@ -124,7 +133,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         myName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
         enemyIcon = new JLabel ();
         enemyPieces = new JLabel ();
-        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
+        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 30));
         enemyName = new JLabel ();
         enemyName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
         timeLabel = new JLabel ();
@@ -132,50 +141,54 @@ public class NoticeBoard extends JPanel implements ActionListener
         timeLabel.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         messageEdit = new JTextArea (1, 25);
         messageEdit.setLineWrap (true);
+        messageEdit.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
         sendButton = new JButton ("SEND");
         sendButton.addActionListener (this);
+        sendButton.setFont (new Font ("Microsoft yahei", Font.BOLD, 18));
         
         GridBagLayout layout = new GridBagLayout ();
         GridBagConstraints constraints = new GridBagConstraints ();
         setLayout (layout);
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
-        constraints.ipady = 10;
+//        constraints.ipady = 10;
         constraints.gridy = 0;
         constraints.gridx = 0;
+        constraints.gridwidth = 2;
         add (myIcon, constraints);
-        constraints.gridx = 1;
+        constraints.gridx = 2;
         constraints.gridwidth = 1;
         add (myPieces, constraints);
-        constraints.gridwidth = 3;
-        constraints.gridx = 2;
+        constraints.gridwidth = 6;
+        constraints.gridx = 3;
         add (myName, constraints);
         constraints.gridy = 1;
-        constraints.gridwidth = 1;
+        constraints.gridwidth = 2;
         constraints.gridx = 0;
         add (enemyIcon, constraints);
-        constraints.gridx = 1;
-        add (enemyPieces, constraints);
-        constraints.gridwidth = 2;
         constraints.gridx = 2;
+        constraints.gridwidth = 1;
+        add (enemyPieces, constraints);
+        constraints.gridwidth = 6;
+        constraints.gridx = 3;
         add (enemyName, constraints);
         constraints.gridy = 2;
         constraints.gridx = 0;
-        constraints.gridwidth = 5;
+        constraints.gridwidth = 12;
         add (timeLabel, constraints);
         constraints.gridy = 3;
         constraints.gridx = 0;
-        constraints.gridwidth = 5;
+        constraints.gridwidth = 12;
         constraints.gridheight = 3;
         add (new JScrollPane (messageBoard), constraints);
     
         constraints.gridy = GridBagConstraints.RELATIVE;
         constraints.gridx = 0;
-        constraints.gridwidth = 3;
+        constraints.gridwidth = 9;
         constraints.gridheight = 1;
         add (new JScrollPane (messageEdit), constraints);
-        constraints.gridwidth = 1;
-        constraints.gridx = 3;
+        constraints.gridwidth = 3;
+        constraints.gridx = 9;
         add (sendButton, constraints);
         
     }

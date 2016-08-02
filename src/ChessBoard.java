@@ -28,11 +28,13 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     private Point mousePosition = new Point ();
     private Point finalPolicy = null;
     private boolean on = false;
+    private Reversi game;
     /*
     public
      */
-    public ChessBoard (Composition composition)
+    public ChessBoard (Composition composition, Reversi game)
     {
+        this.game = game;
         setComposition (composition);
         init ();
     }
@@ -193,15 +195,17 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
                 return new Color(1.0f, 1.0f, 1.0f, 0.0f);
         }
     }
-    private void pack ()//处理所有和尺寸有关的事宜，在修改尺寸参数后必须调用
+    public void pack ()//处理所有和尺寸有关的事宜，在修改尺寸参数后必须调用
     {
+        int s = Math.min (game.getWidth () * 3 / 4, game.getHeight ());
+        blockSize = s / 10;
         pieceCenterShiftFromZero = (blockSize >> 1) + margin - pieceRadius;
         pieceDiameter = pieceRadius << 1;
         lx = margin;
         ty = margin;
         rx = lx + blockSize * composition.getWidth();
         by = ty + blockSize * composition.getHeight();
-        this.setPreferredSize(new Dimension(margin + rx, margin + by));
+        setPreferredSize(new Dimension(margin + rx, margin + by));
     }
     private Point toCompositionPosition (Point realPosition)
     {
