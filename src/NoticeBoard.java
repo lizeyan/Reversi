@@ -56,6 +56,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         messageBuffer.append (msg);
         messageBoard.setText (messageBuffer.toString ());
         messageBoard.setCaretPosition (messageBoard.getText ().length ());
+        repaint ();
     }
     public void setStatus (Composition.STATUS my)
     {
@@ -69,11 +70,13 @@ public class NoticeBoard extends JPanel implements ActionListener
             myIcon.setIcon (new ImageIcon ("./resources/images/black.png"));
             enemyIcon.setIcon (new ImageIcon ("./resources/images/white.png"));
         }
+        repaint ();
     }
     public void setPieces (int my, int enemy)
     {
         myPieces.setText (String.valueOf (my));
         enemyPieces.setText (String.valueOf (enemy));
+        repaint ();
     }
     public void setName (String name, boolean my)
     {
@@ -85,6 +88,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         {
             enemyName.setText (name);
         }
+        repaint ();
     }
     public void timerOn ()
     {

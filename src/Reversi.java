@@ -1,9 +1,10 @@
+import sun.audio.ContinuousAudioDataStream;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.TileObserver;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -35,7 +36,20 @@ public class Reversi extends JFrame implements ActionListener
     private Proxy proxy = null;
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
     private boolean terminateSignal = false;
+    
+    public ContinuousAudioDataStream getAudioDataStream ()
+    {
+        return this.audioDataStream;
+    }
+    
     private long remoteTimeConstraint;
+    
+    public void setAudioDataStream (ContinuousAudioDataStream audioDataStream)
+    {
+        this.audioDataStream = audioDataStream;
+    }
+    
+    private ContinuousAudioDataStream audioDataStream = null;
     
     public long getTimeConstraintPerStep ()
     {
@@ -174,6 +188,7 @@ public class Reversi extends JFrame implements ActionListener
         disconnectItem = new JMenuItem ("Disconnect");
         connectItem.addActionListener (this);
         disconnectItem.addActionListener (this);
+        disconnectItem.setEnabled (false);
         onlineMenu.add (connectItem);
         onlineMenu.add (disconnectItem);
         onlineMenu.add (startOnlineGameItem);
@@ -218,7 +233,9 @@ public class Reversi extends JFrame implements ActionListener
             try
             {
                 ServerSocket serverSocket = new ServerSocket (port);
+                serverSocket.setSoTimeout (10000);
                 Socket client = serverSocket.accept ();
+                noticeBoard.appendMessage ("Connected.\n");
                 proxy = new Proxy (client,
                         msg-> {noticeBoard.appendMessage (msg + '\n');},
                         ename-> {setEnemyName (ename);},
@@ -242,6 +259,7 @@ public class Reversi extends JFrame implements ActionListener
             try
             {
                 Socket server = new Socket (InetAddress.getByName (ipStr), port);
+                noticeBoard.appendMessage ("Connected.\n");
                 proxy = new Proxy (server,
                         msg->{noticeBoard.appendMessage (msg);},
                         ename-> {setEnemyName (ename);},
@@ -657,6 +675,7 @@ public class Reversi extends JFrame implements ActionListener
     }
     public void terminate (String msg)
     {
+        noticeBoard.appendMessage (msg + '\n');
         JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         initialize ();
     }
