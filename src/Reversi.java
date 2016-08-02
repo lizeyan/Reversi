@@ -39,6 +39,7 @@ public class Reversi extends JFrame implements ActionListener
     private Composition.STATUS terminateWinner = Composition.STATUS.EMPTY;
     private boolean terminateSignal = false;
     private SettingDialog settingDialog = null;
+    private BackgroundImage backgroundImage = null;
     
     private Clip backgroundMusicClip = null;
     
@@ -123,12 +124,15 @@ public class Reversi extends JFrame implements ActionListener
         super(name);
         initOptions ();
         chessBoard = new ChessBoard(composition = new Composition (), this);
+        chessBoard.setOpaque (false);
         noticeBoard = new NoticeBoard (this);
+        noticeBoard.setOpaque (false);
         noticeBoard.appendMessage ("Welcome to Reversi\n");
+        backgroundImage = new BackgroundImage ("./resources/images/shanshui1.jpg");
+        setContentPane (backgroundImage);
         add (chessBoard, BorderLayout.CENTER);
         add (noticeBoard, BorderLayout.EAST);
         setMinimumSize (new Dimension (1280, 960));
-        setBackgroundImage ("./resources/shanshui1.jpg");
         initMenu ();
         initialize ();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -165,7 +169,7 @@ public class Reversi extends JFrame implements ActionListener
     }
     public void setBackgroundImage (String name)
     {
-        
+        backgroundImage.setBackgroundImage (name);
     }
     public static void main (String[] argv)
     {

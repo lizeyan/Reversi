@@ -109,7 +109,7 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     public void paintComponent (Graphics graphics)
     {
         super.paintComponent (graphics);
-        graphics.drawImage (backgroundImage, 0, 0, this.getPreferredSize ().width, this.getPreferredSize ().height, null);
+//        graphics.drawImage (backgroundImage, 0, 0, this.getPreferredSize ().width, this.getPreferredSize ().height, null);
         //paint crosses
         Graphics2D g2 = (Graphics2D)graphics;
         //anti aliasing
