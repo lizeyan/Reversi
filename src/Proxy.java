@@ -186,6 +186,7 @@ public class Proxy
             else if (type == 9)
             {
                 localPlayer.receiveQuit ();
+                terminateWaitingSignal = true;
                 return;
             }
             else

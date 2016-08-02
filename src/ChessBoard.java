@@ -108,7 +108,7 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     }
     public void paintComponent (Graphics graphics)
     {
-        super.paintComponent (graphics);
+//        super.paintComponent (graphics);
 //        graphics.drawImage (backgroundImage, 0, 0, this.getPreferredSize ().width, this.getPreferredSize ().height, null);
         //paint crosses
         Graphics2D g2 = (Graphics2D)graphics;
@@ -197,8 +197,9 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     }
     public void pack ()//处理所有和尺寸有关的事宜，在修改尺寸参数后必须调用
     {
-        int s = Math.min (game.getWidth () * 3 / 4, game.getHeight ());
-        blockSize = s / 10 + 1;
+        int s = Math.min (game.getContentPane ().getWidth () * 4 / 5, game.getContentPane ().getHeight ());
+        blockSize = s / 9 + 1;
+        margin = s / 25;
         pieceCenterShiftFromZero = (blockSize >> 1) + margin - pieceRadius;
         pieceDiameter = pieceRadius << 1;
         lx = margin;

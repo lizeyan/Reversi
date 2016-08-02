@@ -65,7 +65,7 @@ public class LocalMePlayer extends Player
     @Override
     public void receiveQuit ()
     {
-        game.disconnect ();
+        game.disconnect (false);
     }
     @Override
     public boolean receiveUndo ()

@@ -115,8 +115,9 @@ public class NoticeBoard extends JPanel implements ActionListener
 //        setPreferredSize (new Dimension (game.getWidth () >> 2, game.getHeight ()));
         messageBoard.setRows (getHeight () / 60);
         messageBoard.setColumns (getWidth () / 18);
-        messageEdit.setColumns (Math.max (0, messageBoard.getColumns () - 8));
-        invalidate ();
+        messageBoard.invalidate ();
+        messageEdit.setColumns (getWidth () / 25);
+        messageEdit.invalidate ();
 //        messageBoard.setSize (game.getWidth () >> 2, game.getHeight () >> 1);
     }
     private void setup ()
@@ -151,10 +152,12 @@ public class NoticeBoard extends JPanel implements ActionListener
         setLayout (layout);
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
+        constraints.ipady = 20;
 //        constraints.ipady = 10;
         constraints.gridy = 0;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
+        constraints.gridheight = 2;
         add (myIcon, constraints);
         constraints.gridx = 2;
         constraints.gridwidth = 1;
@@ -162,7 +165,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         constraints.gridwidth = 6;
         constraints.gridx = 3;
         add (myName, constraints);
-        constraints.gridy = 1;
+        constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.gridx = 0;
         add (enemyIcon, constraints);
@@ -172,23 +175,23 @@ public class NoticeBoard extends JPanel implements ActionListener
         constraints.gridwidth = 6;
         constraints.gridx = 3;
         add (enemyName, constraints);
-        constraints.gridy = 2;
+        constraints.gridy = 5;
         constraints.gridx = 0;
         constraints.gridwidth = 12;
         add (timeLabel, constraints);
-        constraints.gridy = 3;
+        constraints.gridy = 7;
         constraints.gridx = 0;
         constraints.gridwidth = 12;
-        constraints.gridheight = 3;
+        constraints.gridheight = 6;
         add (new JScrollPane (messageBoard), constraints);
     
-        constraints.gridy = 6;
+        constraints.gridy = 13;
         constraints.gridx = 1;
         constraints.gridwidth = 6;
-        constraints.gridheight = 1;
+        constraints.gridheight = 2;
         add (new JScrollPane (messageEdit), constraints);
         constraints.gridwidth = 2;
-        constraints.gridx = 7;
+        constraints.gridx = 6;
         add (sendButton, constraints);
         
     }
