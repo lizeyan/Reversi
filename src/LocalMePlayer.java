@@ -7,6 +7,7 @@ import java.awt.*;
 public class LocalMePlayer extends Player
 {
     private ChessBoard chessBoard;
+    private int undoCnt = 0;
     public  LocalMePlayer (ChessBoard chessBoard, Reversi game)
     {
         super(game);
@@ -70,6 +71,10 @@ public class LocalMePlayer extends Player
     @Override
     public boolean receiveUndo ()
     {
-        return true;
+        ++undoCnt;
+        if (undoCnt > 2)
+            return false;
+        else
+            return true;
     }
 }

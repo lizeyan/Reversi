@@ -1,3 +1,5 @@
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -34,6 +36,7 @@ public class Reversi extends JFrame implements ActionListener
     private boolean terminateSignal = false;
     private SettingDialog settingDialog = null;
     private BackgroundImage backgroundImage = null;
+    private boolean gameRunning = false;
     
     private Clip backgroundMusicClip = null;
     
@@ -112,7 +115,14 @@ public class Reversi extends JFrame implements ActionListener
     
     public static void main (String[] argv)
     {
-        Reversi reversi = new Reversi ("Reversi v2.1");
+        String lookAndFeel = UIManager.getSystemLookAndFeelClassName ();
+        try
+        {
+            UIManager.setLookAndFeel (lookAndFeel);
+        }
+        catch (Exception e)
+        {}
+        Reversi reversi = new Reversi ("Reversi v3.0");
         reversi.setVisible (true);
     }
     
@@ -236,29 +246,36 @@ public class Reversi extends JFrame implements ActionListener
         
         localMenu = new JMenu ("Local");
         localMenu.setFont (font);
+        localMenu.setMnemonic (KeyEvent.VK_L);
         startLocalGameItem = new JMenuItem ("Start");
         startLocalGameItem.addActionListener (this);
         startLocalGameItem.setFont (font);
+        startLocalGameItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_N, KeyEvent.CTRL_MASK));
         loadLocalGameItem = new JMenuItem ("Load");
         loadLocalGameItem.addActionListener (this);
         loadLocalGameItem.setFont (font);
+        loadLocalGameItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_O, KeyEvent.CTRL_MASK));
         localMenu.add (startLocalGameItem);
         localMenu.add (loadLocalGameItem);
         menuBar.add (localMenu);
         
         onlineMenu = new JMenu ("Online");
         onlineMenu.setFont (font);
+        onlineMenu.setMnemonic (KeyEvent.VK_O);
         startOnlineGameItem = new JMenuItem ("Start");
         startOnlineGameItem.addActionListener (this);
         startOnlineGameItem.setEnabled (false);
         startOnlineGameItem.setFont (font);
+        startOnlineGameItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_N, KeyEvent.SHIFT_MASK));
         connectItem = new JMenuItem ("Connect");
         connectItem.setFont (font);
+        connectItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_O, KeyEvent.SHIFT_MASK));
         disconnectItem = new JMenuItem ("Disconnect");
         disconnectItem.setFont (font);
         connectItem.addActionListener (this);
         disconnectItem.addActionListener (this);
         disconnectItem.setEnabled (false);
+        disconnectItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_W, KeyEvent.SHIFT_MASK));
         onlineMenu.add (connectItem);
         onlineMenu.add (disconnectItem);
         onlineMenu.add (startOnlineGameItem);
@@ -266,15 +283,19 @@ public class Reversi extends JFrame implements ActionListener
         
         operateMenu = new JMenu ("Operate");
         operateMenu.setFont (font);
+        operateMenu.setMnemonic (KeyEvent.VK_P);
         undoItem = new JMenuItem ("Undo");
         undoItem.setFont (font);
         undoItem.addActionListener (this);
+        undoItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_Z, KeyEvent.CTRL_MASK));
         giveInItem = new JMenuItem ("Give In");
         giveInItem.setFont (font);
         giveInItem.addActionListener (this);
+        giveInItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_U, KeyEvent.CTRL_MASK));
         peaceItem = new JMenuItem ("Sue For Peace");
         peaceItem.setFont (font);
         peaceItem.addActionListener (this);
+        giveInItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_E, KeyEvent.CTRL_MASK));
         operateMenu.add (undoItem);
         operateMenu.add (giveInItem);
         operateMenu.add (peaceItem);
@@ -282,23 +303,27 @@ public class Reversi extends JFrame implements ActionListener
         
         generalMenu = new JMenu ("General");
         generalMenu.setFont (font);
+        generalMenu.setMnemonic (KeyEvent.VK_G);
         settingItem = new JMenuItem ("Setting");
         settingItem.addActionListener (this);
         settingItem.setFont (font);
+        settingItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_H, KeyEvent.CTRL_MASK));
         helpItem = new JMenuItem ("Help");
         helpItem.addActionListener (this);
         helpItem.setFont (font);
         aboutItem = new JMenuItem ("About");
         aboutItem.addActionListener (this);
         aboutItem.setFont (font);
+        aboutItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_M, KeyEvent.CTRL_MASK));
         saveGameItem = new JMenuItem ("Save");
         saveGameItem.addActionListener (this);
         saveGameItem.setFont (font);
+        saveGameItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_S, KeyEvent.CTRL_MASK));
         generalMenu.add (settingItem);
         generalMenu.addSeparator ();
         generalMenu.add (saveGameItem);
         generalMenu.addSeparator ();
-        generalMenu.add (helpItem);
+//        generalMenu.add (helpItem);
         generalMenu.add (aboutItem);
         menuBar.add (generalMenu);
         
@@ -395,7 +420,8 @@ public class Reversi extends JFrame implements ActionListener
     
     public void disconnect (boolean inform)
     {
-        terminateSignal = true;
+        if (gameRunning)
+            terminateSignal = true;
         if (inform)
         {
             try
@@ -675,11 +701,12 @@ public class Reversi extends JFrame implements ActionListener
     
     private void about ()
     {
-        
+        JOptionPane.showMessageDialog (this, "This is a online Revesi game.\nAuthor: zy-li14\nRepo:lizeyan/Reversi", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
     }
     
     private void gameOn (int index)
     {
+        gameRunning = true;
         noticeBoard.setStatus (meStatus);
         noticeBoard.setName (myName, true);
         noticeBoard.setName (enemyName, false);
@@ -748,6 +775,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void initialize ()
     {
+        gameRunning = false;
         composition.cleanBoard (securityKey);
         chessBoard.shutdown ();
         meStatus = Composition.STATUS.EMPTY;

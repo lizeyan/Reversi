@@ -6,6 +6,7 @@ import java.awt.*;
 public class LocalMachinePlayer extends Player
 {
     private Composition composition;
+    private int undoCnt = 0;
     public LocalMachinePlayer (Composition composition, Reversi game)
     {
         super (game);
@@ -55,6 +56,10 @@ public class LocalMachinePlayer extends Player
     @Override
     public boolean receiveUndo ()
     {
-        return true;
+        ++undoCnt;
+        if (undoCnt > 2)
+            return false;
+        else
+            return true;
     }
 }
