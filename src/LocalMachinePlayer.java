@@ -7,9 +7,9 @@ public class LocalMachinePlayer extends Player
 {
     private Composition composition;
     private int undoCnt = 0;
-    public LocalMachinePlayer (Composition composition, Reversi game)
+    public LocalMachinePlayer (Composition composition)
     {
-        super (game);
+        super (null);
         this.composition = composition;
     }
     

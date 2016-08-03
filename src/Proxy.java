@@ -1,5 +1,3 @@
-import sun.plugin2.message.GetAppletMessage;
-
 import java.awt.*;
 import java.io.*;
 import java.net.ServerSocket;

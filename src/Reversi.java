@@ -35,6 +35,7 @@ public class Reversi extends JFrame implements ActionListener
     private SettingDialog settingDialog = null;
     private BackgroundImage backgroundImage = null;
     private boolean gameRunning = false;
+    private Class aiClass;
     
     private Clip backgroundMusicClip = null;
     
@@ -53,6 +54,14 @@ public class Reversi extends JFrame implements ActionListener
         noticeBoard.appendMessage ("Welcome to Reversi\n");
         backgroundImage = new BackgroundImage ("./resources/images/shanshui2.jpg");
         settingDialog = new SettingDialog (this);
+        try
+        {
+            aiClass = Class.forName ("LocalMachinePlayer");
+        }
+        catch (Exception e)
+        {
+            System.out.println (e.getMessage ());
+        }
         try
         {
             setIconImage (ImageIO.read (new File ("./resources/images/panda.png")));
@@ -466,7 +475,15 @@ public class Reversi extends JFrame implements ActionListener
                 meStatus = Composition.STATUS.WHITE;
             else
                 meStatus = Composition.STATUS.BLACK;
-            players[1] = new LocalMachinePlayer (composition, this);
+            try
+            {
+                players[1] = (Player)aiClass.getConstructor (Composition.class).newInstance (composition);
+            }
+            catch (Exception e)
+            {
+                terminate (e.getMessage ());
+                return;
+            }
         }
         composition.initializeBoard (securityKey);
         composition.setLastStatus (securityKey, Composition.STATUS.WHITE);
@@ -523,7 +540,16 @@ public class Reversi extends JFrame implements ActionListener
             if (rsp == 0)
                 players[1] = new LocalMePlayer (chessBoard, this);
             else
-                players[1] = new LocalMachinePlayer (composition, this);
+            {
+                try
+                {
+                    players[1] = (Player) aiClass.getConstructor (Composition.class).newInstance (composition);
+                } catch (Exception e)
+                {
+                    terminate (e.getMessage ());
+                    return;
+                }
+            }
             int index = 0;
             if (lastStatus == meStatus)
                 index = 1;
@@ -544,6 +570,18 @@ public class Reversi extends JFrame implements ActionListener
             return;
         }
         
+    }
+    public void setAiClass (Class tmp)
+    {
+        try
+        {
+            LocalMachinePlayer player = (LocalMachinePlayer)tmp.getConstructor (Composition.class).newInstance (composition);
+            aiClass = tmp;
+        }
+        catch (Exception e)
+        {
+            JOptionPane.showMessageDialog (this, "Set new Ai class Failed:" + e.getMessage (), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     private void saveLocalGame ()

@@ -14,6 +14,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class SettingDialog extends JDialog
 {
@@ -30,6 +32,8 @@ public class SettingDialog extends JDialog
     private JTextField backgroundEdit;
     private JLabel backgroundLable;
     private JButton backgroundBtn;
+    private JTextField aiEdit;
+    private JButton aiBtn;
     private Reversi game;
     
     public SettingDialog (Reversi game)
@@ -114,6 +118,19 @@ public class SettingDialog extends JDialog
                 backgroundEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
             }
         });
+        aiBtn.addActionListener (new ActionListener ()
+        {
+            @Override
+            public void actionPerformed (ActionEvent e)
+            {
+                JFileChooser fileChooser = new JFileChooser ("./");
+                fileChooser.setAcceptAllFileFilterUsed (false);
+                fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Java Class File", "class"));
+                fileChooser.setMultiSelectionEnabled (false);
+                fileChooser.showOpenDialog (null);
+                aiEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
+            }
+        });
     }
     public void lock ()
     {
@@ -148,6 +165,18 @@ public class SettingDialog extends JDialog
         try
         {
             game.setBackgroundImage (backgroundEdit.getText ());
+        }
+        catch (Exception e)
+        {
+            
+        }
+        try
+        {
+            File aiFile = new File (aiEdit.getText ());
+            URLClassLoader loader = new URLClassLoader (new URL[]{aiFile.toURI ().toURL ()});
+            String name = aiFile.getName ();
+            System.out.println (name.substring (0, name.length () - 6));
+            game.setAiClass (loader.loadClass (name.substring (0, name.length () - 6)));
         }
         catch (Exception e)
         {
