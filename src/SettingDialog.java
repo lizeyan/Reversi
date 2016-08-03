@@ -8,6 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -89,6 +90,8 @@ public class SettingDialog extends JDialog
             public void actionPerformed (ActionEvent e)
             {
                 JFileChooser fileChooser = new JFileChooser ("./");
+                fileChooser.setAcceptAllFileFilterUsed (false);
+                fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Wave Audio File", "wav"));
                 fileChooser.setMultiSelectionEnabled (false);
                 fileChooser.showOpenDialog (null);
                 musicEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());

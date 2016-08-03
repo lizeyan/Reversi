@@ -198,8 +198,9 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     public void pack ()//处理所有和尺寸有关的事宜，在修改尺寸参数后必须调用
     {
         int s = Math.min (game.getContentPane ().getWidth () * 4 / 5, game.getContentPane ().getHeight ());
-        blockSize = s / 9 + 1;
-        margin = s / 25;
+        blockSize = s / 10 + 5;
+        margin = s / 25 + 5;
+        pieceRadius = (int)((double)blockSize / 2.3);
         pieceCenterShiftFromZero = (blockSize >> 1) + margin - pieceRadius;
         pieceDiameter = pieceRadius << 1;
         lx = margin;

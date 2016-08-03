@@ -55,10 +55,9 @@ public class Reversi extends JFrame implements ActionListener
         try
         {
             setIconImage (ImageIO.read (new File ("./resources/images/panda.png")));
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
-            
+    
         }
         setContentPane (backgroundImage);
         add (chessBoard, BorderLayout.CENTER);
@@ -66,7 +65,6 @@ public class Reversi extends JFrame implements ActionListener
         setMinimumSize (new Dimension (1280, 960));
         initMenu ();
         initialize ();
-        setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         addComponentListener (new ComponentListener ()
         {
             @Override
@@ -79,25 +77,26 @@ public class Reversi extends JFrame implements ActionListener
                 invalidate ();
                 repaint ();
             }
-            
+    
             @Override
             public void componentMoved (ComponentEvent e)
             {
                 //
             }
-            
+    
             @Override
             public void componentShown (ComponentEvent e)
             {
                 //
             }
-            
+    
             @Override
             public void componentHidden (ComponentEvent e)
             {
                 //
             }
         });
+        setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 //        pack ();
     }
     
