@@ -38,7 +38,7 @@ public class Reversi extends JFrame implements ActionListener
     private Clip backgroundMusicClip = null;
     
     private long remoteTimeConstraint;
-    private String myName = "Jerry";
+    private String myName = "ZYLI14";
     private String enemyName = "BetaCat";
     
     public Reversi (String name)
@@ -232,16 +232,21 @@ public class Reversi extends JFrame implements ActionListener
         startLocalGameItem.setFont (font);
         loadLocalGameItem = new JMenuItem ("Load");
         loadLocalGameItem.addActionListener (this);
+        loadLocalGameItem.setFont (font);
         localMenu.add (startLocalGameItem);
         localMenu.add (loadLocalGameItem);
         menuBar.add (localMenu);
         
         onlineMenu = new JMenu ("Online");
+        onlineMenu.setFont (font);
         startOnlineGameItem = new JMenuItem ("Start");
         startOnlineGameItem.addActionListener (this);
         startOnlineGameItem.setEnabled (false);
+        startLocalGameItem.setFont (font);
         connectItem = new JMenuItem ("Connect");
+        connectItem.setFont (font);
         disconnectItem = new JMenuItem ("Disconnect");
+        disconnectItem.setFont (font);
         connectItem.addActionListener (this);
         disconnectItem.addActionListener (this);
         disconnectItem.setEnabled (false);
@@ -251,11 +256,15 @@ public class Reversi extends JFrame implements ActionListener
         menuBar.add (onlineMenu);
         
         operateMenu = new JMenu ("Operate");
+        operateMenu.setFont (font);
         undoItem = new JMenuItem ("Undo");
+        undoItem.setFont (font);
         undoItem.addActionListener (this);
         giveInItem = new JMenuItem ("Give In");
+        giveInItem.setFont (font);
         giveInItem.addActionListener (this);
         peaceItem = new JMenuItem ("Sue For Peace");
+        peaceItem.setFont (font);
         peaceItem.addActionListener (this);
         operateMenu.add (undoItem);
         operateMenu.add (giveInItem);
@@ -263,14 +272,19 @@ public class Reversi extends JFrame implements ActionListener
         menuBar.add (operateMenu);
         
         generalMenu = new JMenu ("General");
+        generalMenu.setFont (font);
         settingItem = new JMenuItem ("Setting");
         settingItem.addActionListener (this);
+        settingItem.setFont (font);
         helpItem = new JMenuItem ("Help");
         helpItem.addActionListener (this);
+        helpItem.setFont (font);
         aboutItem = new JMenuItem ("About");
         aboutItem.addActionListener (this);
+        aboutItem.setFont (font);
         saveGameItem = new JMenuItem ("Save");
         saveGameItem.addActionListener (this);
+        saveGameItem.setFont (font);
         generalMenu.add (settingItem);
         generalMenu.addSeparator ();
         generalMenu.add (saveGameItem);

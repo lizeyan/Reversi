@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Composition.java" afterPath="$PROJECT_DIR$/src/Composition.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/OnlineMePlayer.java" afterPath="$PROJECT_DIR$/src/OnlineMePlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Proxy.java" afterPath="$PROJECT_DIR$/src/Proxy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SettingDialog.java" afterPath="$PROJECT_DIR$/src/SettingDialog.java" />
     </list>
@@ -31,16 +28,16 @@
       <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reversi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="231" column="40" selection-start-line="231" selection-start-column="40" selection-end-line="231" selection-end-column="40" />
+            <state relative-caret-position="432">
+              <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
                 <element signature="method#main#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
                 <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+                <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
                 <element signature="method#connect#0;class#Reversi#0" expanded="false" />
                 <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
                 <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
@@ -76,7 +73,7 @@
       <file leaf-file-name="Composition.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Composition.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1836">
+            <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
                 <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
@@ -96,7 +93,7 @@
       <file leaf-file-name="BackgroundImage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BackgroundImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
+            <state relative-caret-position="648">
               <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -108,8 +105,8 @@
       <file leaf-file-name="SettingDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="94" column="33" selection-start-line="94" selection-start-column="33" selection-end-line="94" selection-end-column="33" />
+            <state relative-caret-position="-180">
+              <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -118,7 +115,7 @@
       <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
+            <state relative-caret-position="-180">
               <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -130,7 +127,7 @@
       <file leaf-file-name="Proxy.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Proxy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
+            <state relative-caret-position="684">
               <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
               <folding>
                 <element signature="method#Proxy#0;class#Proxy#0" expanded="false" />
@@ -150,7 +147,7 @@
       <file leaf-file-name="OnlineEnemyPlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
+            <state relative-caret-position="900">
               <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
               <folding />
             </state>
@@ -160,7 +157,7 @@
       <file leaf-file-name="OnlineMePlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OnlineMePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
+            <state relative-caret-position="540">
               <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
               <folding>
                 <element signature="e#1220#1221#0" expanded="true" />
@@ -173,7 +170,7 @@
       <file leaf-file-name="LocalMePlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LocalMePlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-252">
+            <state relative-caret-position="180">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
               <folding />
             </state>
@@ -224,10 +221,10 @@
         <option value="$PROJECT_DIR$/src/NoticeBoard.java" />
         <option value="$PROJECT_DIR$/src/ChessBoard.java" />
         <option value="$PROJECT_DIR$/src/LocalMePlayer.java" />
-        <option value="$PROJECT_DIR$/src/SettingDialog.java" />
         <option value="$PROJECT_DIR$/src/OnlineMePlayer.java" />
         <option value="$PROJECT_DIR$/src/Composition.java" />
         <option value="$PROJECT_DIR$/src/Proxy.java" />
+        <option value="$PROJECT_DIR$/src/SettingDialog.java" />
         <option value="$PROJECT_DIR$/src/Reversi.java" />
       </list>
     </option>
@@ -538,7 +535,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -547,7 +544,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29006773" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29006773" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.09875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -594,8 +591,14 @@
           <properties />
           <option name="timeStamp" value="42" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Reversi.java</url>
+          <line>44</line>
+          <properties />
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="43" />
+      <option name="time" value="44" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -608,7 +611,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -628,12 +641,12 @@
           <caret line="160" column="7" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
             <element signature="method#connect#0;class#Reversi#0" expanded="false" />
             <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
             <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
@@ -684,14 +697,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#822#823#0" expanded="false" />
-            <element signature="e#849#850#0" expanded="false" />
-            <element signature="e#909#910#0" expanded="false" />
-            <element signature="e#936#937#0" expanded="false" />
-            <element signature="e#1002#1003#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -699,7 +704,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4104">
           <caret line="114" column="4" selection-start-line="114" selection-start-column="4" selection-end-line="114" selection-end-column="4" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -719,12 +734,12 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
             <element signature="method#connect#0;class#Reversi#0" expanded="false" />
             <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
             <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
@@ -775,14 +790,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#822#823#0" expanded="false" />
-            <element signature="e#849#850#0" expanded="false" />
-            <element signature="e#909#910#0" expanded="false" />
-            <element signature="e#936#937#0" expanded="false" />
-            <element signature="e#1002#1003#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -790,7 +797,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="936">
           <caret line="31" column="8" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -810,12 +827,12 @@
           <caret line="178" column="76" selection-start-line="178" selection-start-column="76" selection-end-line="178" selection-end-column="76" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
             <element signature="method#connect#0;class#Reversi#0" expanded="false" />
             <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
             <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
@@ -866,14 +883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#822#823#0" expanded="false" />
-            <element signature="e#849#850#0" expanded="false" />
-            <element signature="e#909#910#0" expanded="false" />
-            <element signature="e#936#937#0" expanded="false" />
-            <element signature="e#1002#1003#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -881,7 +890,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="936">
           <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -901,12 +920,12 @@
           <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
             <element signature="method#connect#0;class#Reversi#0" expanded="false" />
             <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
             <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
@@ -957,14 +976,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="828">
           <caret line="26" column="31" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#822#823#0" expanded="false" />
-            <element signature="e#849#850#0" expanded="false" />
-            <element signature="e#909#910#0" expanded="false" />
-            <element signature="e#936#937#0" expanded="false" />
-            <element signature="e#1002#1003#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -972,7 +983,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1776">
           <caret line="48" column="29" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -990,7 +1011,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1369">
           <caret line="48" column="29" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1008,7 +1039,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1369">
           <caret line="48" column="29" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1026,7 +1067,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1051,14 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1728">
           <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
-          <folding>
-            <element signature="e#822#823#0" expanded="false" />
-            <element signature="e#849#850#0" expanded="false" />
-            <element signature="e#909#910#0" expanded="false" />
-            <element signature="e#936#937#0" expanded="false" />
-            <element signature="e#1002#1003#0" expanded="false" />
-            <element signature="e#1029#1030#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1071,7 +1114,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="ui-designer">
@@ -1082,44 +1124,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="33912">
           <caret line="1004" column="0" selection-start-line="1004" selection-start-column="0" selection-end-line="1004" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#65587#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#11868#11869#0" expanded="false" />
-            <element signature="e#11908#11909#0" expanded="false" />
-            <element signature="e#13078#13079#0" expanded="false" />
-            <element signature="e#13118#13119#0" expanded="false" />
-            <element signature="e#13922#13923#0" expanded="false" />
-            <element signature="e#13965#13966#0" expanded="false" />
-            <element signature="e#17727#17728#0" expanded="false" />
-            <element signature="e#17767#17768#0" expanded="false" />
-            <element signature="e#18531#18532#0" expanded="false" />
-            <element signature="e#18574#18575#0" expanded="false" />
-            <element signature="e#22621#22622#0" expanded="false" />
-            <element signature="e#22675#22676#0" expanded="false" />
-            <element signature="e#23742#23743#0" expanded="false" />
-            <element signature="e#23799#23800#0" expanded="false" />
-            <element signature="e#25330#25331#0" expanded="false" />
-            <element signature="e#25375#25376#0" expanded="false" />
-            <element signature="e#31221#31222#0" expanded="false" />
-            <element signature="e#31266#31267#0" expanded="false" />
-            <element signature="e#31309#31310#0" expanded="false" />
-            <element signature="e#31369#31370#0" expanded="false" />
-            <element signature="e#32780#32781#0" expanded="false" />
-            <element signature="e#32815#32816#0" expanded="false" />
-            <element signature="e#34606#34607#0" expanded="false" />
-            <element signature="e#34634#34635#0" expanded="false" />
-            <element signature="e#41527#41528#0" expanded="false" />
-            <element signature="e#41620#41621#0" expanded="false" />
-            <element signature="e#43196#43197#0" expanded="false" />
-            <element signature="e#43324#43325#0" expanded="false" />
-            <element signature="e#48414#48415#0" expanded="false" />
-            <element signature="e#48446#48447#0" expanded="false" />
-            <element signature="e#52060#52061#0" expanded="false" />
-            <element signature="e#52094#52095#0" expanded="false" />
-            <element signature="e#64796#64797#0" expanded="false" />
-            <element signature="e#64848#64849#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1133,45 +1137,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="94" column="33" selection-start-line="94" selection-start-column="33" selection-end-line="94" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BackgroundImage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LocalMePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-252">
+        <state relative-caret-position="180">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/OnlineMePlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
+        <state relative-caret-position="540">
           <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
           <folding>
             <element signature="e#1220#1221#0" expanded="true" />
@@ -1182,33 +1158,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="900">
           <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Composition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1836">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
-            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
-            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
-            <element signature="method#backward#0;class#Composition#0" expanded="false" />
-            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
-            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
-            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
-            <element signature="method#judge#0;class#Composition#0" expanded="false" />
-            <element signature="method#set#1;class#Composition#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Proxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
+        <state relative-caret-position="684">
           <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
           <folding>
             <element signature="method#Proxy#0;class#Proxy#0" expanded="false" />
@@ -1224,18 +1182,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reversi.java">
+    <entry file="file://$PROJECT_DIR$/src/Composition.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="231" column="40" selection-start-line="231" selection-start-column="40" selection-end-line="231" selection-end-column="40" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BackgroundImage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180">
+          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reversi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#actionPerformed#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initMenu#0;class#Reversi#0" expanded="false" />
             <element signature="method#connect#0;class#Reversi#0" expanded="false" />
             <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
             <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />

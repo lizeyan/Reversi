@@ -3,6 +3,7 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -30,6 +31,15 @@ public class SettingDialog extends JDialog
     public SettingDialog (Reversi game)
     {
         this.game = game;
+        setTitle ("SETTINGS");
+        try
+        {
+            setIconImage (ImageIO.read (new File ("./resources/images/setting.png")));
+        }
+        catch (Exception e)
+        {
+            
+        }
         setContentPane (contentPane);
         setModal (true);
         getRootPane ().setDefaultButton (buttonOK);
