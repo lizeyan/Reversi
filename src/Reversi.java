@@ -1,5 +1,3 @@
-import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -53,8 +51,8 @@ public class Reversi extends JFrame implements ActionListener
         noticeBoard = new NoticeBoard (this);
         noticeBoard.setOpaque (false);
         noticeBoard.appendMessage ("Welcome to Reversi\n");
-        settingDialog = new SettingDialog (this);
         backgroundImage = new BackgroundImage ("./resources/images/shanshui2.jpg");
+        settingDialog = new SettingDialog (this);
         try
         {
             setIconImage (ImageIO.read (new File ("./resources/images/panda.png")));
@@ -203,6 +201,12 @@ public class Reversi extends JFrame implements ActionListener
     public void setBackgroundImage (String name)
     {
         backgroundImage.setBackgroundImage (name);
+        repaint ();
+    }
+    
+    public BackgroundImage getBackgroundImage ()
+    {
+        return backgroundImage;
     }
     
     public boolean getTerminateSignal ()

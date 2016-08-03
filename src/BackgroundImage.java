@@ -8,7 +8,8 @@ import java.io.File;
  */
 public class BackgroundImage extends JPanel
 {
-    Image image = null;
+    private Image image = null;
+    private String fileName;
     public BackgroundImage (String name)
     {
         setBackgroundImage (name);
@@ -22,12 +23,17 @@ public class BackgroundImage extends JPanel
         try
         {
             image = ImageIO.read (new File (name));
+            fileName = name;
             repaint ();
         }
         catch (Exception e)
         {
             
         }
+    }
+    public String getFilename ()
+    {
+        return fileName;
     }
     public void paintComponent (Graphics graphics)
     {

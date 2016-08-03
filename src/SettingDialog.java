@@ -27,6 +27,9 @@ public class SettingDialog extends JDialog
     private JTextField musicEdit;
     private JButton chooseBtn;
     private JLabel musicLabel;
+    private JTextField backgroundEdit;
+    private JLabel backgroundLable;
+    private JButton backgroundBtn;
     private Reversi game;
     
     public SettingDialog (Reversi game)
@@ -82,6 +85,7 @@ public class SettingDialog extends JDialog
         
         nameEdit.setText (game.getMyName ());
         timeEdit.setText (String.valueOf (game.getTimeConstraintPerStep () / 1000));
+        backgroundEdit.setText (game.getBackgroundImage ().getFilename ());
         
         pack ();
         chooseBtn.addActionListener (new ActionListener ()
@@ -95,6 +99,19 @@ public class SettingDialog extends JDialog
                 fileChooser.setMultiSelectionEnabled (false);
                 fileChooser.showOpenDialog (null);
                 musicEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
+            }
+        });
+        backgroundBtn.addActionListener (new ActionListener ()
+        {
+            @Override
+            public void actionPerformed (ActionEvent e)
+            {
+                JFileChooser fileChooser = new JFileChooser ("./");
+                fileChooser.setAcceptAllFileFilterUsed (false);
+                fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Image files", "jpg", "jpeg", "png", "bmp"));
+                fileChooser.setMultiSelectionEnabled (false);
+                fileChooser.showOpenDialog (null);
+                backgroundEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
             }
         });
     }
@@ -123,6 +140,14 @@ public class SettingDialog extends JDialog
             game.setBackgroundMusicClip (AudioSystem.getClip ());
             game.getBackgroundMusicClip ().open (audioInputStream);
             game.getBackgroundMusicClip ().loop (Clip.LOOP_CONTINUOUSLY);
+        }
+        catch (Exception e)
+        {
+            
+        }
+        try
+        {
+            game.setBackgroundImage (backgroundEdit.getText ());
         }
         catch (Exception e)
         {
