@@ -85,6 +85,16 @@ public class SettingDialog extends JDialog
             }
         });
     }
+    public void lock ()
+    {
+        nameEdit.setEnabled (false);
+        timeEdit.setEnabled (false);
+    }
+    public void unlock ()
+    {
+        nameEdit.setEnabled (true);
+        timeEdit.setEnabled (true);
+    }
     
     private void onOK ()
     {

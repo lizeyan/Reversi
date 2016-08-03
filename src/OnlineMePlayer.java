@@ -22,7 +22,7 @@ public class OnlineMePlayer extends LocalMePlayer
     public Point makingPolicy (long timeConstraint)
     {
         Point ret = super.makingPolicy (timeConstraint);
-        if (game.getTerminateSignal ())
+        if (ret == null || game.getTerminateSignal ())
             return null;
         try
         {

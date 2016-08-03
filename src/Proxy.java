@@ -41,6 +41,7 @@ public class Proxy
             {
             }
         });
+        thread.setDaemon (true);
         thread.start ();
         thread.yield ();
     }
@@ -60,6 +61,7 @@ public class Proxy
     {
         try
         {
+            terminateWaitingSignal = true;
             reader.close ();
             writer.close ();
             socket.close ();

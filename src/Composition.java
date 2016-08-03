@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.UnknownFormatConversionException;
 
 /**
  * Created by Li Zeyan on 2016/7/21.
@@ -191,7 +192,6 @@ public class Composition {
         for (Point point : history)
         {
             set (point);
-            reverse ();
         }
         updateAvailble ();
     }
@@ -323,7 +323,10 @@ public class Composition {
     private void set (Point point)
     {
         lastStatus = reverseStatus (lastStatus);
-        board[point.x][point.y] = lastStatus;
-        reverse ();
+        if (legal (point.x, point.y))
+        {
+            board[point.x][point.y] = lastStatus;
+            reverse ();
+        }
     }
 }

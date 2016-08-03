@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
@@ -49,7 +50,16 @@ public class Reversi extends JFrame implements ActionListener
         noticeBoard = new NoticeBoard (this);
         noticeBoard.setOpaque (false);
         noticeBoard.appendMessage ("Welcome to Reversi\n");
+        settingDialog = new SettingDialog (this);
         backgroundImage = new BackgroundImage ("./resources/images/shanshui2.jpg");
+        try
+        {
+            setIconImage (ImageIO.read (new File ("./resources/images/panda.png")));
+        }
+        catch (Exception e)
+        {
+            
+        }
         setContentPane (backgroundImage);
         add (chessBoard, BorderLayout.CENTER);
         add (noticeBoard, BorderLayout.EAST);
@@ -213,10 +223,13 @@ public class Reversi extends JFrame implements ActionListener
     private void initMenu ()
     {
         menuBar = new JMenuBar ();
+        Font font = new Font ("Microsoft yahei",  Font.BOLD, 18);
         
         localMenu = new JMenu ("Local");
+        localMenu.setFont (font);
         startLocalGameItem = new JMenuItem ("Start");
         startLocalGameItem.addActionListener (this);
+        startLocalGameItem.setFont (font);
         loadLocalGameItem = new JMenuItem ("Load");
         loadLocalGameItem.addActionListener (this);
         localMenu.add (startLocalGameItem);
@@ -240,8 +253,6 @@ public class Reversi extends JFrame implements ActionListener
         operateMenu = new JMenu ("Operate");
         undoItem = new JMenuItem ("Undo");
         undoItem.addActionListener (this);
-        saveGameItem = new JMenuItem ("Save");
-        saveGameItem.addActionListener (this);
         giveInItem = new JMenuItem ("Give In");
         giveInItem.addActionListener (this);
         peaceItem = new JMenuItem ("Sue For Peace");
@@ -249,7 +260,6 @@ public class Reversi extends JFrame implements ActionListener
         operateMenu.add (undoItem);
         operateMenu.add (giveInItem);
         operateMenu.add (peaceItem);
-        operateMenu.add (saveGameItem);
         menuBar.add (operateMenu);
         
         generalMenu = new JMenu ("General");
@@ -259,7 +269,12 @@ public class Reversi extends JFrame implements ActionListener
         helpItem.addActionListener (this);
         aboutItem = new JMenuItem ("About");
         aboutItem.addActionListener (this);
+        saveGameItem = new JMenuItem ("Save");
+        saveGameItem.addActionListener (this);
         generalMenu.add (settingItem);
+        generalMenu.addSeparator ();
+        generalMenu.add (saveGameItem);
+        generalMenu.addSeparator ();
         generalMenu.add (helpItem);
         generalMenu.add (aboutItem);
         menuBar.add (generalMenu);
@@ -352,6 +367,7 @@ public class Reversi extends JFrame implements ActionListener
         disconnectItem.setEnabled (true);
         localMenu.setEnabled (false);
         startOnlineGameItem.setEnabled (true);
+        settingDialog.lock ();
     }
     
     public void disconnect (boolean inform)
@@ -363,19 +379,20 @@ public class Reversi extends JFrame implements ActionListener
             {
                 terminateWinner = Composition.reverseStatus (meStatus);
                 proxy.send ("CLOSE", null);
-                proxy.close ();
             } catch (Exception e)
             {
             }
         }
         else
             terminateWinner = meStatus;
+        proxy.close ();
         noticeBoard.appendMessage ("Disconnected.\n");
         proxy = null;
         connectItem.setEnabled (true);
         disconnectItem.setEnabled (false);
         localMenu.setEnabled (true);
         startOnlineGameItem.setEnabled (false);
+        settingDialog.unlock ();
     }
     
     private void startLocalGame ()
@@ -646,6 +663,7 @@ public class Reversi extends JFrame implements ActionListener
         loadLocalGameItem.setEnabled (false);
         startOnlineGameItem.setEnabled (false);
         loadLocalGameItem.setEnabled (false);
+        saveGameItem.setEnabled (true);
         long tc = timeConstraintPerStep;
         if (proxy != null && proxy.isServer () == false)
             tc = remoteTimeConstraint;
@@ -654,7 +672,13 @@ public class Reversi extends JFrame implements ActionListener
             if (meStatus == Composition.STATUS.EMPTY)
                 noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
             else
+            {
                 noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
+                if (index == 0)
+                    operateMenu.setEnabled (true);
+                else
+                    operateMenu.setEnabled (false);
+            }
             noticeBoard.timerOn ();
             noticeBoard.setTime (tc / 1000);
             Point policy = players[index].makingPolicy (tc);
@@ -709,6 +733,9 @@ public class Reversi extends JFrame implements ActionListener
         onlineMenu.setEnabled (true);
         loadLocalGameItem.setEnabled (true);
         startLocalGameItem.setEnabled (true);
+        saveGameItem.setEnabled (false);
+        if (proxy != null)
+            startOnlineGameItem.setEnabled (true);
         
         noticeBoard.setStatus (Composition.STATUS.EMPTY);
         noticeBoard.setPieces (0, 0);
