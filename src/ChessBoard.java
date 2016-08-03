@@ -57,15 +57,15 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
     public void active ()
     {
         on = true;
-        this.addMouseListener (this);
-        this.addMouseMotionListener (this);
+        addMouseListener (this);
+        addMouseMotionListener (this);
         repaint ();
     }
     public void shutdown ()
     {
         on = false;
-        this.removeMouseListener (this);
-        this.removeMouseMotionListener (this);
+        removeMouseListener (this);
+        removeMouseMotionListener (this);
         repaint ();
     }
     public void mouseDragged (MouseEvent event)

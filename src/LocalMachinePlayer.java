@@ -16,6 +16,14 @@ public class LocalMachinePlayer extends Player
     @Override
     public Point makingPolicy (long timeConstraint)
     {
+        try
+        {
+//            Thread.sleep (timeConstraint << 2);
+        }
+        catch (Exception e)
+        {
+            
+        }
         if (!composition.queryAvailble ())
             return new Point (-1, -1);
         for (int i = 0; i < composition.getWidth (); ++i)

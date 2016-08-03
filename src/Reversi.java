@@ -20,7 +20,7 @@ public class Reversi extends JFrame implements ActionListener
     private NoticeBoard noticeBoard;
     private JMenuBar menuBar;
     private JMenu localMenu, onlineMenu, operateMenu, generalMenu;
-    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, settingItem, helpItem, aboutItem, connectItem, disconnectItem;
+    private JMenuItem startLocalGameItem, saveGameItem, loadLocalGameItem, startOnlineGameItem, undoItem, giveInItem, peaceItem, detachItem, settingItem, helpItem, aboutItem, connectItem, disconnectItem;
     private Composition composition = null;
     private Player[] players;
     private long timeConstraintPerStep = 20000;
@@ -36,6 +36,7 @@ public class Reversi extends JFrame implements ActionListener
     private BackgroundImage backgroundImage = null;
     private boolean gameRunning = false;
     private Class aiClass;
+    private volatile Point policy = null;
     
     private Clip backgroundMusicClip = null;
     
@@ -223,6 +224,18 @@ public class Reversi extends JFrame implements ActionListener
         return terminateSignal;
     }
     
+    public LocalMachinePlayer getAiInstance ()
+    {
+        try
+        {
+            return (LocalMachinePlayer) aiClass.getConstructor (Composition.class).newInstance (composition);
+        }
+        catch (Exception e)
+        {
+            return null;
+        }
+    }
+    
     public void actionPerformed (ActionEvent event)
     {
         Object source = event.getSource ();
@@ -250,6 +263,8 @@ public class Reversi extends JFrame implements ActionListener
             help ();
         else if (source == aboutItem)
             about ();
+        else if (source == detachItem)
+            detach (((JCheckBoxMenuItem)detachItem).getState ());
     }
     
     private void initMenu ()
@@ -309,9 +324,14 @@ public class Reversi extends JFrame implements ActionListener
         peaceItem.setFont (font);
         peaceItem.addActionListener (this);
         giveInItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_E, KeyEvent.CTRL_MASK));
+        detachItem = new JCheckBoxMenuItem ("Deatch");
+        detachItem.addActionListener (this);
+        detachItem.setFont (font);
+        detachItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_D, KeyEvent.CTRL_MASK));
         operateMenu.add (undoItem);
         operateMenu.add (giveInItem);
         operateMenu.add (peaceItem);
+        operateMenu.add (detachItem);
         menuBar.add (operateMenu);
         
         generalMenu = new JMenu ("General");
@@ -351,10 +371,11 @@ public class Reversi extends JFrame implements ActionListener
             String portStr = JOptionPane.showInputDialog (this, "Input Port that will be listened to", "PORT", JOptionPane.INFORMATION_MESSAGE);
             if (portStr == null)
                 return;
+            ServerSocket serverSocket = null;
             try
             {
                 int port = Integer.parseInt (portStr);
-                ServerSocket serverSocket = new ServerSocket (port);
+                serverSocket = new ServerSocket (port);
                 serverSocket.setSoTimeout (10000);
                 Socket client = serverSocket.accept ();
                 noticeBoard.appendMessage ("Connected.\n");
@@ -378,6 +399,17 @@ public class Reversi extends JFrame implements ActionListener
                 meStatus = Composition.STATUS.BLACK;
             } catch (Exception e)
             {
+                if (serverSocket != null)
+                {
+                    try
+                    {
+                        serverSocket.close ();
+                    }
+                    catch (Exception se)
+                    {
+                        
+                    }
+                }
                 terminate ("Connection Failed: " + e.getMessage ());
                 return;
             }
@@ -447,7 +479,8 @@ public class Reversi extends JFrame implements ActionListener
         }
         else
             terminateWinner = meStatus;
-        proxy.close ();
+        if (proxy != null)
+            proxy.close ();
         noticeBoard.appendMessage ("Disconnected.\n");
         noticeBoard.setTime (timeConstraintPerStep / 1000);
         noticeBoard.setName ("false");
@@ -477,7 +510,7 @@ public class Reversi extends JFrame implements ActionListener
                 meStatus = Composition.STATUS.BLACK;
             try
             {
-                players[1] = (Player)aiClass.getConstructor (Composition.class).newInstance (composition);
+                players[1] = getAiInstance ();
             }
             catch (Exception e)
             {
@@ -543,7 +576,7 @@ public class Reversi extends JFrame implements ActionListener
             {
                 try
                 {
-                    players[1] = (Player) aiClass.getConstructor (Composition.class).newInstance (composition);
+                    players[1] = getAiInstance ();
                 } catch (Exception e)
                 {
                     terminate (e.getMessage ());
@@ -729,6 +762,11 @@ public class Reversi extends JFrame implements ActionListener
         }
     }
     
+    private void detach (boolean on)
+    {
+        ((LocalMePlayer)players[0]).detach (on);
+    }
+    
     private void setting ()
     {
         if (settingDialog == null)
@@ -764,6 +802,10 @@ public class Reversi extends JFrame implements ActionListener
             tc = remoteTimeConstraint;
         while (true)
         {
+            if (!composition.queryAvailble ())
+            {
+                noticeBoard.appendMessage ("WARNING: no available position now");
+            }
             if (meStatus == Composition.STATUS.EMPTY)
                 noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
             else
@@ -776,7 +818,19 @@ public class Reversi extends JFrame implements ActionListener
             }
             noticeBoard.timerOn ();
             noticeBoard.setTime (tc / 1000);
-            Point policy = players[index].makingPolicy (tc);
+            policy = null;
+            int indexTmp = index;
+            long tcTmp = tc;
+            Thread thread = new Thread ( () -> {policy = players[indexTmp].makingPolicy (tcTmp);});
+            thread.start ();
+            try
+            {
+                thread.join (tc);
+            }
+            catch (Exception e)
+            {
+                terminate (e.getMessage ());
+            }
             noticeBoard.timerOff ();
             if (terminateSignal)
             {
@@ -845,6 +899,7 @@ public class Reversi extends JFrame implements ActionListener
         saveGameItem.setEnabled (false);
         if (proxy != null)
             startOnlineGameItem.setEnabled (true);
+        ((JCheckBoxMenuItem)detachItem).setState (false);
         
         noticeBoard.setStatus (Composition.STATUS.EMPTY);
         noticeBoard.setPieces (0, 0);
@@ -906,6 +961,7 @@ public class Reversi extends JFrame implements ActionListener
     public void terminate (String msg)
     {
         noticeBoard.appendMessage (msg + '\n');
+        disconnect (true);
         JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         initialize ();
     }

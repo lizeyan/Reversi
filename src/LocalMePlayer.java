@@ -1,5 +1,8 @@
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.VolatileImage;
 
 /**
  * Created by Li Zeyan on 2016/7/23.
@@ -8,6 +11,8 @@ public class LocalMePlayer extends Player
 {
     private ChessBoard chessBoard;
     private int undoCnt = 0;
+    private boolean detached = false;
+    volatile Point aiPolicy = null;
     public  LocalMePlayer (ChessBoard chessBoard, Reversi game)
     {
         super(game);
@@ -16,16 +21,29 @@ public class LocalMePlayer extends Player
     @Override
     public Point makingPolicy (long timeConstraint)
     {
+        aiPolicy = null;
+        Thread aiThread = new Thread (() -> {aiPolicy = game.getAiInstance ().makingPolicy (timeConstraint);});
+        aiThread.start ();
         if (!chessBoard.getComposition ().queryAvailble ())
         {
-            JOptionPane.showMessageDialog (null, "There is no available position now", "INFO", JOptionPane.INFORMATION_MESSAGE);
             return new Point (-1, -1);
         }
         chessBoard.active ();
         long sleepTimeChip = timeConstraint / 100;
-        long startTime = System.currentTimeMillis ();
-        while (System.currentTimeMillis () - startTime <= timeConstraint && chessBoard.getFinalPolicy () == null)
+        long limit = System.currentTimeMillis () + timeConstraint;
+        Point ret = null;
+        while (System.currentTimeMillis () <= limit)
         {
+            if (detached && aiPolicy != null)
+            {
+                ret = new Point (aiPolicy.x, aiPolicy.y);
+                break;
+            }
+            if (!detached && chessBoard.getFinalPolicy () != null)
+            {
+                ret = new Point (chessBoard.getFinalPolicy ().x, chessBoard.getFinalPolicy ().y);
+                break;
+            }
             if (game.getTerminateSignal ())
                 break;
             try
@@ -37,12 +55,14 @@ public class LocalMePlayer extends Player
                 continue;
             }
         }
-        Point ret = null;
-        if (chessBoard.getFinalPolicy () != null)
-            ret = new Point (chessBoard.getFinalPolicy ().x, chessBoard.getFinalPolicy ().y);
+        aiThread.interrupt ();
         chessBoard.setFinalPolicy (null);
         chessBoard.shutdown ();
         return ret;
+    }
+    public void detach (boolean on)
+    {
+        detached = on;
     }
     
     @Override
