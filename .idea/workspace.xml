@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LocalMachinePlayer.java" afterPath="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LocalMePlayer.java" afterPath="$PROJECT_DIR$/src/LocalMePlayer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Composition.java" afterPath="$PROJECT_DIR$/src/Composition.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
     </list>
     <ignored path="Reversi.iws" />
@@ -29,12 +28,11 @@
       <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reversi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="616" column="17" selection-start-line="616" selection-start-column="17" selection-end-line="616" selection-end-column="17" />
+            <state relative-caret-position="268">
+              <caret line="749" column="32" selection-start-line="749" selection-start-column="32" selection-end-line="749" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-                <element signature="method#main#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
@@ -50,7 +48,7 @@
                 <element signature="method#peace#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setting#0;class#Reversi#0" expanded="false" />
                 <element signature="method#help#0;class#Reversi#0" expanded="false" />
-                <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
+                <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
                 <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
                 <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
                 <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
@@ -63,12 +61,33 @@
                 <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
                 <element signature="method#backward#0;class#Reversi#0" expanded="false" />
                 <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+                <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingDialog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Composition.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Composition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="504">
+              <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+              <folding>
+                <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+                <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+                <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+                <element signature="method#backward#0;class#Composition#0" expanded="false" />
+                <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+                <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+                <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+                <element signature="method#judge#0;class#Composition#0" expanded="false" />
+                <element signature="method#set#1;class#Composition#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="2052">
@@ -112,12 +131,9 @@
       <file leaf-file-name="OnlineEnemyPlayer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
+            <state relative-caret-position="470">
               <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-              <folding>
-                <element signature="e#286#287#0" expanded="false" />
-                <element signature="e#320#321#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -195,14 +211,14 @@
         <option value="$PROJECT_DIR$/src/SettingDialog.form" />
         <option value="$PROJECT_DIR$/src/BackgroundImage.java" />
         <option value="$PROJECT_DIR$/src/OnlineMePlayer.java" />
-        <option value="$PROJECT_DIR$/src/Composition.java" />
         <option value="$PROJECT_DIR$/src/SettingDialog.java" />
         <option value="$PROJECT_DIR$/src/NoticeBoard.java" />
         <option value="$PROJECT_DIR$/src/Proxy.java" />
         <option value="$PROJECT_DIR$/src/ChessBoard.java" />
-        <option value="$PROJECT_DIR$/src/Reversi.java" />
         <option value="$PROJECT_DIR$/src/LocalMePlayer.java" />
         <option value="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
+        <option value="$PROJECT_DIR$/src/Reversi.java" />
+        <option value="$PROJECT_DIR$/src/Composition.java" />
       </list>
     </option>
   </component>
@@ -613,7 +629,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-            <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
@@ -629,7 +644,7 @@
             <element signature="method#peace#0;class#Reversi#0" expanded="false" />
             <element signature="method#setting#0;class#Reversi#0" expanded="false" />
             <element signature="method#help#0;class#Reversi#0" expanded="false" />
-            <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
             <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
             <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
             <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
@@ -642,6 +657,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+            <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -705,7 +721,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-            <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
@@ -721,7 +736,7 @@
             <element signature="method#peace#0;class#Reversi#0" expanded="false" />
             <element signature="method#setting#0;class#Reversi#0" expanded="false" />
             <element signature="method#help#0;class#Reversi#0" expanded="false" />
-            <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
             <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
             <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
             <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
@@ -734,6 +749,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+            <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -797,7 +813,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-            <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
@@ -813,7 +828,7 @@
             <element signature="method#peace#0;class#Reversi#0" expanded="false" />
             <element signature="method#setting#0;class#Reversi#0" expanded="false" />
             <element signature="method#help#0;class#Reversi#0" expanded="false" />
-            <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
             <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
             <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
             <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
@@ -826,6 +841,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+            <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -889,7 +905,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-            <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
             <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
@@ -905,7 +920,7 @@
             <element signature="method#peace#0;class#Reversi#0" expanded="false" />
             <element signature="method#setting#0;class#Reversi#0" expanded="false" />
             <element signature="method#help#0;class#Reversi#0" expanded="false" />
-            <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
             <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
             <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
             <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
@@ -918,6 +933,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+            <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1087,17 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
-          <folding>
-            <element signature="e#286#287#0" expanded="false" />
-            <element signature="e#320#321#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1118,41 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Composition.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
-            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
-            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
-            <element signature="method#backward#0;class#Composition#0" expanded="false" />
-            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
-            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
-            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
-            <element signature="method#judge#0;class#Composition#0" expanded="false" />
-            <element signature="method#set#1;class#Composition#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Proxy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="133" column="48" selection-start-line="133" selection-start-column="48" selection-end-line="133" selection-end-column="48" />
-          <folding>
-            <element signature="method#Proxy#0;class#Proxy#0" expanded="false" />
-            <element signature="method#close#0;class#Proxy#0" expanded="false" />
-            <element signature="method#send#0;class#Proxy#0" expanded="false" />
-            <element signature="method#waitForPolicy#0;class#Proxy#0" expanded="false" />
-            <element signature="method#waitForSueRsp#0;class#Proxy#0" expanded="false" />
-            <element signature="method#waitForStartRsp#0;class#Proxy#0" expanded="false" />
-            <element signature="method#waitForGiveInRsp#0;class#Proxy#0" expanded="false" />
-            <element signature="method#waitForUndoRsp#0;class#Proxy#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1168,46 +1138,6 @@
         <state relative-caret-position="-610">
           <caret line="24" column="26" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="26" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reversi.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="616" column="17" selection-start-line="616" selection-start-column="17" selection-end-line="616" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
-            <element signature="method#main#0;class#Reversi#0" expanded="false" />
-            <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
-            <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
-            <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
-            <element signature="method#connect#0;class#Reversi#0" expanded="false" />
-            <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
-            <element signature="method#startOnlineGame#0;class#Reversi#0" expanded="false" />
-            <element signature="method#undo#0;class#Reversi#0" expanded="false" />
-            <element signature="method#giveIn#0;class#Reversi#0" expanded="false" />
-            <element signature="method#peace#0;class#Reversi#0" expanded="false" />
-            <element signature="method#setting#0;class#Reversi#0" expanded="false" />
-            <element signature="method#help#0;class#Reversi#0" expanded="false" />
-            <element signature="method#gameOn#0;class#Reversi#0" expanded="false" />
-            <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
-            <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
-            <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
-            <element signature="method#askForGivein#0;class#Reversi#0" expanded="false" />
-            <element signature="method#askForSue#0;class#Reversi#0" expanded="false" />
-            <element signature="method#askForUndo#0;class#Reversi#0" expanded="false" />
-            <element signature="method#askForLocalEnemy#0;class#Reversi#0" expanded="false" />
-            <element signature="method#askForStart#0;class#Reversi#0" expanded="false" />
-            <element signature="method#initOptions#0;class#Reversi#0" expanded="false" />
-            <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
-            <element signature="method#backward#0;class#Reversi#0" expanded="false" />
-            <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1234,6 +1164,89 @@
         <state relative-caret-position="2052">
           <caret line="108" column="34" selection-start-line="108" selection-start-column="34" selection-end-line="108" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Proxy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="133" column="48" selection-start-line="133" selection-start-column="48" selection-end-line="133" selection-end-column="48" />
+          <folding>
+            <element signature="method#Proxy#0;class#Proxy#0" expanded="false" />
+            <element signature="method#close#0;class#Proxy#0" expanded="false" />
+            <element signature="method#send#0;class#Proxy#0" expanded="false" />
+            <element signature="method#waitForPolicy#0;class#Proxy#0" expanded="false" />
+            <element signature="method#waitForSueRsp#0;class#Proxy#0" expanded="false" />
+            <element signature="method#waitForStartRsp#0;class#Proxy#0" expanded="false" />
+            <element signature="method#waitForGiveInRsp#0;class#Proxy#0" expanded="false" />
+            <element signature="method#waitForUndoRsp#0;class#Proxy#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/OnlineEnemyPlayer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reversi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="749" column="32" selection-start-line="749" selection-start-column="32" selection-end-line="749" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#Reversi#0;class#Reversi#0" expanded="false" />
+            <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
+            <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
+            <element signature="method#setEnemyName#0;class#Reversi#0" expanded="false" />
+            <element signature="method#connect#0;class#Reversi#0" expanded="false" />
+            <element signature="method#disconnect#0;class#Reversi#0" expanded="false" />
+            <element signature="method#startLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="method#loadLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="method#saveLocalGame#0;class#Reversi#0" expanded="false" />
+            <element signature="method#showRCFileDialog#0;class#Reversi#0" expanded="false" />
+            <element signature="method#startOnlineGame#0;class#Reversi#0" expanded="false" />
+            <element signature="method#undo#0;class#Reversi#0" expanded="false" />
+            <element signature="method#giveIn#0;class#Reversi#0" expanded="false" />
+            <element signature="method#peace#0;class#Reversi#0" expanded="false" />
+            <element signature="method#setting#0;class#Reversi#0" expanded="false" />
+            <element signature="method#help#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initialize#0;class#Reversi#0" expanded="false" />
+            <element signature="method#showWinner#0;class#Reversi#0" expanded="false" />
+            <element signature="method#playMusic#0;class#Reversi#0" expanded="false" />
+            <element signature="method#terminate#0;class#Reversi#0" expanded="false" />
+            <element signature="method#askForGivein#0;class#Reversi#0" expanded="false" />
+            <element signature="method#askForSue#0;class#Reversi#0" expanded="false" />
+            <element signature="method#askForUndo#0;class#Reversi#0" expanded="false" />
+            <element signature="method#askForLocalEnemy#0;class#Reversi#0" expanded="false" />
+            <element signature="method#askForStart#0;class#Reversi#0" expanded="false" />
+            <element signature="method#initOptions#0;class#Reversi#0" expanded="false" />
+            <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
+            <element signature="method#backward#0;class#Reversi#0" expanded="false" />
+            <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+            <marker date="1470211358256" expanded="false" signature="4159:4453" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Composition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+          <folding>
+            <element signature="method#reverseStatus#0;class#Composition#0" expanded="false" />
+            <element signature="method#initializeBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#setBoard#0;class#Composition#0" expanded="false" />
+            <element signature="method#backward#0;class#Composition#0" expanded="false" />
+            <element signature="method#cleanBoard#1;class#Composition#0" expanded="false" />
+            <element signature="method#updateAvailble#0;class#Composition#0" expanded="false" />
+            <element signature="method#reverse#0;class#Composition#0" expanded="false" />
+            <element signature="method#judge#0;class#Composition#0" expanded="false" />
+            <element signature="method#set#1;class#Composition#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

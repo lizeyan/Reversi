@@ -743,13 +743,26 @@ public class Reversi extends JFrame implements ActionListener
             }
             if (policy == null || !composition.set (securityKey, policy.x, policy.y))
             {
-                composition.dropOver (securityKey);
-                try
+                if (composition.queryAvailble ())
                 {
-                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ": drop\n");
-                } catch (Exception e)
+                    try
+                    {
+                        policy = composition.setRandom (securityKey);
+                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + '\n');
+                    }
+                    catch (Exception e)
+                    {
+                    }
+                } else
                 {
-                    terminate (e.getMessage ());
+                    composition.dropOver (securityKey);
+                    try
+                    {
+                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ": drop\n");
+                    } catch (Exception e)
+                    {
+                        terminate (e.getMessage ());
+                    }
                 }
             } else
             {

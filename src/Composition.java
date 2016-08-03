@@ -60,6 +60,17 @@ public class Composition {
                 throw new RuntimeException ("invalid Composition.STATUS value");
         }
     }
+    public Point setRandom (Reversi.SecurityKey securityKey)
+    {
+        for (int i = 0; i < getWidth (); ++i)
+            for (int j = 0; j < getHeight (); ++j)
+                if (available[i][j])
+                {
+                    set (securityKey, i, j);
+                    return new Point (i, j);
+                }
+        return null;
+    }
     public static STATUS str2status (String str)
     {
         if (str != null)
