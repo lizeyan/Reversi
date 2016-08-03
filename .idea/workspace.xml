@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/LocalMachinePlayer.java" afterPath="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Proxy.java" afterPath="$PROJECT_DIR$/src/Proxy.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SettingDialog.form" afterPath="$PROJECT_DIR$/src/SettingDialog.form" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SettingDialog.java" afterPath="$PROJECT_DIR$/src/SettingDialog.java" />
     </list>
     <ignored path="Reversi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +27,8 @@
       <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reversi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="582" column="100" selection-start-line="582" selection-start-column="100" selection-end-line="582" selection-end-column="100" />
+            <state relative-caret-position="257">
+              <caret line="579" column="51" selection-start-line="579" selection-start-column="51" selection-end-line="579" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
@@ -66,7 +62,7 @@
                 <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
                 <element signature="method#backward#0;class#Reversi#0" expanded="false" />
                 <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-                <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+                <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -669,7 +665,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-            <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+            <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -763,7 +759,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-            <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+            <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -857,7 +853,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-            <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+            <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -951,7 +947,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-            <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+            <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1194,6 +1190,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="178" column="87" selection-start-line="178" selection-start-column="87" selection-end-line="178" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/SettingDialog.form">
       <provider selected="true" editor-type-id="ui-designer">
         <state />
@@ -1222,18 +1226,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="178" column="87" selection-start-line="178" selection-start-column="87" selection-end-line="178" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reversi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="582" column="100" selection-start-line="582" selection-start-column="100" selection-end-line="582" selection-end-column="100" />
+        <state relative-caret-position="257">
+          <caret line="579" column="51" selection-start-line="579" selection-start-column="51" selection-end-line="579" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
@@ -1267,7 +1263,7 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
-            <marker date="1470221516206" expanded="false" signature="4322:4616" ph="{...}" />
+            <marker date="1470221707958" expanded="false" signature="4322:4616" ph="{...}" />
           </folding>
         </state>
       </provider>

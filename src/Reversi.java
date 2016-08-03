@@ -577,6 +577,7 @@ public class Reversi extends JFrame implements ActionListener
         {
             LocalMachinePlayer player = (LocalMachinePlayer)tmp.getConstructor (Composition.class).newInstance (composition);
             aiClass = tmp;
+            noticeBoard.appendMessage ("New Ai Class:" + tmp.getName () + '\n');
         }
         catch (Exception e)
         {
