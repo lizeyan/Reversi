@@ -114,33 +114,31 @@ public class NoticeBoard extends JPanel implements ActionListener
     }
     public void pack ()
     {
-//        setPreferredSize (new Dimension (game.getWidth () >> 2, game.getHeight ()));
         messageBoard.setRows (getHeight () / 60);
         messageBoard.setColumns (getWidth () / 18);
         messageBoard.invalidate ();
-        messageEdit.setColumns (getWidth () / 25);
+        messageEdit.setColumns ((getWidth () - sendButton.getWidth ()) / 18);
         messageEdit.invalidate ();
-//        messageBoard.setSize (game.getWidth () >> 2, game.getHeight () >> 1);
     }
     private void setup ()
     {
         messageBuffer = new StringBuffer (1 << 16);
         messageBoard = new JTextArea (0, 0);
-        messageBoard.setFont (new Font ("MonacoMicrosoft yahei", Font.PLAIN, 18));
+        messageBoard.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
         messageBoard.setEditable (false);
         messageBoard.setLineWrap (true);
         myIcon = new JLabel ();
         myPieces = new JLabel ();
-        myPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
+        myPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         myName = new JLabel ();
-        myName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
+        myName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         enemyIcon = new JLabel ();
         enemyPieces = new JLabel ();
-        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
+        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         enemyName = new JLabel ();
-        enemyName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
+        enemyName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         timeLabel = new JLabel ();
-        timeLabel.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
+        timeLabel.setFont (new Font ("Mircrosoft Yahei", Font.BOLD, 64));
         messageEdit = new JTextArea (0, 0);
         messageEdit.setLineWrap (true);
         messageEdit.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
@@ -151,10 +149,8 @@ public class NoticeBoard extends JPanel implements ActionListener
         GridBagLayout layout = new GridBagLayout ();
         GridBagConstraints constraints = new GridBagConstraints ();
         setLayout (layout);
-        constraints.weightx = 1.0;
-        constraints.weighty = 1.0;
         constraints.ipady = 20;
-//        constraints.ipady = 10;
+        constraints.ipadx = 10;
         constraints.gridy = 0;
         constraints.gridx = 0;
         constraints.gridwidth = 2;
@@ -178,7 +174,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         add (enemyName, constraints);
         constraints.gridy = 5;
         constraints.gridx = 0;
-        constraints.gridwidth = 12;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
         add (timeLabel, constraints);
         constraints.gridy = 7;
         constraints.gridx = 0;
@@ -187,13 +183,19 @@ public class NoticeBoard extends JPanel implements ActionListener
         add (new JScrollPane (messageBoard), constraints);
     
         constraints.gridy = 13;
-        constraints.gridx = 1;
-        constraints.gridwidth = 6;
+        constraints.gridx = 0;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridheight = 2;
-        add (new JScrollPane (messageEdit), constraints);
-        constraints.gridwidth = 2;
-        constraints.gridx = 6;
-        add (sendButton, constraints);
+        JPanel panel = new JPanel (new FlowLayout ());
+        panel.add (new JScrollPane (messageEdit));
+        panel.add (sendButton);
+        panel.setOpaque (false);
+//        add (new JScrollPane (messageEdit), constraints);
+        add (panel, constraints);
+//        constraints.gridy = 15;
+//        constraints.gridwidth = GridBagConstraints.REMAINDER;
+//        constraints.gridx = GridBagConstraints.RELATIVE;
+//        add (sendButton, constraints);
         
     }
     private boolean isRunning ()

@@ -41,7 +41,7 @@ public class Reversi extends JFrame implements ActionListener
     private Clip backgroundMusicClip = null;
     
     private long remoteTimeConstraint;
-    private String myName = "ZYLI14";
+    private String myName = "LI ZEYAN";
     private String enemyName = "BetaCat";
     
     public Reversi (String name)
