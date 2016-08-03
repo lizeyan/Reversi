@@ -208,6 +208,7 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
         rx = lx + blockSize * composition.getWidth();
         by = ty + blockSize * composition.getHeight();
         setPreferredSize(new Dimension(margin + rx, margin + by));
+        setSize (margin + rx, margin + by);
     }
     private Point toCompositionPosition (Point realPosition)
     {

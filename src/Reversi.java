@@ -62,6 +62,17 @@ public class Reversi extends JFrame implements ActionListener
         setContentPane (backgroundImage);
         add (chessBoard, BorderLayout.CENTER);
         add (noticeBoard, BorderLayout.EAST);
+//        GridBagLayout layout = new GridBagLayout ();
+//        GridBagConstraints constraints = new GridBagConstraints ();
+//        setLayout (layout);
+//        constraints.weightx = 1.0;
+//        constraints.weighty = 1.0;
+//        constraints.gridwidth = 3;
+//        layout.setConstraints (chessBoard, constraints);
+//        add (chessBoard);
+//        constraints.gridwidth = 1;
+//        layout.setConstraints (noticeBoard, constraints);
+//        add (noticeBoard);
         setMinimumSize (new Dimension (1280, 960));
         initMenu ();
         initialize ();
@@ -70,12 +81,11 @@ public class Reversi extends JFrame implements ActionListener
             @Override
             public void componentResized (ComponentEvent e)
             {
+                int w = getContentPane ().getWidth (), h = getContentPane ().getHeight ();
                 chessBoard.pack ();
-                chessBoard.setBounds (0, 0, (int) chessBoard.getPreferredSize ().getWidth (), (int) chessBoard.getPreferredSize ().getHeight ());
-                noticeBoard.setBounds ((int) chessBoard.getPreferredSize ().getWidth (), 0, getWidth () - (int) chessBoard.getPreferredSize ().getWidth (), getHeight ());
+                chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
+                noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
                 noticeBoard.pack ();
-                invalidate ();
-                repaint ();
             }
     
             @Override
@@ -241,7 +251,7 @@ public class Reversi extends JFrame implements ActionListener
         startOnlineGameItem = new JMenuItem ("Start");
         startOnlineGameItem.addActionListener (this);
         startOnlineGameItem.setEnabled (false);
-        startLocalGameItem.setFont (font);
+        startOnlineGameItem.setFont (font);
         connectItem = new JMenuItem ("Connect");
         connectItem.setFont (font);
         disconnectItem = new JMenuItem ("Disconnect");
@@ -400,6 +410,8 @@ public class Reversi extends JFrame implements ActionListener
             terminateWinner = meStatus;
         proxy.close ();
         noticeBoard.appendMessage ("Disconnected.\n");
+        noticeBoard.setTime (timeConstraintPerStep / 1000);
+        noticeBoard.setName ("false");
         proxy = null;
         connectItem.setEnabled (true);
         disconnectItem.setEnabled (false);

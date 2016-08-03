@@ -1,3 +1,5 @@
+import sun.awt.image.GifImageDecoder;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -134,11 +136,10 @@ public class NoticeBoard extends JPanel implements ActionListener
         myName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
         enemyIcon = new JLabel ();
         enemyPieces = new JLabel ();
-        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 30));
+        enemyPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
         enemyName = new JLabel ();
         enemyName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 36));
         timeLabel = new JLabel ();
-        timeLabel.setAlignmentX (LEFT_ALIGNMENT);
         timeLabel.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         messageEdit = new JTextArea (0, 0);
         messageEdit.setLineWrap (true);
@@ -162,7 +163,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         constraints.gridx = 2;
         constraints.gridwidth = 1;
         add (myPieces, constraints);
-        constraints.gridwidth = 6;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridx = 3;
         add (myName, constraints);
         constraints.gridy = 3;
@@ -172,7 +173,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         constraints.gridx = 2;
         constraints.gridwidth = 1;
         add (enemyPieces, constraints);
-        constraints.gridwidth = 6;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridx = 3;
         add (enemyName, constraints);
         constraints.gridy = 5;
@@ -181,7 +182,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         add (timeLabel, constraints);
         constraints.gridy = 7;
         constraints.gridx = 0;
-        constraints.gridwidth = 12;
+        constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridheight = 6;
         add (new JScrollPane (messageBoard), constraints);
     
