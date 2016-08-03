@@ -127,7 +127,9 @@ public class Proxy
             }
             catch (Exception e)
             {
-                continue;
+                localPlayer.receiveQuit ();
+                terminateWaitingSignal = true;
+                return;
             }
             Scanner scanner = new Scanner (line);
             type = scanner.nextInt ();
@@ -139,8 +141,10 @@ public class Proxy
             {
                 if (!scanner.hasNextInt ())
                 {
-                    send ("GIVEIN", localPlayer.receiveGiveIn ()? "1":"0");
-                    terminateWaitingSignal = true;
+                    boolean ret = localPlayer.receiveGiveIn ();
+                    send ("GIVEIN", ret? "1":"0");
+                    if (ret)
+                        terminateWaitingSignal = true;
                 }
                 else
                     giveInRspBuffer = scanner.nextInt ();
@@ -149,8 +153,10 @@ public class Proxy
             {
                 if (!scanner.hasNextInt ())
                 {
-                    send ("SUE", localPlayer.receiveSueForPeace ()? "1":"0");
-                    terminateWaitingSignal = true;
+                    boolean ret = localPlayer.receiveSueForPeace ();
+                    send ("SUE", ret? "1":"0");
+                    if (ret)
+                        terminateWaitingSignal = true;
                 }
                 else
                     sueRspBuffer = scanner.nextInt ();

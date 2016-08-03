@@ -123,14 +123,14 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
             g2.drawLine(lx, tmp, rx, margin + i * blockSize);
             g2.drawLine(tmp, ty, tmp, by);
         }
-        g2.setFont (new Font ("Freestyle script", Font.BOLD, 30));
+        g2.setFont (new Font ("AR DECODE", Font.BOLD, 48));
         for (int i = 0; i < composition.getWidth (); ++i)
         {
-            g2.drawString (String.valueOf ((char)('A' + i)), margin + i * blockSize + (blockSize >> 1) - 15, margin);
+            g2.drawString (String.valueOf ((char)('A' + i)), margin + i * blockSize + (blockSize >> 1) - 20, margin);
         }
         for (int j = 0; j < composition.getHeight (); ++j)
         {
-            g2.drawString (String.valueOf (j + 1), 0, margin + j * blockSize + 15 + (blockSize >> 1));
+            g2.drawString (String.valueOf (j + 1), 20, margin + j * blockSize + 24 + (blockSize >> 1));
         }
         //paint chess pieces and available positions
         Composition.STATUS[][] board = composition.getBoard();
