@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SettingDialog extends JDialog
 {
@@ -144,6 +145,11 @@ public class SettingDialog extends JDialog
     {
         nameEdit.setEnabled (true);
         timeEdit.setEnabled (true);
+    }
+    public void lockAi (boolean on)
+    {
+        aiEdit.setEnabled (on);
+        aiBtn.setEnabled (on);
     }
     
     private void onOK ()

@@ -785,6 +785,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void gameOn (int index)
     {
+        settingDialog.lockAi (false);
         settingDialog.lock ();
         gameRunning = true;
         noticeBoard.setStatus (meStatus);
@@ -925,6 +926,7 @@ public class Reversi extends JFrame implements ActionListener
         else
             noticeBoard.setTime (remoteTimeConstraint / 1000);
         noticeBoard.timerOff ();
+        settingDialog.lockAi (true);
         
         repaint ();
     }
