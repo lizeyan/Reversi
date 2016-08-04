@@ -182,7 +182,6 @@ public class SettingDialog extends JDialog
             File aiFile = new File (aiEdit.getText ());
             URLClassLoader loader = new URLClassLoader (new URL[]{aiFile.toURI ().toURL ()});
             String name = aiFile.getName ();
-            System.out.println (name.substring (0, name.length () - 6));
             game.setAiClass (loader.loadClass (name.substring (0, name.length () - 6)));
         }
         catch (Exception e)

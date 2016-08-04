@@ -2,12 +2,14 @@ import java.awt.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.UnknownFormatConversionException;
+import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Li Zeyan on 2016/7/21.
  */
 public class Composition {
-    public enum STATUS {EMPTY, WHITE, BLACK};
+    private static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};;
+    private static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
     private int width = 8;
     private int height = 8;
     private STATUS[][] board;
@@ -15,11 +17,10 @@ public class Composition {
     private STATUS lastStatus = STATUS.WHITE;
     private AbstractList<Point> history = new ArrayList<Point> ();
     private STATUS winner = STATUS.EMPTY;
-    private static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};
-    private static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
     private int blackNumber = 0;
     private int whiteNumber = 0;
     private boolean finished = false;
+    private boolean security = false;
     /*
         public methods
      */
@@ -30,22 +31,32 @@ public class Composition {
         cleanBoard ();
         updateAvailble ();
     }
-    public int getWidth ()
+    public void lock ()
     {
-        return width;
+        security = true;
     }
-    public int getHeight ()
+    public Composition (Composition composition)
     {
-        return height;
+        board = new STATUS[composition.getWidth ()][composition.getHeight ()];
+        available = new boolean[composition.getWidth ()][composition.getHeight ()];
+        width = composition.getWidth ();
+        height = composition.getHeight ();
+        for (int i = 0; i < width; ++i)
+        {
+            for (int j = 0; j < height; ++j)
+            {
+                board[i][j] = composition.board[i][j];
+                available[i][j] = composition.available[i][j];
+            }
+        }
+        lastStatus = composition.lastStatus;
+        history = new ArrayList<Point> (composition.history);
+        winner = composition.winner;
+        blackNumber = composition.blackNumber;
+        whiteNumber = composition.whiteNumber;
+        finished = composition.finished;
     }
-    public STATUS[][] getBoard ()
-    {
-        return board;
-    }
-    public void setLastStatus (Reversi.SecurityKey securityKey, STATUS status)
-    {
-        this.lastStatus = status;
-    }
+
     public static String status2str (STATUS status) throws Exception
     {
         switch (status)
@@ -60,17 +71,7 @@ public class Composition {
                 throw new RuntimeException ("invalid Composition.STATUS value");
         }
     }
-    public Point setRandom (Reversi.SecurityKey securityKey)
-    {
-        for (int i = 0; i < getWidth (); ++i)
-            for (int j = 0; j < getHeight (); ++j)
-                if (available[i][j])
-                {
-                    set (securityKey, i, j);
-                    return new Point (i, j);
-                }
-        return null;
-    }
+
     public static STATUS str2status (String str)
     {
         if (str != null)
@@ -84,6 +85,66 @@ public class Composition {
         }
         throw new RuntimeException ("wrong Composition.STATUS string:" + str);
     }
+
+    public static STATUS reverseStatus (STATUS status)
+    {
+        switch (status)
+        {
+            case WHITE:
+                return STATUS.BLACK;
+            case BLACK:
+                return STATUS.WHITE;
+            default:
+                return STATUS.EMPTY;
+        }
+    }
+
+    public boolean[][] getAvailable ()
+    {
+        return this.available;
+    }
+
+    public int getWidth ()
+    {
+        return width;
+    }
+
+    public int getHeight ()
+    {
+        return height;
+    }
+
+    public STATUS[][] getBoard ()
+    {
+        return board;
+    }
+
+    public void setLastStatus (Reversi.SecurityKey securityKey, STATUS status)
+    {
+        if (securityKey == null && this.security)
+            return;
+        this.lastStatus = status;
+    }
+    
+    public AbstractList<Point> getHistory ()
+    {
+        return this.history;
+    }
+    
+    public Point setRandom (Reversi.SecurityKey securityKey)
+    {
+        if (securityKey == null && this.security)
+            return null;
+        for (int i = 0; i < getWidth (); ++i)
+            for (int j = 0; j < getHeight (); ++j)
+                if (available[i][j])
+                {
+                    set (securityKey, i, j);
+                    return new Point (i, j);
+                }
+        return null;
+    }
+
     public STATUS queryBoard (int x, int y) throws RuntimeException
     {
         if (!legal (x, y))
@@ -121,6 +182,8 @@ public class Composition {
     }
     public boolean set (Reversi.SecurityKey securityKey, int x, int y)
     {
+        if (securityKey == null && this.security)
+            return false;
         if (!legal(x, y) || !available[x][y])
             return false;
         history.add (new Point (x, y));
@@ -131,6 +194,8 @@ public class Composition {
     }
     public void dropOver (Reversi.SecurityKey securityKey)
     {
+        if (securityKey == null && this.security)
+            return;
         history.add (new Point (-1, -1));
         lastStatus = reverseStatus (lastStatus);
         updateAvailble ();
@@ -143,28 +208,21 @@ public class Composition {
     {
         return lastStatus;
     }
-    public static STATUS reverseStatus (STATUS status)
-    {
-        switch (status)
-        {
-            case WHITE:
-                return STATUS.BLACK;
-            case BLACK:
-                return STATUS.WHITE;
-            default:
-                return STATUS.EMPTY;
-        }
-    }
+
     public boolean getFinished ()
     {
         return finished;
     }
+
     public STATUS getWinner ()
     {
         return winner;
     }
+
     public void initializeBoard (Reversi.SecurityKey securityKey)
     {
+        if (securityKey == null && this.security)
+            return;
         for (int i = 0; i < width; ++i)
         {
             for (int j = 0; j < height; ++j)
@@ -178,12 +236,18 @@ public class Composition {
         board[(width >> 1)][(height >> 1) - 1] = STATUS.BLACK;
         updateAvailble ();
     }
+
     public void cleanBoard (Reversi.SecurityKey securityKey)
     {
+        if (securityKey == null && this.security)
+            return;
         cleanBoard ();
     }
+
     public void setBoard (Reversi.SecurityKey securityKey, STATUS[][] board)
     {
+        if (securityKey == null && this.security)
+            return;
         if (board.length != width || board[0].length != height)
             throw new IllegalArgumentException ("board size is wrong, in setBoard");
         for (int i = 0; i < width; ++i)
@@ -192,8 +256,11 @@ public class Composition {
         updateAvailble ();
         judge ();
     }
+
     public void backward (Reversi.SecurityKey securityKey, int steps)
     {
+        if (securityKey == null && this.security)
+            return;
         while (--steps >= 0 && history.size () > 0)
         {
             history.remove (history.size () - 1);
@@ -206,6 +273,7 @@ public class Composition {
         }
         updateAvailble ();
     }
+
     /*
     private methods
      */
@@ -224,6 +292,7 @@ public class Composition {
             }
         }
     }
+
     private void updateAvailble ()
     {
         
@@ -258,6 +327,7 @@ public class Composition {
             }
         }
     }
+
     private void reverse ()
     {
         for (int d = 0; d < 8; ++d)
@@ -284,6 +354,7 @@ public class Composition {
             }
         }
     }
+
     private void judge ()
     {
         blackNumber = 0;
@@ -331,6 +402,7 @@ public class Composition {
             }
         }
     }
+
     private void set (Point point)
     {
         lastStatus = reverseStatus (lastStatus);
@@ -340,4 +412,5 @@ public class Composition {
             reverse ();
         }
     }
+public enum STATUS {EMPTY, WHITE, BLACK}
 }

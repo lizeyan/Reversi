@@ -7,9 +7,20 @@ public class LocalMachinePlayer extends Player
 {
     private Composition composition;
     private int undoCnt = 0;
+    
     public LocalMachinePlayer (Composition composition)
     {
         super (null);
+        this.composition = composition;
+    }
+
+    public Composition getComposition ()
+    {
+        return this.composition;
+    }
+
+    public void setComposition (Composition composition)
+    {
         this.composition = composition;
     }
     

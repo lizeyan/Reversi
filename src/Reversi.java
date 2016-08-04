@@ -48,6 +48,7 @@ public class Reversi extends JFrame implements ActionListener
         super (name);
         initOptions ();
         chessBoard = new ChessBoard (composition = new Composition (), this);
+        composition.lock ();
         chessBoard.setOpaque (false);
         noticeBoard = new NoticeBoard (this);
         noticeBoard.setOpaque (false);
@@ -608,7 +609,7 @@ public class Reversi extends JFrame implements ActionListener
         {
             LocalMachinePlayer player = (LocalMachinePlayer) tmp.getConstructor (Composition.class).newInstance (composition);
             aiClass = tmp;
-            noticeBoard.appendMessage ("New Ai Class:" + tmp.getName () + "<br/>");
+            noticeBoard.appendMessage ("<p style=\"color:339900\">New Ai Class:" + tmp.getName () + "</p><br/>");
         } catch (Exception e)
         {
             JOptionPane.showMessageDialog (this, "Set new Ai class Failed:" + e.getMessage (), "ERROR", JOptionPane.ERROR_MESSAGE);
