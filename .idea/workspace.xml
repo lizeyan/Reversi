@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NoticeBoard.java" afterPath="$PROJECT_DIR$/src/NoticeBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
     </list>
     <ignored path="Reversi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,8 +75,8 @@
       <file leaf-file-name="NoticeBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+            <state relative-caret-position="-56">
+              <caret line="119" column="88" selection-start-line="119" selection-start-column="88" selection-end-line="119" selection-end-column="88" />
               <folding>
                 <element signature="method#NoticeBoard#0;class#NoticeBoard#0" expanded="false" />
                 <element signature="method#setTime#0;class#NoticeBoard#0" expanded="false" />
@@ -1308,8 +1308,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        <state relative-caret-position="-56">
+          <caret line="119" column="88" selection-start-line="119" selection-start-column="88" selection-end-line="119" selection-end-column="88" />
           <folding>
             <element signature="method#NoticeBoard#0;class#NoticeBoard#0" expanded="false" />
             <element signature="method#setTime#0;class#NoticeBoard#0" expanded="false" />

@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
  */
 public class NoticeBoard extends JPanel implements ActionListener
 {
-    private JTextArea messageBoard;
+    private JTextPane messageBoard;
     private JScrollPane messageScrollPane;
     private JLabel myIcon;
     private JLabel myPieces;
@@ -114,19 +114,20 @@ public class NoticeBoard extends JPanel implements ActionListener
     }
     public void pack ()
     {
-        messageBoard.setRows (getHeight () / 60);
-        messageBoard.setColumns (getWidth () / 18);
-        messageBoard.invalidate ();
+//        messageBoard.setRows (getHeight () / 60);
+//        messageBoard.setColumns (getWidth () / 18);
+//        messageBoard.invalidate ();
+        messageScrollPane.setPreferredSize (new Dimension (getWidth (), getHeight () >> 1));
         messageEdit.setColumns ((getWidth () - sendButton.getWidth ()) / 18);
         messageEdit.invalidate ();
     }
     private void setup ()
     {
         messageBuffer = new StringBuffer (1 << 16);
-        messageBoard = new JTextArea (0, 0);
-        messageBoard.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
+        messageBoard = new JTextPane ();
+//        messageBoard.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
         messageBoard.setEditable (false);
-        messageBoard.setLineWrap (true);
+//        messageBoard.setLineWrap (true);
         myIcon = new JLabel ();
         myPieces = new JLabel ();
         myPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
