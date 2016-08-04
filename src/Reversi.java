@@ -324,7 +324,7 @@ public class Reversi extends JFrame implements ActionListener
         peaceItem = new JMenuItem ("Sue For Peace");
         peaceItem.setFont (font);
         peaceItem.addActionListener (this);
-        giveInItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_E, KeyEvent.CTRL_MASK));
+        peaceItem.setAccelerator (KeyStroke.getKeyStroke (KeyEvent.VK_E, KeyEvent.CTRL_MASK));
         detachItem = new JCheckBoxMenuItem ("Deatch");
         detachItem.addActionListener (this);
         detachItem.setFont (font);
