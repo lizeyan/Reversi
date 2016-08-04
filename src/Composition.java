@@ -2,6 +2,7 @@ import java.awt.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.UnknownFormatConversionException;
+import java.util.WeakHashMap;
 import java.util.concurrent.locks.Lock;
 
 /**
@@ -17,8 +18,6 @@ public class Composition {
     private STATUS lastStatus = STATUS.WHITE;
     private AbstractList<Point> history = new ArrayList<Point> ();
     private STATUS winner = STATUS.EMPTY;
-    private int blackNumber = 0;
-    private int whiteNumber = 0;
     private boolean finished = false;
     private boolean security = false;
     /*
@@ -52,8 +51,6 @@ public class Composition {
         lastStatus = composition.lastStatus;
         history = new ArrayList<Point> (composition.history);
         winner = composition.winner;
-        blackNumber = composition.blackNumber;
-        whiteNumber = composition.whiteNumber;
         finished = composition.finished;
     }
 
@@ -199,6 +196,7 @@ public class Composition {
         history.add (new Point (-1, -1));
         lastStatus = reverseStatus (lastStatus);
         updateAvailble ();
+        judge ();
     }
     public boolean legal (int x, int y)
     {
@@ -357,50 +355,51 @@ public class Composition {
 
     private void judge ()
     {
-        blackNumber = 0;
-        whiteNumber = 0;
-        int emptyNumber= 0;
+        if (!queryAvailable (STATUS.WHITE) && !queryAvailable (STATUS.BLACK))
+            finished = true;
+        int blackNum = 0, whiteNum = 0;
         for (int i = 0; i < width; ++i)
         {
             for (int j = 0; j < height; ++j)
             {
                 if (board[i][j] == STATUS.BLACK)
-                    ++blackNumber;
+                    ++blackNum;
                 else if (board[i][j] == STATUS.WHITE)
-                    ++whiteNumber;
-                else
-                    ++emptyNumber;
+                    ++whiteNum;
             }
         }
-        if (emptyNumber == 0)
-        {
-            finished = true;
-            if (blackNumber > whiteNumber)
-            {
-                winner = STATUS.BLACK;
-            }
-            else if (whiteNumber > blackNumber)
-            {
-                winner = STATUS.WHITE;
-            }
-            else
-            {
-                winner = STATUS.EMPTY;
-            }
-        }
+        if (blackNum > whiteNum)
+            winner = STATUS.BLACK;
+        else if (blackNum < whiteNum)
+            winner = STATUS.WHITE;
         else
+            winner = STATUS.EMPTY;
+    }
+    private boolean queryAvailable (STATUS current)
+    {
+        for (int i = 0; i < width; ++i)
         {
-            if (blackNumber == 0)
+            for (int j = 0; j < height; ++j)
             {
-                finished = true;
-                winner = STATUS.WHITE;
-            }
-            else if (whiteNumber == 0)
-            {
-                finished = true;
-                winner = STATUS.BLACK;
+                if (board[i][j] != current)
+                    continue;
+                for (int d = 0; d < 8; ++d)//8 directions
+                {
+                    Point point = new Point (i, j);
+                    point.translate (dx[d], dy[d]);
+                    if (!legal (point.x, point.y) || board[point.x][point.y] != reverseStatus (current))
+                        continue;
+                    do
+                    {
+                        point.translate (dx[d], dy[d]);
+                    }
+                    while (legal (point.x, point.y) && board[point.x][point.y] == reverseStatus (current));
+                    if (legal (point.x, point.y) && board[point.x][point.y] == STATUS.EMPTY)
+                        return true;
+                }
             }
         }
+        return false;
     }
 
     private void set (Point point)

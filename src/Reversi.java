@@ -791,6 +791,10 @@ public class Reversi extends JFrame implements ActionListener
         noticeBoard.setName (myName, true);
         noticeBoard.setName (enemyName, false);
         operateMenu.setEnabled (true);
+        if (meStatus == Composition.STATUS.EMPTY)
+            noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
+        else
+            noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
         startLocalGameItem.setEnabled (false);
         loadLocalGameItem.setEnabled (false);
         startOnlineGameItem.setEnabled (false);
@@ -805,11 +809,8 @@ public class Reversi extends JFrame implements ActionListener
             {
                 noticeBoard.appendMessage ("<p style=\"color:6600CC\">WARNING: no available position now</p><br/>");
             }
-            if (meStatus == Composition.STATUS.EMPTY)
-                noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
-            else
+            if (meStatus != Composition.STATUS.EMPTY)
             {
-                noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
                 if (index == 0)
                     operateMenu.setEnabled (true);
                 else
@@ -871,7 +872,11 @@ public class Reversi extends JFrame implements ActionListener
                     terminate (e.getMessage ());
                 }
             }
-            chessBoard.repaint ();
+            if (meStatus == Composition.STATUS.EMPTY)
+                noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
+            else
+                noticeBoard.setPieces (composition.queryNumber (meStatus), composition.queryNumber (Composition.reverseStatus (meStatus)));
+            repaint ();
             if (composition.getFinished ())
             {
                 showWinner (meStatus, composition.getWinner ());

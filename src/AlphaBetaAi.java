@@ -166,6 +166,6 @@ public class AlphaBetaAi extends LocalMachinePlayer
                     ++motivation;
             }
         }
-        return 10 * motivation + positonValue;
+        return 5 * motivation + positonValue;
     }
 }
