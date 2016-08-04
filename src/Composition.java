@@ -9,8 +9,8 @@ import java.util.concurrent.locks.Lock;
  * Created by Li Zeyan on 2016/7/21.
  */
 public class Composition {
-    private static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};;
-    private static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
+    public static int[] dx = {-1, 0, 1, 1, 1, 0, -1, -1};;
+    public static int[] dy = {-1, -1, -1, 0, 1, 1, 1, 0};
     private int width = 8;
     private int height = 8;
     private STATUS[][] board;

@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.AbstractList;
 import java.util.Stack;
+import java.util.logging.XMLFormatter;
 
 /**
  * Created by Li Zeyan on 2016/8/4.
@@ -166,6 +167,16 @@ public class AlphaBetaAi extends LocalMachinePlayer
                     ++motivation;
             }
         }
-        return 5 * motivation + positonValue;
+        int potentialMotivation = 0;
+        for (int i = 0; i < composition.getWidth (); ++i)
+            for (int j = 0; j < composition.getHeight (); ++j)
+                if (composition.queryBoard (i, j) == Composition.STATUS.EMPTY)
+                    for (int d = 0; d < 8; ++d)
+                        if (composition.legal (i + Composition.dx[d], j + Composition.dy[d]) && composition.queryBoard (i + Composition.dx[d], j + Composition.dy[d]) == enemy)
+                        {
+                            ++potentialMotivation;
+                            break;
+                        }
+        return 5 * motivation + 10 * positonValue + 3 * potentialMotivation;
     }
 }
