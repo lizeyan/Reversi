@@ -112,7 +112,7 @@ public class Reversi extends JFrame implements ActionListener
         } catch (Exception e)
         {
         }
-        Reversi reversi = new Reversi ("Reversi v3.0");
+        Reversi reversi = new Reversi ("Reversi v3.1");
         reversi.setVisible (true);
     }
     
@@ -809,12 +809,13 @@ public class Reversi extends JFrame implements ActionListener
             {
                 noticeBoard.appendMessage ("<p style=\"color:6600CC\">WARNING: no available position now</p><br/>");
             }
-            if (meStatus != Composition.STATUS.EMPTY)
+            if (meStatus != Composition.STATUS.EMPTY && index == 1)
             {
-                if (index == 0)
-                    operateMenu.setEnabled (true);
-                else
                     operateMenu.setEnabled (false);
+            }
+            else
+            {
+                operateMenu.setEnabled (true);
             }
             noticeBoard.timerOn ();
             noticeBoard.setTime (tc / 1000);
