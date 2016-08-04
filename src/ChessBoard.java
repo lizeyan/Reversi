@@ -166,7 +166,8 @@ public class ChessBoard extends JPanel implements MouseMotionListener, MouseList
             {
                 if (pressed)
                 {
-                    g2.setColor (status2Color (Composition.reverseStatus (composition.getLastStatus ())));
+                    Color color = status2Color (Composition.reverseStatus (composition.getLastStatus ()));
+                    g2.setColor (new Color (color.getRed (), color.getGreen (), color.getBlue (), 180));
                     g2.fillOval (pieceCenterShiftFromZero + abstractPosition.x * blockSize, pieceCenterShiftFromZero + abstractPosition.y * blockSize, pieceDiameter, pieceDiameter);
                 }
                 else

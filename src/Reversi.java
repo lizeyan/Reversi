@@ -52,7 +52,7 @@ public class Reversi extends JFrame implements ActionListener
         chessBoard.setOpaque (false);
         noticeBoard = new NoticeBoard (this);
         noticeBoard.setOpaque (false);
-        noticeBoard.appendMessage ("Welcome to Reversi\n");
+        noticeBoard.appendMessage ("Welcome to Reversi<br/>");
         backgroundImage = new BackgroundImage ("./resources/images/shanshui2.jpg");
         settingDialog = new SettingDialog (this);
         try
@@ -90,31 +90,17 @@ public class Reversi extends JFrame implements ActionListener
         addComponentListener (new ComponentListener ()
         {
             @Override
-            public void componentResized (ComponentEvent e)
-            {
-                arrange ();
-            }
-    
+            public void componentResized (ComponentEvent e) {arrange ();}
             @Override
-            public void componentMoved (ComponentEvent e)
-            {
-                //
-            }
-    
+            public void componentMoved (ComponentEvent e) {}
             @Override
-            public void componentShown (ComponentEvent e)
-            {
-                //
-            }
-    
+            public void componentShown (ComponentEvent e) {}
             @Override
-            public void componentHidden (ComponentEvent e)
-            {
-                //
-            }
+            public void componentHidden (ComponentEvent e) {}
         });
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-//        pack ();
+        pack ();
+        arrange ();
     }
     private void arrange ()
     {
@@ -383,11 +369,11 @@ public class Reversi extends JFrame implements ActionListener
                 serverSocket = new ServerSocket (port);
                 serverSocket.setSoTimeout (10000);
                 Socket client = serverSocket.accept ();
-                noticeBoard.appendMessage ("Connected.\n");
+                noticeBoard.appendMessage ("Connected.<br/>");
                 proxy = new Proxy (client,
                         msg ->
                         {
-                            noticeBoard.appendMessage (msg + '\n');
+                            noticeBoard.appendMessage (msg + "<br/>");
                         },
                         ename ->
                         {
@@ -430,7 +416,7 @@ public class Reversi extends JFrame implements ActionListener
             {
                 int port = Integer.parseInt (portStr);
                 Socket server = new Socket (InetAddress.getByName (ipStr), port);
-                noticeBoard.appendMessage ("Connected.\n");
+                noticeBoard.appendMessage ("Connected.<br/>");
                 proxy = new Proxy (server,
                         msg ->
                         {
@@ -486,7 +472,7 @@ public class Reversi extends JFrame implements ActionListener
             terminateWinner = meStatus;
         if (proxy != null)
             proxy.close ();
-        noticeBoard.appendMessage ("Disconnected.\n");
+        noticeBoard.appendMessage ("Disconnected.<br/>");
         noticeBoard.setTime (timeConstraintPerStep / 1000);
         noticeBoard.setName ("false");
         proxy = null;
@@ -615,7 +601,7 @@ public class Reversi extends JFrame implements ActionListener
         {
             LocalMachinePlayer player = (LocalMachinePlayer)tmp.getConstructor (Composition.class).newInstance (composition);
             aiClass = tmp;
-            noticeBoard.appendMessage ("New Ai Class:" + tmp.getName () + '\n');
+            noticeBoard.appendMessage ("New Ai Class:" + tmp.getName () + "<br/>");
         }
         catch (Exception e)
         {
@@ -787,7 +773,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void about ()
     {
-        JOptionPane.showMessageDialog (this, "This is a online Revesi game.\nAuthor: zy-li14\nRepo:lizeyan/Reversi", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
+        JOptionPane.showMessageDialog (this, "This is a online Revesi game.<br/>Author: zy-li14<br/>Repo:lizeyan/Reversi", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
     }
     
     private void gameOn (int index)
@@ -850,7 +836,7 @@ public class Reversi extends JFrame implements ActionListener
                     try
                     {
                         policy = composition.setRandom (securityKey);
-                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + '\n');
+                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + "<br/>");
                     }
                     catch (Exception e)
                     {
@@ -860,7 +846,7 @@ public class Reversi extends JFrame implements ActionListener
                     composition.dropOver (securityKey);
                     try
                     {
-                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ": drop\n");
+                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ": drop<br/>");
                     } catch (Exception e)
                     {
                         terminate (e.getMessage ());
@@ -870,7 +856,7 @@ public class Reversi extends JFrame implements ActionListener
             {
                 try
                 {
-                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + '\n');
+                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + "<br/>");
                 } catch (Exception e)
                 {
                     terminate (e.getMessage ());
@@ -946,7 +932,7 @@ public class Reversi extends JFrame implements ActionListener
             msg = "你输了";
             playMusic ("./resources/lose.wav");
         }
-        noticeBoard.appendMessage ("====" + title + "====\n");
+        noticeBoard.appendMessage ("====" + title + "====<br/>");
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
@@ -965,7 +951,7 @@ public class Reversi extends JFrame implements ActionListener
     
     public void terminate (String msg)
     {
-        noticeBoard.appendMessage (msg + '\n');
+        noticeBoard.appendMessage (msg + "<br/>");
         disconnect (true);
         JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         initialize ();
@@ -1064,7 +1050,7 @@ public class Reversi extends JFrame implements ActionListener
         composition.backward (securityKey, 2);
         try
         {
-            noticeBoard.appendMessage (Composition.status2str (Composition.reverseStatus (composition.getLastStatus ())) + " UNDO\n");
+            noticeBoard.appendMessage (Composition.status2str (Composition.reverseStatus (composition.getLastStatus ())) + " UNDO<br/>");
         } catch (Exception e)
         {
             

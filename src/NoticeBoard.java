@@ -57,8 +57,8 @@ public class NoticeBoard extends JPanel implements ActionListener
     public void appendMessage (String msg)
     {
         messageBuffer.append (msg);
-        messageBoard.setText (messageBuffer.toString ());
-        messageBoard.setCaretPosition (messageBoard.getText ().length ());
+        messageBoard.setText ("<html><body style=\"font-family:microsoft yahei;font-size:18px\">" + messageBuffer.toString () + "</body><html>");
+        messageBoard.setCaretPosition (messageBoard.getDocument ().getLength ());
         repaint ();
     }
     public void setStatus (Composition.STATUS my)
@@ -125,9 +125,8 @@ public class NoticeBoard extends JPanel implements ActionListener
     {
         messageBuffer = new StringBuffer (1 << 16);
         messageBoard = new JTextPane ();
-//        messageBoard.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
+        messageBoard.setContentType ("text/html");
         messageBoard.setEditable (false);
-//        messageBoard.setLineWrap (true);
         myIcon = new JLabel ();
         myPieces = new JLabel ();
         myPieces.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
@@ -210,7 +209,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         Object source = e.getSource ();
         if (source == sendButton)
         {
-            game.sendMessage (messageEdit.getText () + '\n');
+            game.sendMessage (messageEdit.getText () + "<br/>");
             messageEdit.setText ("");
         }
     }
