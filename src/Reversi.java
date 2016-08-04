@@ -848,7 +848,7 @@ public class Reversi extends JFrame implements ActionListener
                     try
                     {
                         policy = composition.setRandom (securityKey);
-                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + "<br/>");
+                        noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + (policy.y + 1) + "<br/>");
                     } catch (Exception e)
                     {
                     }
@@ -867,7 +867,7 @@ public class Reversi extends JFrame implements ActionListener
             {
                 try
                 {
-                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + "<br/>");
+                    noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + (policy.y + 1) + "<br/>");
                 } catch (Exception e)
                 {
                     terminate (e.getMessage ());
