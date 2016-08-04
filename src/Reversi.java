@@ -36,10 +36,9 @@ public class Reversi extends JFrame implements ActionListener
     private BackgroundImage backgroundImage = null;
     private boolean gameRunning = false;
     private Class aiClass;
+    private String backgroundMusicName;
     private volatile Point policy = null;
-    
     private Clip backgroundMusicClip = null;
-    
     private long remoteTimeConstraint;
     private String myName = "LI ZEYAN";
     private String enemyName = "BetaCat";
@@ -52,14 +51,13 @@ public class Reversi extends JFrame implements ActionListener
         chessBoard.setOpaque (false);
         noticeBoard = new NoticeBoard (this);
         noticeBoard.setOpaque (false);
-        noticeBoard.appendMessage ("Welcome to Reversi<br/>");
+        noticeBoard.appendMessage ("<h1 style=\"color:FF6600\">Welcome to Reversi</h1><br/>");
         backgroundImage = new BackgroundImage ("./resources/images/shanshui2.jpg");
         settingDialog = new SettingDialog (this);
         try
         {
             aiClass = Class.forName ("LocalMachinePlayer");
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             System.out.println (e.getMessage ());
         }
@@ -68,48 +66,40 @@ public class Reversi extends JFrame implements ActionListener
             setIconImage (ImageIO.read (new File ("./resources/images/panda.png")));
         } catch (Exception e)
         {
-    
+            
         }
         setContentPane (backgroundImage);
         add (chessBoard, BorderLayout.CENTER);
         add (noticeBoard, BorderLayout.EAST);
-//        GridBagLayout layout = new GridBagLayout ();
-//        GridBagConstraints constraints = new GridBagConstraints ();
-//        setLayout (layout);
-//        constraints.weightx = 1.0;
-//        constraints.weighty = 1.0;
-//        constraints.gridwidth = 3;
-//        layout.setConstraints (chessBoard, constraints);
-//        add (chessBoard);
-//        constraints.gridwidth = 1;
-//        layout.setConstraints (noticeBoard, constraints);
-//        add (noticeBoard);
         setMinimumSize (new Dimension (1280, 960));
         initMenu ();
         initialize ();
         addComponentListener (new ComponentListener ()
         {
             @Override
-            public void componentResized (ComponentEvent e) {arrange ();}
+            public void componentResized (ComponentEvent e)
+            {
+                arrange ();
+            }
+            
             @Override
-            public void componentMoved (ComponentEvent e) {}
+            public void componentMoved (ComponentEvent e)
+            {
+            }
+            
             @Override
-            public void componentShown (ComponentEvent e) {}
+            public void componentShown (ComponentEvent e)
+            {
+            }
+            
             @Override
-            public void componentHidden (ComponentEvent e) {}
+            public void componentHidden (ComponentEvent e)
+            {
+            }
         });
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         pack ();
         arrange ();
-    }
-    private void arrange ()
-    {
-        int w = getContentPane ().getWidth () * 19 / 20, h = getContentPane ().getHeight () * 19 / 20;
-        chessBoard.pack ();
-        chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
-        noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
-        noticeBoard.setSize (w - chessBoard.getWidth (), h);
-        noticeBoard.pack ();
     }
     
     public static void main (String[] argv)
@@ -118,11 +108,31 @@ public class Reversi extends JFrame implements ActionListener
         try
         {
             UIManager.setLookAndFeel (lookAndFeel);
+        } catch (Exception e)
+        {
         }
-        catch (Exception e)
-        {}
         Reversi reversi = new Reversi ("Reversi v3.0");
         reversi.setVisible (true);
+    }
+    
+    public String getBackgroundMusicName ()
+    {
+        return this.backgroundMusicName;
+    }
+    
+    public void setBackgroundMusicName (String backgroundMusicName)
+    {
+        this.backgroundMusicName = backgroundMusicName;
+    }
+    
+    private void arrange ()
+    {
+        int w = getContentPane ().getWidth () * 19 / 20, h = getContentPane ().getHeight () * 19 / 20;
+        chessBoard.pack ();
+        chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
+        noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
+        noticeBoard.setSize (w - chessBoard.getWidth (), h);
+        noticeBoard.pack ();
     }
     
     public ChessBoard getChessBoard ()
@@ -164,7 +174,7 @@ public class Reversi extends JFrame implements ActionListener
         }
         repaint ();
     }
-
+    
     public String getMyName ()
     {
         return this.myName;
@@ -199,15 +209,15 @@ public class Reversi extends JFrame implements ActionListener
         repaint ();
     }
     
+    public BackgroundImage getBackgroundImage ()
+    {
+        return backgroundImage;
+    }
+    
     public void setBackgroundImage (String name)
     {
         backgroundImage.setBackgroundImage (name);
         repaint ();
-    }
-    
-    public BackgroundImage getBackgroundImage ()
-    {
-        return backgroundImage;
     }
     
     public boolean getTerminateSignal ()
@@ -220,8 +230,7 @@ public class Reversi extends JFrame implements ActionListener
         try
         {
             return (LocalMachinePlayer) aiClass.getConstructor (Composition.class).newInstance (composition);
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             return null;
         }
@@ -255,13 +264,13 @@ public class Reversi extends JFrame implements ActionListener
         else if (source == aboutItem)
             about ();
         else if (source == detachItem)
-            detach (((JCheckBoxMenuItem)detachItem).getState ());
+            detach (((JCheckBoxMenuItem) detachItem).getState ());
     }
     
     private void initMenu ()
     {
         menuBar = new JMenuBar ();
-        Font font = new Font ("Microsoft yahei",  Font.BOLD, 18);
+        Font font = new Font ("Microsoft yahei", Font.BOLD, 18);
         
         localMenu = new JMenu ("Local");
         localMenu.setFont (font);
@@ -369,7 +378,7 @@ public class Reversi extends JFrame implements ActionListener
                 serverSocket = new ServerSocket (port);
                 serverSocket.setSoTimeout (10000);
                 Socket client = serverSocket.accept ();
-                noticeBoard.appendMessage ("Connected.<br/>");
+                noticeBoard.appendMessage ("<p style=\"color:green\">Connected.</p><br/>");
                 proxy = new Proxy (client,
                         msg ->
                         {
@@ -395,8 +404,7 @@ public class Reversi extends JFrame implements ActionListener
                     try
                     {
                         serverSocket.close ();
-                    }
-                    catch (Exception se)
+                    } catch (Exception se)
                     {
                         
                     }
@@ -416,7 +424,7 @@ public class Reversi extends JFrame implements ActionListener
             {
                 int port = Integer.parseInt (portStr);
                 Socket server = new Socket (InetAddress.getByName (ipStr), port);
-                noticeBoard.appendMessage ("Connected.<br/>");
+                noticeBoard.appendMessage ("<p style=\"color:green\">Connected.</p><br/>");
                 proxy = new Proxy (server,
                         msg ->
                         {
@@ -467,14 +475,13 @@ public class Reversi extends JFrame implements ActionListener
             } catch (Exception e)
             {
             }
-        }
-        else
+        } else
             terminateWinner = meStatus;
         if (proxy != null)
             proxy.close ();
-        noticeBoard.appendMessage ("Disconnected.<br/>");
+        noticeBoard.appendMessage ("<p style=\"color:FF00CC\">Disconnected.</p><br/>");
         noticeBoard.setTime (timeConstraintPerStep / 1000);
-        noticeBoard.setName ("false");
+        noticeBoard.setName ("", false);
         proxy = null;
         connectItem.setEnabled (true);
         disconnectItem.setEnabled (false);
@@ -502,8 +509,7 @@ public class Reversi extends JFrame implements ActionListener
             try
             {
                 players[1] = getAiInstance ();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 terminate (e.getMessage ());
                 return;
@@ -595,15 +601,15 @@ public class Reversi extends JFrame implements ActionListener
         }
         
     }
+    
     public void setAiClass (Class tmp)
     {
         try
         {
-            LocalMachinePlayer player = (LocalMachinePlayer)tmp.getConstructor (Composition.class).newInstance (composition);
+            LocalMachinePlayer player = (LocalMachinePlayer) tmp.getConstructor (Composition.class).newInstance (composition);
             aiClass = tmp;
             noticeBoard.appendMessage ("New Ai Class:" + tmp.getName () + "<br/>");
-        }
-        catch (Exception e)
+        } catch (Exception e)
         {
             JOptionPane.showMessageDialog (this, "Set new Ai class Failed:" + e.getMessage (), "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -755,7 +761,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void detach (boolean on)
     {
-        ((LocalMePlayer)players[0]).detach (on);
+        ((LocalMePlayer) players[0]).detach (on);
     }
     
     private void setting ()
@@ -773,11 +779,12 @@ public class Reversi extends JFrame implements ActionListener
     
     private void about ()
     {
-        JOptionPane.showMessageDialog (this, "This is a online Revesi game.<br/>Author: zy-li14<br/>Repo:lizeyan/Reversi", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
+        JOptionPane.showMessageDialog (this, "This is a online Revesi game.\nAuthor: zy-li14\nRepo:git@github.com:lizeyan/Reversi.git", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
     }
     
     private void gameOn (int index)
     {
+        settingDialog.lock ();
         gameRunning = true;
         noticeBoard.setStatus (meStatus);
         noticeBoard.setName (myName, true);
@@ -795,7 +802,7 @@ public class Reversi extends JFrame implements ActionListener
         {
             if (!composition.queryAvailble ())
             {
-                noticeBoard.appendMessage ("WARNING: no available position now");
+                noticeBoard.appendMessage ("<p style=\"color:6600CC\">WARNING: no available position now</p><br/>");
             }
             if (meStatus == Composition.STATUS.EMPTY)
                 noticeBoard.setPieces (composition.queryNumber (Composition.STATUS.BLACK), composition.queryNumber (Composition.STATUS.WHITE));
@@ -812,13 +819,15 @@ public class Reversi extends JFrame implements ActionListener
             policy = null;
             int indexTmp = index;
             long tcTmp = tc;
-            Thread thread = new Thread ( () -> {policy = players[indexTmp].makingPolicy (tcTmp);});
+            Thread thread = new Thread (() ->
+            {
+                policy = players[indexTmp].makingPolicy (tcTmp);
+            });
             thread.start ();
             try
             {
                 thread.join (tc);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 terminate (e.getMessage ());
             }
@@ -837,8 +846,7 @@ public class Reversi extends JFrame implements ActionListener
                     {
                         policy = composition.setRandom (securityKey);
                         noticeBoard.appendMessage (Composition.status2str (composition.getLastStatus ()) + ":" + (char) ('A' + policy.x) + policy.y + "<br/>");
-                    }
-                    catch (Exception e)
+                    } catch (Exception e)
                     {
                     }
                 } else
@@ -876,6 +884,10 @@ public class Reversi extends JFrame implements ActionListener
     
     private void initialize ()
     {
+        if (proxy == null)
+        {
+            settingDialog.unlock ();
+        }
         gameRunning = false;
         composition.cleanBoard (securityKey);
         chessBoard.shutdown ();
@@ -890,13 +902,21 @@ public class Reversi extends JFrame implements ActionListener
         saveGameItem.setEnabled (false);
         if (proxy != null)
             startOnlineGameItem.setEnabled (true);
-        ((JCheckBoxMenuItem)detachItem).setState (false);
+        ((JCheckBoxMenuItem) detachItem).setState (false);
+        if (proxy != null)
+            detach (false);
         
         noticeBoard.setStatus (Composition.STATUS.EMPTY);
         noticeBoard.setPieces (0, 0);
         noticeBoard.setName (myName, true);
-        noticeBoard.setName ("      ", false);
-        noticeBoard.setTime (timeConstraintPerStep / 1000);
+        if (proxy == null)
+            noticeBoard.setName ("      ", false);
+        else
+            noticeBoard.setName (enemyName, false);
+        if (proxy == null)
+            noticeBoard.setTime (timeConstraintPerStep / 1000);
+        else
+            noticeBoard.setTime (remoteTimeConstraint / 1000);
         noticeBoard.timerOff ();
         
         repaint ();
@@ -932,7 +952,7 @@ public class Reversi extends JFrame implements ActionListener
             msg = "你输了";
             playMusic ("./resources/lose.wav");
         }
-        noticeBoard.appendMessage ("====" + title + "====<br/>");
+        noticeBoard.appendMessage ("<h1 color=blue>====" + title + "====</h1><br/>");
         JOptionPane.showMessageDialog (this, msg, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
@@ -951,7 +971,7 @@ public class Reversi extends JFrame implements ActionListener
     
     public void terminate (String msg)
     {
-        noticeBoard.appendMessage (msg + "<br/>");
+        noticeBoard.appendMessage ("<div style=\"color:red\">" + msg + "</div><br/>");
         disconnect (true);
         JOptionPane.showMessageDialog (this, msg, "ERROR", JOptionPane.ERROR_MESSAGE);
         initialize ();

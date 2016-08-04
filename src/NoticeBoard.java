@@ -46,6 +46,7 @@ public class NoticeBoard extends JPanel implements ActionListener
                 }
             }
         });
+        thread.setDaemon (true);
         thread.start ();
         thread.yield ();;
     }

@@ -102,7 +102,8 @@ public class SettingDialog extends JDialog
                 fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Wave Audio File", "wav"));
                 fileChooser.setMultiSelectionEnabled (false);
                 fileChooser.showOpenDialog (null);
-                musicEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
+                if (fileChooser.getSelectedFile () != null)
+                    musicEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
             }
         });
         backgroundBtn.addActionListener (new ActionListener ()
@@ -115,7 +116,8 @@ public class SettingDialog extends JDialog
                 fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Image files", "jpg", "jpeg", "png", "bmp"));
                 fileChooser.setMultiSelectionEnabled (false);
                 fileChooser.showOpenDialog (null);
-                backgroundEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
+                if (fileChooser.getSelectedFile () != null)
+                    backgroundEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
             }
         });
         aiBtn.addActionListener (new ActionListener ()
@@ -128,7 +130,8 @@ public class SettingDialog extends JDialog
                 fileChooser.addChoosableFileFilter (new FileNameExtensionFilter ("Java Class File", "class"));
                 fileChooser.setMultiSelectionEnabled (false);
                 fileChooser.showOpenDialog (null);
-                aiEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
+                if (fileChooser.getSelectedFile () != null)
+                    aiEdit.setText (fileChooser.getSelectedFile ().getAbsolutePath ());
             }
         });
     }
@@ -151,12 +154,16 @@ public class SettingDialog extends JDialog
         game.setMyName (nameEdit.getText ());
         try
         {
-            if (game.getBackgroundMusicClip () != null && game.getBackgroundMusicClip ().isRunning ())
-                game.getBackgroundMusicClip ().stop ();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream (new File (musicEdit.getText ()));
-            game.setBackgroundMusicClip (AudioSystem.getClip ());
-            game.getBackgroundMusicClip ().open (audioInputStream);
-            game.getBackgroundMusicClip ().loop (Clip.LOOP_CONTINUOUSLY);
+            if (game.getBackgroundMusicName () == null || !game.getBackgroundMusicName ().equals (musicEdit.getText ()))
+            {
+                if (game.getBackgroundMusicClip () != null && game.getBackgroundMusicClip ().isRunning ())
+                    game.getBackgroundMusicClip ().stop ();
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream (new File (musicEdit.getText ()));
+                game.setBackgroundMusicClip (AudioSystem.getClip ());
+                game.getBackgroundMusicClip ().open (audioInputStream);
+                game.setBackgroundMusicName (musicEdit.getText ());
+                game.getBackgroundMusicClip ().loop (Clip.LOOP_CONTINUOUSLY);
+            }
         }
         catch (Exception e)
         {
