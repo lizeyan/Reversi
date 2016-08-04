@@ -139,6 +139,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         enemyName.setFont (new Font ("Mircrosoft Yahei", Font.PLAIN, 48));
         timeLabel = new JLabel ();
         timeLabel.setFont (new Font ("Mircrosoft Yahei", Font.BOLD, 64));
+        timeLabel.setSize (getWidth (), 64);
         messageEdit = new JTextArea (0, 0);
         messageEdit.setLineWrap (true);
         messageEdit.setFont (new Font ("Microsoft yahei", Font.PLAIN, 18));
@@ -190,13 +191,7 @@ public class NoticeBoard extends JPanel implements ActionListener
         panel.add (new JScrollPane (messageEdit));
         panel.add (sendButton);
         panel.setOpaque (false);
-//        add (new JScrollPane (messageEdit), constraints);
         add (panel, constraints);
-//        constraints.gridy = 15;
-//        constraints.gridwidth = GridBagConstraints.REMAINDER;
-//        constraints.gridx = GridBagConstraints.RELATIVE;
-//        add (sendButton, constraints);
-        
     }
     private boolean isRunning ()
     {

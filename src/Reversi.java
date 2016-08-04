@@ -92,11 +92,7 @@ public class Reversi extends JFrame implements ActionListener
             @Override
             public void componentResized (ComponentEvent e)
             {
-                int w = getContentPane ().getWidth (), h = getContentPane ().getHeight ();
-                chessBoard.pack ();
-                chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
-                noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
-                noticeBoard.pack ();
+                arrange ();
             }
     
             @Override
@@ -119,6 +115,14 @@ public class Reversi extends JFrame implements ActionListener
         });
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 //        pack ();
+    }
+    private void arrange ()
+    {
+        int w = getContentPane ().getWidth () * 19 / 20, h = getContentPane ().getHeight () * 19 / 20;
+        chessBoard.pack ();
+        chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
+        noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
+        noticeBoard.pack ();
     }
     
     public static void main (String[] argv)
