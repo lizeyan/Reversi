@@ -122,6 +122,7 @@ public class Reversi extends JFrame implements ActionListener
         chessBoard.pack ();
         chessBoard.setBounds (0, 0, chessBoard.getWidth (), chessBoard.getHeight ());
         noticeBoard.setBounds (chessBoard.getWidth (), 0, w - chessBoard.getWidth (), h);
+        noticeBoard.setSize (w - chessBoard.getWidth (), h);
         noticeBoard.pack ();
     }
     

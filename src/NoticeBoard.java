@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 public class NoticeBoard extends JPanel implements ActionListener
 {
     private JTextArea messageBoard;
+    private JScrollPane messageScrollPane;
     private JLabel myIcon;
     private JLabel myPieces;
     private JLabel myName;
@@ -29,7 +30,6 @@ public class NoticeBoard extends JPanel implements ActionListener
     {
         this.game = game;
         setup ();
-        pack ();
         Thread thread = new Thread (() ->
         {
             while (true)
@@ -181,7 +181,8 @@ public class NoticeBoard extends JPanel implements ActionListener
         constraints.gridx = 0;
         constraints.gridwidth = GridBagConstraints.REMAINDER;
         constraints.gridheight = 6;
-        add (new JScrollPane (messageBoard), constraints);
+        messageScrollPane = new JScrollPane (messageBoard, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        add (messageScrollPane, constraints);
     
         constraints.gridy = 13;
         constraints.gridx = 0;

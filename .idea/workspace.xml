@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69cbfcc9-7751-4645-8c37-8fcb867432c2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/NoticeBoard.java" afterPath="$PROJECT_DIR$/src/NoticeBoard.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Reversi.java" afterPath="$PROJECT_DIR$/src/Reversi.java" />
     </list>
@@ -25,15 +24,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Reversi.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Reversi.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="120" column="99" selection-start-line="120" selection-start-column="99" selection-end-line="120" selection-end-column="99" />
+            <state relative-caret-position="349">
+              <caret line="124" column="58" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3462#3463#0" expanded="true" />
-                <element signature="e#3504#3505#0" expanded="true" />
                 <element signature="method#main#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
                 <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -75,14 +72,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NoticeBoard.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="NoticeBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="141" column="41" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
+            <state relative-caret-position="252">
+              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
               <folding>
                 <element signature="method#NoticeBoard#0;class#NoticeBoard#0" expanded="false" />
                 <element signature="method#setTime#0;class#NoticeBoard#0" expanded="false" />
+                <element signature="method#appendMessage#0;class#NoticeBoard#0" expanded="false" />
+                <element signature="method#setStatus#0;class#NoticeBoard#0" expanded="false" />
+                <element signature="method#setPieces#0;class#NoticeBoard#0" expanded="false" />
+                <element signature="method#setName#0;class#NoticeBoard#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -111,7 +112,7 @@
       <file leaf-file-name="BackgroundImage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BackgroundImage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="972">
+            <state relative-caret-position="1044">
               <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
               <folding>
                 <element signature="e#679#680#0" expanded="true" />
@@ -124,7 +125,7 @@
       <file leaf-file-name="SettingDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5364">
+            <state relative-caret-position="4464">
               <caret line="178" column="87" selection-start-line="178" selection-start-column="87" selection-end-line="178" selection-end-column="87" />
               <folding />
             </state>
@@ -133,11 +134,8 @@
       </file>
       <file leaf-file-name="SettingDialog.form" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SettingDialog.form">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
+          <provider selected="true" editor-type-id="ui-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -164,7 +162,7 @@
       <file leaf-file-name="ChessBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1728">
+            <state relative-caret-position="1980">
               <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -232,8 +230,8 @@
         <option value="$PROJECT_DIR$/src/ChessBoard.java" />
         <option value="$PROJECT_DIR$/src/LocalMachinePlayer.java" />
         <option value="$PROJECT_DIR$/src/LocalMePlayer.java" />
-        <option value="$PROJECT_DIR$/src/NoticeBoard.java" />
         <option value="$PROJECT_DIR$/src/Reversi.java" />
+        <option value="$PROJECT_DIR$/src/NoticeBoard.java" />
       </list>
     </option>
   </component>
@@ -543,7 +541,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -652,8 +650,6 @@
           <caret line="160" column="7" selection-start-line="160" selection-start-column="7" selection-end-line="160" selection-end-column="7" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3462#3463#0" expanded="true" />
-            <element signature="e#3504#3505#0" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -754,8 +750,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3462#3463#0" expanded="true" />
-            <element signature="e#3504#3505#0" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -856,8 +850,6 @@
           <caret line="178" column="76" selection-start-line="178" selection-start-column="76" selection-end-line="178" selection-end-column="76" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3462#3463#0" expanded="true" />
-            <element signature="e#3504#3505#0" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -958,8 +950,6 @@
           <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3462#3463#0" expanded="true" />
-            <element signature="e#3504#3505#0" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -1175,7 +1165,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BackgroundImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
+        <state relative-caret-position="1044">
           <caret line="35" column="23" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
           <folding>
             <element signature="e#679#680#0" expanded="true" />
@@ -1186,7 +1176,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SettingDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5364">
+        <state relative-caret-position="4464">
           <caret line="178" column="87" selection-start-line="178" selection-start-column="87" selection-end-line="178" selection-end-column="87" />
           <folding />
         </state>
@@ -1194,19 +1184,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Simple1.java" />
     <entry file="file://$PROJECT_DIR$/src/SettingDialog.form">
-      <provider selected="true" editor-type-id="text-editor">
+      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="ui-designer">
+      <provider selected="true" editor-type-id="ui-designer">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ChessBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1728">
+        <state relative-caret-position="1980">
           <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1270,25 +1260,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="141" column="41" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
-          <folding>
-            <element signature="method#NoticeBoard#0;class#NoticeBoard#0" expanded="false" />
-            <element signature="method#setTime#0;class#NoticeBoard#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Reversi.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="120" column="99" selection-start-line="120" selection-start-column="99" selection-end-line="120" selection-end-column="99" />
+        <state relative-caret-position="349">
+          <caret line="124" column="58" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3462#3463#0" expanded="true" />
-            <element signature="e#3504#3505#0" expanded="true" />
             <element signature="method#main#0;class#Reversi#0" expanded="false" />
             <element signature="method#setTimeConstraintPerStep#0;class#Reversi#0" expanded="false" />
             <element signature="method#setMyName#0;class#Reversi#0" expanded="false" />
@@ -1325,6 +1302,21 @@
             <element signature="method#sendMessage#0;class#Reversi#0" expanded="false" />
             <element signature="method#backward#0;class#Reversi#0" expanded="false" />
             <element signature="class#SecurityKey#0;class#Reversi#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/NoticeBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding>
+            <element signature="method#NoticeBoard#0;class#NoticeBoard#0" expanded="false" />
+            <element signature="method#setTime#0;class#NoticeBoard#0" expanded="false" />
+            <element signature="method#appendMessage#0;class#NoticeBoard#0" expanded="false" />
+            <element signature="method#setStatus#0;class#NoticeBoard#0" expanded="false" />
+            <element signature="method#setPieces#0;class#NoticeBoard#0" expanded="false" />
+            <element signature="method#setName#0;class#NoticeBoard#0" expanded="false" />
           </folding>
         </state>
       </provider>
