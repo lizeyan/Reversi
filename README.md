@@ -1,9 +1,3 @@
----
-title: Online Reversi Game powered by Java
-date: 2016-08-04 22:09:23
-tags: ["java", "ai", "game", "swing"]
----
-
 使用Java SE制作的网络[黑白棋][Reversi]小游戏。同时提供接口，支持自定义AI进行人机对战或者AI对战。
 Git Repo地址: [https://github.com/lizeyan/Reversi][Git Repo]
 
@@ -11,7 +5,7 @@ Git Repo地址: [https://github.com/lizeyan/Reversi][Git Repo]
 
 # 游戏功能介绍
 游戏主界面如图示:
-![main](/images/reversi/main.PNG)
+![main](https://lizeyan.github.io/images/reversi/main.PNG)
 窗口上方是菜单栏，其中集成了整个游戏的所有操作:
 - Local 开始本地的双人对战或者人机对战，加载本地棋局
 - Online 建立主机或者连接主机，断开连接，开始网络双人对战
@@ -26,7 +20,7 @@ Git Repo地址: [https://github.com/lizeyan/Reversi][Git Repo]
 - 下方是消息栏，显示游戏通知和聊天信息。支持html格式文本。
 - 最下方是聊天信息编辑窗口，任何时候你所发送的消息都将会显示在本地的消息栏中。网络已连接时会发送给其他玩家。消息栏支持html格式文本，你可以使用html格式化你的文本，以显示丰富的信息。你甚至可以发送来自web的图片(不支持音乐和视频等html5标签)：
 eg:`<img src="http://img0.bdstatic.com/img/image/shouye/xiaoxiao/%E5%94%AF%E7%BE%8E%E6%91%84%E5%BD%B183.jpg"/>`
-![sendImg](/images/reversi/sendImg.PNG)
+![sendImg](https://lizeyan.github.io/images/reversi/sendImg.PNG)
 
 棋盘和信息栏的大小会自动随着窗口大小的改变而变化。
 
@@ -69,14 +63,14 @@ eg:`<img src="http://img0.bdstatic.com/img/image/shouye/xiaoxiao/%E5%94%AF%E7%BE
 # 程序实现
 
 - 主要模块
-![modules](/images/reversi/modules.png)
+![modules](https://lizeyan.github.io/images/reversi/modules.png)
     1. Reversi是控制类和主窗体，继承JFrame。主要功能是控制整个游戏的流程。唯一有权修改Composition的类（参见[security key][security key])。
     2. Composition是棋局数据类。主要功能是存储棋局，计算棋局的胜负，可落子点之类。
     3. Chessboard继承JPanel。一方面根据Composition的信息来绘制棋盘和棋子。另一方面在激活的状态下可以接受用户的点击并且保存落子结果（是否激活由其他类控制）。
     4. Noticeboard继承JPanel，就是接受信息然后显示而已。再联网的情况下发送的信息会通过Proxy想对手传递。
     5. Proxy，建立一个连接之后会新建一个Proxy用来处理关于网络的所有操作，其他模块只需要调用Proxy的类的接口。对于发送，Proxy类会接受传入的数据并且向对方发送。对于接受，当Proxy新建的时候就会新建一个线程不停地轮询(while死循环:)新的信息，然后解析并存储在缓冲区中。当其他类调用查询接口的时候如果缓冲区有数据就可以直接取走，否则就需要等待。
     6. Player，抽象玩家的操作。这样任何一局游戏的流程都可以抽象为轮流询问两个Player的决策结果。任何关于悔棋，认输，求和的操作都可以抽象为询问Player的意见然后处理。那么双人对战，人机对战，网络对战的不同就是Player的各个接口实现不同而已。
-    ![player](/images/reversi/player.png)
+    ![player](https://lizeyan.github.io/images/reversi/player.png)
     7. SettingDialog 修改各种设置。单击其中的ok按钮会修改Reversi中的某些数据以修改设置。Reversi可以控制其中的某些设置不可用来避免发生错误。
 
 - Composition
