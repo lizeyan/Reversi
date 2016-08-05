@@ -55,6 +55,15 @@ public class Proxy
     {
         this.serverSocket = serverSocket;
     }
+    public void cleanBuffer ()
+    {
+        policyBuffer = null;
+        giveInRspBuffer = -1;
+        undoRspBuffer = -1;
+        startRspBuffer = -1;
+        sueRspBuffer = -1;
+        terminateWaitingSignal = false;
+    }
     public void close ()
     {
         try

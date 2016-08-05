@@ -896,6 +896,7 @@ public class Reversi extends JFrame implements ActionListener
                 initialize ();
                 return;
             }
+            proxy.cleanBuffer ();
             ++index;
             index %= 2;
             currentIndex = index;
