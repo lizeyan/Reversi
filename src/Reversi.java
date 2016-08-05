@@ -933,7 +933,7 @@ public class Reversi extends JFrame implements ActionListener
             noticeBoard.setName ("      ", false);
         else
             noticeBoard.setName (enemyName, false);
-        if (proxy == null)
+        if (proxy == null || proxy.isServer ())
             noticeBoard.setTime (timeConstraintPerStep / 1000);
         else
             noticeBoard.setTime (remoteTimeConstraint / 1000);
@@ -1015,6 +1015,7 @@ public class Reversi extends JFrame implements ActionListener
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's sue for peace?", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
         if (ret && currentIndex == 1)
         {
+            System.out.println ("go");
             terminateSignal = true;
             terminateWinner = Composition.STATUS.EMPTY;
         }

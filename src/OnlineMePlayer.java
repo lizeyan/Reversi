@@ -17,6 +17,7 @@ public class OnlineMePlayer extends LocalMePlayer
     {
         this.proxy = proxy;
     }
+    private volatile boolean rspTmp = false;
     
     @Override
     public Point makingPolicy (long timeConstraint)
@@ -39,7 +40,19 @@ public class OnlineMePlayer extends LocalMePlayer
     @Override
     public boolean receiveGiveIn ()
     {
-        return game.askForGivein ();
+        rspTmp = false;
+        Thread thread = new Thread (() -> {rspTmp = game.askForGivein ();});
+        thread.start ();
+        try
+        {
+            thread.join (3000);
+        }
+        catch (Exception e)
+        {
+            
+        }
+        thread.interrupt ();
+        return rspTmp;
     }
     
     @Override
@@ -51,13 +64,37 @@ public class OnlineMePlayer extends LocalMePlayer
     @Override
     public boolean receiveSueForPeace ()
     {
-        return game.askForSue ();
+        rspTmp = false;
+        Thread thread = new Thread (() -> {rspTmp = game.askForSue ();});
+        thread.start ();
+        try
+        {
+            thread.join (3000);
+        }
+        catch (Exception e)
+        {
+        
+        }
+        thread.interrupt ();
+        return rspTmp;
     }
     
     @Override
     public boolean receiveUndo ()
     {
-        return game.askForUndo ();
+        rspTmp = false;
+        Thread thread = new Thread (() -> {rspTmp = game.askForUndo ();});
+        thread.start ();
+        try
+        {
+            thread.join (3000);
+        }
+        catch (Exception e)
+        {
+        
+        }
+        thread.interrupt ();
+        return rspTmp;
     }
     
     @Override
