@@ -408,7 +408,6 @@ public class Composition {
         if (legal (point.x, point.y))
         {
             board[point.x][point.y] = lastStatus;
-            System.out.println (lastStatus);
             reverse ();
         }
     }

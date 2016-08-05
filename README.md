@@ -184,6 +184,9 @@ clip.open (audioInputStream);
 clip.loop (Clip.LOOP_CONTINUOUSLY);
 ```
 
+# 设计缺陷
+`Reversi::gameOn`表示一局游戏开始，但是并没有很好的机制处理合适结束一局游戏的情况。在Player，Proxy和Reversi中都是各行其是，很容易出现错误。
+
 [Git Repo]: https://github.com/lizeyan/Reversi "Reversi Git Repo"
 [Reversi]: https://en.wikipedia.org/wiki/Reversi "Reversi"
 [port]: https://en.wikipedia.org/wiki/Port_(computer_networking) "port"
