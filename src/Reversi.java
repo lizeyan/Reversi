@@ -113,7 +113,7 @@ public class Reversi extends JFrame implements ActionListener
         } catch (Exception e)
         {
         }
-        Reversi reversi = new Reversi ("Reversi v3.1");
+        Reversi reversi = new Reversi ("Reversi v3.2");
         reversi.setVisible (true);
     }
     
@@ -790,7 +790,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void about ()
     {
-        JOptionPane.showMessageDialog (this, "This is a online Revesi game.\nAuthor: zy-li14\nRepo:git@github.com:lizeyan/Reversi.git", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
+        JOptionPane.showMessageDialog (this, "This is a online Revesi game.\nAuthor: zy-li14\nRepo: git@github.com:lizeyan/Reversi.git\nDocument: https://lizeyan.github.io/2016/08/04/Online-Reversi-Game-powered-by-Java/", "About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon ("./resources/images/about.png"));
     }
     
     private void gameOn (int index)
