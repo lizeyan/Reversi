@@ -42,6 +42,7 @@ public class Reversi extends JFrame implements ActionListener
     private long remoteTimeConstraint;
     private String myName = "LI ZEYAN";
     private String enemyName = "BetaCat";
+    private int currentIndex;
     
     public Reversi (String name)
     {
@@ -703,8 +704,11 @@ public class Reversi extends JFrame implements ActionListener
         }
         if (players[1].receiveUndo ())
         {
-            backward ();
-            repaint ();
+            if (currentIndex == 0 || meStatus == Composition.STATUS.EMPTY)
+            {
+                backward ();
+                repaint ();
+            }
         } else
         {
             JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -726,11 +730,14 @@ public class Reversi extends JFrame implements ActionListener
         }
         if (players[1].receiveGiveIn ())
         {
-            terminateSignal = true;
-            if (meStatus == Composition.STATUS.EMPTY)
-                terminateWinner = composition.getLastStatus ();
-            else
-                terminateWinner = Composition.reverseStatus (meStatus);
+            if (currentIndex == 0 || meStatus == Composition.STATUS.EMPTY)
+            {
+                terminateSignal = true;
+                if (meStatus == Composition.STATUS.EMPTY)
+                    terminateWinner = composition.getLastStatus ();
+                else
+                    terminateWinner = Composition.reverseStatus (meStatus);
+            }
         } else
         {
             JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -752,8 +759,11 @@ public class Reversi extends JFrame implements ActionListener
         }
         if (players[1].receiveSueForPeace ())
         {
-            terminateSignal = true;
-            terminateWinner = Composition.STATUS.EMPTY;
+            if (currentIndex == 0 || meStatus == Composition.STATUS.EMPTY)
+            {
+                terminateSignal = true;
+                terminateWinner = Composition.STATUS.EMPTY;
+            }
         } else
         {
             JOptionPane.showMessageDialog (this, "The request is rejected.", "INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -785,6 +795,7 @@ public class Reversi extends JFrame implements ActionListener
     
     private void gameOn (int index)
     {
+        currentIndex = index;
         settingDialog.lockAi (false);
         settingDialog.lock ();
         gameRunning = true;
@@ -887,6 +898,7 @@ public class Reversi extends JFrame implements ActionListener
             }
             ++index;
             index %= 2;
+            currentIndex = index;
         }
     }
     
@@ -927,6 +939,7 @@ public class Reversi extends JFrame implements ActionListener
             noticeBoard.setTime (remoteTimeConstraint / 1000);
         noticeBoard.timerOff ();
         settingDialog.lockAi (true);
+        currentIndex = -1;
         
         repaint ();
     }
@@ -989,7 +1002,7 @@ public class Reversi extends JFrame implements ActionListener
     public boolean askForGivein ()
     {
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's surrender?", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
-        if (ret)
+        if (ret && currentIndex == 1)
         {
             terminateSignal = true;
             terminateWinner = meStatus;
@@ -1000,7 +1013,7 @@ public class Reversi extends JFrame implements ActionListener
     public boolean askForSue ()
     {
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's sue for peace?", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
-        if (ret)
+        if (ret && currentIndex == 1)
         {
             terminateSignal = true;
             terminateWinner = Composition.STATUS.EMPTY;
@@ -1011,7 +1024,7 @@ public class Reversi extends JFrame implements ActionListener
     public boolean askForUndo ()
     {
         boolean ret = JOptionPane.showOptionDialog (this, "Would you accept your enemy's undo request", "QUESITON", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, agreementOptions, agreementOptions[0]) == 0;
-        if (ret)
+        if (ret && currentIndex == 1)
         {
             backward ();
             repaint ();
