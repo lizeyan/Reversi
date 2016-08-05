@@ -1,7 +1,7 @@
 使用Java SE制作的网络[黑白棋][Reversi]小游戏。同时提供接口，支持自定义AI进行人机对战或者AI对战。
 Git Repo地址: [https://github.com/lizeyan/Reversi][Git Repo]
 
-需要使用IntelliJ IDEA才能正常编译。有一部分使用了IntelliJ IDEA自带的图形界面设置器，依赖IntelliJ的包。
+需要使用IntelliJ IDEA才能正常编译。有一部分使用了IntelliJ IDEA自带的Gui Designer，依赖IntelliJ的包。
 <!-- more -->
 
 # 游戏功能介绍
